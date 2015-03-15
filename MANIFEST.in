@@ -1,0 +1,2 @@
+include demos/Makefile
+include demos/demo.md
