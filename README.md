@@ -18,7 +18,7 @@ See also: [pandoc-fignos]
 [html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
 [epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
 [md]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo.md
-[pandoc-eqnos]: https://github.com/tomduck/pandoc-fignos
+[pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 
 
 Markdown Syntax
