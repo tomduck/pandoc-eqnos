@@ -26,7 +26,7 @@ Markdown Syntax
 
 To associate an equation with the label `eq:description`, append the label as an id attribute in curly braces:
 
-    $$ y = max +b $$ {#eq:description}
+    $$ y = mx + b $$ {#eq:description}
 
 The prefix `#eq:` is required whereas `description` can be replaced with any combination of letters, numbers, dashes, slashes and underscores.
 
