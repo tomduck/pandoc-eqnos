@@ -6,7 +6,7 @@ pandoc-eqnos
 
 Demonstration: Using [`demo.md`] as input gives output files in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.13.2.
+This version of pandoc-eqnos was tested using pandoc 1.14.0.1.
 
 See also: [pandoc-fignos]
 
@@ -64,17 +64,12 @@ Links are *not* constructed -- just the equation numbers.
 Installation
 ------------
 
-pandoc-eqnos is written in [python].  Its dependencies are:
-
-  - setuptools (for setup.py only)
-  - pandocfilters
-  - pandoc-attributes
-
-If you already have setuptools, then the others will install automatically.
-
 Install pandoc-eqnos using:
 
-    $ python setup.py install
+    $ sudo pip install pandoc-eqnos
 
+You will be prompted for your root password.  That's it!
 
-[python]: https://python.org/
+If you have any difficulties with it, please [file an issue] on github so that we can help.
+
+[file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
