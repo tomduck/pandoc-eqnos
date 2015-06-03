@@ -85,15 +85,13 @@ Links are *not* constructed -- just the equation numbers.
 Installation
 ------------
 
-Install pandoc-eqnos at the bash ($) prompt with
+Install pandoc-eqnos as root using the bash command
 
-    $ sudo pip install pandoc-eqnos
-
-You will be prompted for your root password.  That's it!
+    pip install pandoc-eqnos
 
 To upgrade to the most recent release, use
 
-    $ sudo pip install --upgrade pandoc-eqnos 
+    pip install --upgrade pandoc-eqnos 
 
 If you have any difficulties with it, please [file an issue] on github so that we can help.
 
