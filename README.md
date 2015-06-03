@@ -10,7 +10,6 @@ This version of pandoc-eqnos was tested using pandoc 1.14.0.1.
 
 See also: [pandoc-fignos]
 
-
 [pandoc]: http://pandoc.org/
 [`demo.md`]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo.md
 [pdf]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
@@ -21,10 +20,34 @@ See also: [pandoc-fignos]
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 
 
+Contents
+--------
+
+ 1. [Rationale](#rationale)
+ 2. [Markdown Syntax](#markdown-syntax)
+ 3. [Usage](#usage)
+ 4. [Details](#details)
+ 5. [Installation](#installation)
+
+
+Rationale
+---------
+
+Equation numbers and references are required for academic writing, but are not currently supported by pandoc.  It is anticipated that this will eventually change.  Pandoc-eqnos is a transitional package for those who need equation numbers and references now.
+
+The syntax for equation numbers and references was worked out in [pandoc issue #813].  It seems likely that this will be close to what pandoc ultimately adopts.
+
+By doing one thing -- and one thing only -- my hope is that pandoc-eqnos will permit a relatively painless switch for when pandoc provides native support.
+
+Installation of the filter is straight-forward, with minimal dependencies.  It is simple to use and has been tested extensively.
+
+[pandoc issue #813]: https://github.com/jgm/pandoc/issues/813
+
+
 Markdown Syntax
 ---------------
 
-To associate an equation with the label `eq:description`, append the label as an id attribute in curly braces:
+To tag an equation with the label `eq:description`, use
 
     $$ y = mx + b $$ {#eq:description}
 
@@ -40,10 +63,6 @@ or
 
 Curly braces around a reference are stripped from the output.
 
-This syntax was recommended in the discussion of [pandoc issue #813].
-
-[pandoc issue #813]: https://github.com/jgm/pandoc/issues/813
-
 
 Usage
 -----
@@ -51,6 +70,8 @@ Usage
 To apply the filter, use the following option with pandoc:
 
     --filter pandoc-eqnos
+
+Note that any use of the `--filter pandoc-citeproc` or `--bibliography=FILE` options with pandoc should come *after* the pandoc-eqnos filter call.
 
 
 Details
