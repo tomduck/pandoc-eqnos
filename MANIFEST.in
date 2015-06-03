@@ -1,2 +1,3 @@
+include ez_setup.py
 include demos/Makefile
 include demos/demo.md
