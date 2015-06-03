@@ -85,7 +85,7 @@ Links are *not* constructed -- just the equation numbers.
 Installation
 ------------
 
-Install pandoc-eqnos using:
+Install pandoc-eqnos at the bash ($) prompt with
 
     $ sudo pip install pandoc-eqnos
 
