@@ -91,6 +91,10 @@ Install pandoc-eqnos at the bash ($) prompt with
 
 You will be prompted for your root password.  That's it!
 
+To upgrade to the most recent release, use
+
+    $ sudo pip install --upgrade pandoc-eqnos 
+
 If you have any difficulties with it, please [file an issue] on github so that we can help.
 
 [file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
