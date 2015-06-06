@@ -105,6 +105,6 @@ Pip is a script that downloads and installs modules from the Python Package Inde
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-fignos, please feel welcome to [file an issue] on github so that we can help.
+If you have any difficulties with pandoc-eqnos, please feel welcome to [file an issue] on github so that we can help.
 
 [file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
