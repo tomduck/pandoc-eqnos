@@ -104,7 +104,7 @@ def replace_attreqs(key, value, fmt, meta):
               value[i+2]['c'].startswith('{') and value[i+2]['c'].endswith('}'):
                 # Continue if the attribute does not match the label pattern.
                 # Note: This means that there can be only one attribute for
-                # an equation!                
+                # an equation!
                 if not LABEL_PATTERN.match(value[i+2]['c'][2:-1]):
                     continue
                 # Append attributes to the math content
