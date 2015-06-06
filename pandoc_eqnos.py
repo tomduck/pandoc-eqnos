@@ -76,7 +76,7 @@ def parse_ref(value):
 
 # pylint: disable=unused-argument
 def replace_attreqs(key, value, fmt, meta):
-    """Replaces attributed eqautions while storing reference labels."""
+    """Replaces attributed equations while storing reference labels."""
 
     # Scan through each paragraph and append attributes to Math content.
     # (The attributes are normally separate.  We append them temporarily to
