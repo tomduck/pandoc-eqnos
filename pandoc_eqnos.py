@@ -79,22 +79,37 @@ def replace_attreqs(key, value, fmt, meta):
     """Replaces attributed eqautions while storing reference labels."""
 
     # Scan through each paragraph and append attributes to Math content.
+    # (The attributes are normally separate.  We append them temporarily to
+    # the math content to aid in processing)
     if key == 'Para':
         N = len(value)
         for i, elem in enumerate(value):
+            # Is this equation followed by attributes?
+            # Check if the equation is followed immediately by attributes
             if elem is not None and elem['t'] == 'Math' and \
               i < N-1 and value[i+1]['t'] == 'Str' and \
               value[i+1]['c'].startswith('{') and value[i+1]['c'].endswith('}'):
+                # Continue if the attribute does not match the label pattern.
+                # Note: This means that there can be only one attribute for
+                # an equation!
                 if not LABEL_PATTERN.match(value[i+1]['c'][2:-1]):
                     continue
+                # Append attributes to the math content
                 elem['c'].append(value[i+1]['c'])
+                # Remove attributes from the paragraph
                 value[i+1] = None
+            # Check if equation is followed by a space and attributes
             if elem is not None and elem['t'] == 'Math' and i < N-2 \
               and value[i+1]['t'] == 'Space' and value[i+2]['t'] == 'Str' and \
               value[i+2]['c'].startswith('{') and value[i+2]['c'].endswith('}'):
+                # Continue if the attribute does not match the label pattern.
+                # Note: This means that there can be only one attribute for
+                # an equation!                
                 if not LABEL_PATTERN.match(value[i+2]['c'][2:-1]):
                     continue
+                # Append attributes to the math content
                 elem['c'].append(value[i+2]['c'])
+                # Remove attributes from the paragraph
                 value[i+1] = None
                 value[i+2] = None
         return Para([v for v in value if v is not None])
