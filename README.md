@@ -8,7 +8,7 @@ Demonstration: Using [`demo.md`] as input gives output files in [pdf], [tex], [h
 
 This version of pandoc-eqnos was tested using pandoc 1.14.0.1.
 
-See also: [pandoc-fignos]
+See also: [pandoc-fignos], [pandoc-tablenos]
 
 [pandoc]: http://pandoc.org/
 [`demo.md`]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo.md
@@ -18,6 +18,7 @@ See also: [pandoc-fignos]
 [epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
 [md]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo.md
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
+[pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos 
 
 
 Contents
