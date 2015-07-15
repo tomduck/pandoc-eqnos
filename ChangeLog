@@ -1,4 +1,9 @@
 
+pandoc-eqnos 0.3 (2015-07-15)
+
+    * Enforce pandoc's requirement of UTF-8.
+
+
 pandoc-eqnos 0.2.2 (2015-06-07)
 
     * Added README.md and LICENSE to MANIFEST.in so that they

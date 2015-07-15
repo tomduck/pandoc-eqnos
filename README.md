@@ -6,7 +6,7 @@ pandoc-eqnos
 
 Demonstration: Using [`demo.md`] as input gives output files in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.14.0.1.
+This version of pandoc-eqnos was tested using pandoc 1.15.0.5 and is known to work under linux, Mac OS X and Windows.
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -87,6 +87,8 @@ Links are *not* constructed -- just the equation numbers.
 Installation
 ------------
 
+Pandoc-eqnos requires [python], a programming language that comes pre-installed on linux and Mac OS X, and which is easily installed [on Windows].  Either python 2.7 or 3.x will do.
+
 Install pandoc-eqnos as root using the bash command
 
     pip install pandoc-eqnos
@@ -100,6 +102,8 @@ Pip is a script that downloads and installs modules from the Python Package Inde
     apt-get update
     apt-get install python-pip
 
+[python]: https://www.python.org/
+[on Windows]: https://www.python.org/downloads/windows/
 [PyPI]: https://pypi.python.org/pypi
 
 
