@@ -34,6 +34,8 @@
 
 import re
 import functools
+import io
+import sys
 
 # pylint: disable=import-error
 import pandocfilters
@@ -44,6 +46,17 @@ from pandocattributes import PandocAttributes
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'#?(eq:[\w/-]*)')
 REF_PATTERN = re.compile(r'@(eq:[\w/-]+)')
+
+# Detect python 3
+PY3 = sys.version_info > (3,)
+
+# Pandoc uses UTF-8 for both input and output; so must we
+if PY3:  # Force utf-8 decoding (decoding of input streams is automatic in py3)
+    STDIN = io.TextIOWrapper(sys.stdin.buffer, 'utf-8', 'strict')
+    STDOUT = io.TextIOWrapper(sys.stdout.buffer, 'utf-8', 'strict')
+else:    # No decoding; utf-8-encoded strings in means the same out
+    STDIN = sys.stdin
+    STDOUT = sys.stdout
 
 # pylint: disable=invalid-name
 references = {}  # Global references tracker
@@ -167,8 +180,8 @@ def main():
     """Filters the document AST."""
 
     # Get the output format, document and metadata
-    fmt = pandocfilters.sys.argv[1] if len(pandocfilters.sys.argv) > 1 else ''
-    doc = pandocfilters.json.loads(pandocfilters.sys.stdin.read())
+    fmt = sys.argv[1] if len(sys.argv) > 1 else ''
+    doc = pandocfilters.json.loads(STDIN.read())
     meta = doc[0]['unMeta']
 
     # Replace attributed equations and references in the AST
@@ -176,7 +189,7 @@ def main():
                                [replace_attreqs, replace_refs], doc)
 
     # Dump the results
-    pandocfilters.json.dump(altered, pandocfilters.sys.stdout)
+    pandocfilters.json.dump(altered, STDOUT)
 
 
 if __name__ == '__main__':
