@@ -11,7 +11,7 @@ pandoc-eqnos is a pandoc filter for numbering equations and equation references.
 
 setup(
     name='pandoc-eqnos',
-    version='0.3',
+    version='0.4',
 
     author='Thomas J. Duck',
     author_email='tomduck@tomduck.ca',
@@ -20,7 +20,7 @@ setup(
     license='GPL',
     keywords='pandoc equation numbers filter',
     url='https://github.com/tomduck/pandoc-eqnos',
-    download_url = 'https://github.com/tomduck/pandoc-eqnos/tarball/0.3',
+    download_url = 'https://github.com/tomduck/pandoc-eqnos/tarball/0.4',
 
     install_requires=['pandocfilters', 'pandoc-attributes'],
 

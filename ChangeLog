@@ -1,4 +1,10 @@
 
+pandoc-fignos 0.4 (2015-07-17)
+
+    * Construct links for html.
+    * Changed demo.md to use dollar signs (Issue #2).
+
+
 pandoc-eqnos 0.3 (2015-07-15)
 
     * Enforce pandoc's requirement of UTF-8.
