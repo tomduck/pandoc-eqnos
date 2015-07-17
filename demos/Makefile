@@ -1,28 +1,26 @@
 
-FLAGS := --from=markdown+tex_math_single_backslash
 
 all: out/demo.pdf out/demo.tex out/demo.html out/demo.md out/demo.epub
 
 out/demo.pdf out/demo.tex: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< $(FLAGS) --filter pandoc-eqnos -o $@
+	pandoc $< --filter pandoc-eqnos -o $@
 
 out/demo.html: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< $(FLAGS) -t html --filter pandoc-eqnos --standalone --mathml \
-           -o $@
+	pandoc $< -t html --filter pandoc-eqnos --standalone --mathml -o $@
 
 out/demo.epub: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< $(FLAGS) -t epub3 --filter pandoc-eqnos -o $@
+	pandoc $< -t epub3 --filter pandoc-eqnos -o $@
 
 out/demo.md: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< $(FLAGS) -t markdown --filter pandoc-eqnos -o $@
+	pandoc $< -t markdown --filter pandoc-eqnos -o $@
 
 out/demo.json: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< $(FLAGS) -t json --filter -o $@
+	pandoc $< -t json --filter -o $@
 
 restore: clean
 	git checkout out/demo.epub
