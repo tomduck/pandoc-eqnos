@@ -125,6 +125,7 @@ def replace_attreqs(key, value, fmt, meta):
                 # Remove attributes from the paragraph
                 value[i+1] = None
                 value[i+2] = None
+        # Return the modified paragraph.  Prepend a link for html output.
         return Para([v for v in value if v is not None])
 
     elif is_attreq(key, value):
@@ -141,10 +142,13 @@ def replace_attreqs(key, value, fmt, meta):
         else:
             equation += r'\qquad (%s)'%references[label]
 
-        # Return the replacement depending upon the output format
+        # Return the replacement
         if fmt == 'latex':
             TEMPLATE = r'\begin{equation}%s\end{equation}'
             return RawInline('tex', TEMPLATE%(equation))
+        elif fmt in ('html', 'html5'):
+            anchor = RawInline('html', '<a name="%s"></a>'%label)
+            return [anchor, Math(value[0], equation)]
         else:
             return Math(value[0], equation)
 
@@ -173,6 +177,9 @@ def replace_refs(key, value, fmt, meta):
         # The replacement depends on the output format
         if fmt == 'latex':
             return prefix + [RawInline('tex', r'\ref{%s}'%label)] + suffix
+        elif fmt == 'html' or fmt == 'html5':
+            link = '<a href="#%s">%s</a>' % (label, references[label])
+            return prefix + [RawInline('html', link)] + suffix
         else:
             return prefix + [Str('%d'%references[label])]+suffix
 

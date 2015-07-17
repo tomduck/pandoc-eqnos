@@ -81,7 +81,7 @@ Details
 
 For tex/pdf output, LaTeX's native `equation` environment and `\label` and `\ref` macros are used; for all others the numbers are hard-coded.
 
-Links are *not* constructed -- just the equation numbers.
+Links are constructed for html and pdf output.
 
 
 Installation
