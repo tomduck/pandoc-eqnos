@@ -40,7 +40,7 @@ import sys
 # pylint: disable=import-error
 import pandocfilters
 from pandocfilters import walk
-from pandocfilters import RawInline, Str, Para, Math
+from pandocfilters import RawInline, Str, Para, Plain, Math
 from pandocattributes import PandocAttributes
 
 # Patterns for matching labels and references
@@ -156,8 +156,8 @@ def replace_attreqs(key, value, fmt, meta):
 def replace_refs(key, value, fmt, meta):
     """Replaces references to labelled equations."""
 
-    # Search for references in paras and remove curly braces around them
-    if key == 'Para':
+    # Search for references and remove curly braces around them
+    if key in ('Para', 'Plain'):
         flag = False
         # Search
         for i, elem in enumerate(value):
@@ -169,7 +169,12 @@ def replace_refs(key, value, fmt, meta):
                 flag = True  # Found reference
                 value[i-1]['c'] = value[i-1]['c'][:-1]
                 value[i+1]['c'] = value[i+1]['c'][1:]
-        return Para(value) if flag else None
+
+        if key == 'Para':
+            return Para(value) if flag else None
+        else:
+            return Plain(value) if flag else None
+            
 
     # Replace references
     if is_ref(key, value):
