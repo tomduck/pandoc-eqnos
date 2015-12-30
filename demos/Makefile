@@ -20,7 +20,7 @@ out/demo.md: demo.md
 
 out/demo.json: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< -t json --filter -o $@
+	pandoc $< -t json -o $@
 
 restore: clean
 	git checkout out/demo.epub
