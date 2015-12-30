@@ -87,7 +87,7 @@ def parse_ref(value):
     suffix = value[0][0]['citationSuffix']
     return prefix, label, suffix
 
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument,too-many-branches
 def replace_attreqs(key, value, fmt, meta):
     """Replaces attributed equations while storing reference labels."""
 
@@ -177,7 +177,6 @@ def replace_refs(key, value, fmt, meta):
             return Para(value) if flag else None
         else:
             return Plain(value) if flag else None
-            
 
     # Replace references
     if is_ref(key, value):
