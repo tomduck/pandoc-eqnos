@@ -94,7 +94,7 @@ def replace_attreqs(key, value, fmt, meta):
     # Scan through each paragraph and append attributes to Math content.
     # (The attributes are normally separate.  We append them temporarily to
     # the math content to aid in processing)
-    if key == 'Para':
+    if key in ('Para', 'Plain'):
         N = len(value)
         for i, elem in enumerate(value):
             # Is this equation followed by attributes?
@@ -126,7 +126,10 @@ def replace_attreqs(key, value, fmt, meta):
                 value[i+1] = None
                 value[i+2] = None
         # Return the modified paragraph.  Prepend a link for html output.
-        return Para([v for v in value if v is not None])
+        if key == 'Para':
+            return Para([v for v in value if v is not None])
+        else:
+            return Plain([v for v in value if v is not None])
 
     elif is_attreq(key, value):
 
