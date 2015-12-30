@@ -9,9 +9,11 @@ LONG_DESCRIPTION = """\
 pandoc-eqnos is a pandoc filter for numbering equations and equation references.
 """
 
+VERSION = '0.4'
+
 setup(
     name='pandoc-eqnos',
-    version='0.4',
+    version=VERSION,
 
     author='Thomas J. Duck',
     author_email='tomduck@tomduck.ca',
@@ -20,7 +22,7 @@ setup(
     license='GPL',
     keywords='pandoc equation numbers filter',
     url='https://github.com/tomduck/pandoc-eqnos',
-    download_url = 'https://github.com/tomduck/pandoc-eqnos/tarball/0.4',
+    download_url = 'https://github.com/tomduck/pandoc-eqnos/tarball/' + VERSION,
 
     install_requires=['pandocfilters', 'pandoc-attributes'],
 
