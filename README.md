@@ -6,7 +6,7 @@ pandoc-eqnos
 
 Demonstration: Using [`demo.md`] as input gives output files in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.16 (the in-development version) and is known to work under linux, Mac OS X and Windows.
+This version of pandoc-eqnos was tested using pandoc 1.15.2 and 1.16 (the development version) and is known to work under linux, Mac OS X and Windows.
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -97,10 +97,21 @@ To upgrade to the most recent release, use
 
     pip install --upgrade pandoc-eqnos 
 
-Pip is a script that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.  If you are running linux, pip may be bundled separately.  For example, on a Debian-based system (including Ubuntu), you can install it as root using
+Pip is a script that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.
+
+
+### Installing on Linux ###
+
+If you are running linux, pip may be bundled separately.  For example, on a Debian-based system (including Ubuntu), you can install it as root using
 
     apt-get update
     apt-get install python-pip
+
+During the install you may be asked to run
+
+    easy_install -U setuptools
+
+owing to the ancient version of setuptools that Debian provides.  The command should be executed as root.  The pip install process detailed above should now work.
 
 [python]: https://www.python.org/
 [on Windows]: https://www.python.org/downloads/windows/
