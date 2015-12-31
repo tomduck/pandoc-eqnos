@@ -49,7 +49,7 @@ Installation of the filter is straight-forward, with minimal dependencies.  It i
 Markdown Syntax
 ---------------
 
-To tag an equation with the label `eq:description`, use
+To assign an equation the label `eq:description`, use
 
     $$ y = mx + b $$ {#eq:description}
 
