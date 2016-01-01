@@ -1,4 +1,9 @@
 
+pandoc-eqnos 0.6 (2016-01-01)
+
+    * Flush stdout before exiting (Issue #4).
+
+
 pandoc-eqnos 0.5 (2015-12-30)
 
     * Fixed curly-brace persistence for references in lists.
