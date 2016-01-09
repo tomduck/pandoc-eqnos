@@ -1,12 +1,14 @@
 
-pandoc-eqnos
-=============
+pandoc-eqnos 0.7
+================
 
-*pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references.
+*pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
 
-Demonstration: Using [`demo.md`] as input gives output files in [pdf], [tex], [html], [epub], [md] and other formats.
+Demonstration: Processing [`demo.md`] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 and 1.16 and is known to work under linux, Mac OS X and Windows.
+This version of pandoc-eqnos was tested using pandoc 1.16 and is backward-compatible with earlier pandoc versions.  It is known to work under linux, Mac OS X and Windows.
+
+Installation of the filter is straight-forward, with minimal dependencies.  It is simple to use and has been tested extensively.
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -35,13 +37,9 @@ Contents
 Rationale
 ---------
 
-Equation numbers and references are required for academic writing, but are not currently supported by pandoc.  It is anticipated that this will eventually change.  Pandoc-eqnos is a transitional package for those who need equation numbers and references now.
+Equation numbers and references are required for academic writing, but are not supported natively by pandoc.  Pandoc-eqnos is an add-on filter that provides this missing functionality.
 
-The syntax for equation numbers and references was worked out in [pandoc issue #813].  It seems likely that this will be close to what pandoc ultimately adopts.
-
-By doing one thing -- and one thing only -- my hope is that pandoc-eqnos will permit a relatively painless switch when pandoc provides native support for equation numbers and references.
-
-Installation of the filter is straight-forward, with minimal dependencies.  It is simple to use and has been tested extensively.
+The markdown syntax recognized by pandoc-eqnos was worked out in [pandoc issue #813].  It seems likely that this will be close to what pandoc ultimately adopts.  Pandoc-eqnos is intended to be a transitional package for those who need equation numbers and references now.
 
 [pandoc issue #813]: https://github.com/jgm/pandoc/issues/813
 
@@ -49,7 +47,11 @@ Installation of the filter is straight-forward, with minimal dependencies.  It i
 Markdown Syntax
 ---------------
 
-To assign the label `eq:description` to an equation, use
+Consider the equation
+
+    $$ y = mx + b $$
+
+To associate the label `eq:description` with the equation, append the label as an identifier in the image's attributes:
 
     $$ y = mx + b $$ {#eq:description}
 
@@ -102,7 +104,7 @@ Pip is a script that downloads and installs modules from the Python Package Inde
 
 ### Installing on Linux ###
 
-If you are running linux, pip may be bundled separately.  For example, on a Debian-based system (including Ubuntu), you can install it as root using
+If you are running linux, pip may be bundled separately.  On a Debian-based systems (including Ubuntu), you can install it as root using
 
     apt-get update
     apt-get install python-pip
@@ -121,6 +123,6 @@ owing to the ancient version of setuptools that Debian provides.  The command sh
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-eqnos, please feel welcome to [file an issue] on github so that we can help.
+If you have any difficulties with pandoc-eqnos, please [file an issue] on github.
 
 [file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
