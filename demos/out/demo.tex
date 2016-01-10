@@ -1,30 +1,23 @@
 The equation for a straight line is
 \begin{equation} y = mx + b \label{eq:line}\end{equation} and the
-equation for a polynomial is \begin{equation} \begin{aligned}
-     y &= a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots \\
-     &= \sum_i a_i x^i
-   \end{aligned}
-\label{eq:polynomial}\end{equation}
+equation for a polynomial is
+\begin{equation} y = \sum_{n=0}^{\infty} a_n x^n \label{eq:polynomial}\end{equation}
 
-Equations \ref{eq:line} and \ref{eq:polynomial} are known to all math
-students. Notice that
+Equations \ref{eq:line} and \ref{eq:polynomial} are known to all
+first-year math students.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Equation \ref{eq:line} is a special case of Eq. \ref{eq:polynomial};
-  and
-\item
-  Equation \ref{eq:polynomial} is a Maclaurin series.
-\end{enumerate}
+The Fourier series is a little more advanced:
 
-Equations \ref{eq:line}--\ref{eq:polynomial} are used throughout science
+\begin{equation} y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
+                      + \sum_{n=1}^{\infty}b_n\cos(nx)
+\label{eq:fourier}\end{equation}
+
+Equations \ref{eq:line}--\ref{eq:fourier} are used throughout science
 and engineering.
 
-Equations like \[ y = A e^{-\gamma t}\cos(2\pi f t) \] can be left
-unnumbered if we do not need to refer to them. It is also possible to
-number equations generically without planning to refer to them; e.g.:
-\begin{equation} \pi = 3.141592653589793238462643\dots \label{eq:__-1053774000882284256__}\end{equation}
-and
-\begin{equation} e =   2.718281828459045235360287\dots \label{eq:__2430461880868312730__}\end{equation}
+Equations can be left unnumbered if we do not need to refer to them:
+\[ y = A e^{-\gamma t}\cos(2\pi f t) \]
+
+It is also possible to number equations generically without planning to
+refer to them; e.g.:
+\begin{equation} \pi = 3.141592653589793238462643\dots \label{eq:__6095300538325952338__}\end{equation}

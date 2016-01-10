@@ -2,23 +2,20 @@
 The equation for a straight line is
 $$ y = mx + b $$ {#eq:line}
 and the equation for a  polynomial is
-$$ \begin{aligned}
-     y &= a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots \\
-     &= \sum_i a_i x^i
-   \end{aligned}
-$$ {#eq:polynomial}
+$$ y = \sum_{n=0}^{\infty} a_n x^n $$ {#eq:polynomial}
 
-Equations @eq:line and @eq:polynomial are known to all math students.  Notice that
+Equations @eq:line and @eq:polynomial are known to all first-year math students.
 
- 1. Equation @eq:line is a special case of Eq. @eq:polynomial; and
- 2. Equation {@eq:polynomial} is a Maclaurin series.
+The Fourier series is a little more advanced:
 
-Equations {@eq:line}--{@eq:polynomial} are used throughout science and engineering.
+$$ y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
+                      + \sum_{n=1}^{\infty}b_n\cos(nx)
+$$ {#eq:fourier}
 
-Equations like
+Equations {@eq:line}--{@eq:fourier} are used throughout science and engineering.
+
+Equations can be left unnumbered if we do not need to refer to them:
 $$ y = A e^{-\gamma t}\cos(2\pi f t) $$
-can be left unnumbered if we do not need to refer to them.  It is also possible to number equations generically without planning to refer to them; e.g.:
-$$ \pi = 3.141592653589793238462643\dots $$ {#eq:}
-and
-$$ e =   2.718281828459045235360287\dots $$ {#eq:}
 
+It is also possible to number equations generically without planning to refer to them; e.g.:
+$$ \pi = 3.141592653589793238462643\dots $$ {#eq:}
