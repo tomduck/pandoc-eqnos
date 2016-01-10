@@ -30,7 +30,7 @@
 #   2. Replace each reference with an equation number.  For LaTeX,
 #      replace with \ref{...} instead.
 #
-#
+# There is also an initial scan to do some preprocessing.
 
 import re
 import functools
@@ -89,7 +89,7 @@ def parse_ref(value):
 
 def is_broken_ref(key1, value1, key2, value2):
     """True if this is a broken link; False otherwise."""
-    return key1 == 'Link' and value1[1][0]['c'] == '{@eq' \
+    return key1 == 'Link' and value1[1][0]['c'].endswith('{@eq') \
         and key2 == 'Str' and '}' in value2
 
 def repair_broken_refs(value):
@@ -101,21 +101,35 @@ def repair_broken_refs(value):
     # get.
     flag = False
     for i in range(len(value)-1):
+        if value[i] == None:
+            continue
         if is_broken_ref(value[i]['t'], value[i]['c'],
                          value[i+1]['t'], value[i+1]['c']):
             flag = True  # Found broken reference
-            s = value[i+1]['c']  # Get the second half of the reference
-            ref = '@eq' + s[:s.index('}')]  # Join the reference
-            # Replace the link with a citation
-            value[i] = Cite(
-                [{"citationSuffix":[], "citationNoteNum":0,
+            s1 = value[i]['c'][1][0]['c']  # Get the first half of the ref
+            s2 = value[i+1]['c']           # Get the second half of the ref
+            ref = '@eq' + s2[:s2.index('}')]  # Form the reference
+            prefix = s1[:s1.index('{@eq')]    # Get the prefix
+            suffix = s2[s2.index('}')+1:]      # Get the suffix
+            # We need to be careful with the prefix string because it might be
+            # part of another broken reference.  Simply put it back into the
+            # stream and repeat the preprocess() call.
+            if i > 0 and value[i-1]['t'] == 'Str':
+                value[i-1]['c'] = value[i-1]['c'] + prefix
+                value[i] = None
+            else:
+                value[i] = Str(prefix)
+            # Put fixed reference in as a citation that can be processed
+            value[i+1] = Cite(
+                [{"citationId":ref[1:],
+                  "citationPrefix":[],
+                  "citationSuffix":[Str(suffix)],
+                  "citationNoteNum":0,
                   "citationMode":{"t":"AuthorInText", "c":[]},
-                  "citationPrefix":[], "citationId":ref[1:],
                   "citationHash":0}],
                 [Str(ref)])
-            # Remove reference information from the string
-            value[i+1]['c'] = s[s.index('}')+1:]
-    return flag
+    if flag:
+        return [v for v in value if v is not None]
 
 def is_braced_ref(i, value):
     """Returns true if a reference is braced; otherwise False."""
@@ -138,11 +152,16 @@ def remove_braces(value):
 def preprocess(key, value, fmt, meta):
     """Preprocesses to correct for problems."""
     if key in ('Para', 'Plain'):
-        if repair_broken_refs(value):
-            if key == 'Para':
-                return Para(value)
+        while True:
+            newvalue = repair_broken_refs(value)
+            if newvalue:
+                value = newvalue
             else:
-                return Plain(value)
+                break
+        if key == 'Para':
+            return Para(value)
+        else:
+            return Plain(value)
 
 # pylint: disable=unused-argument,too-many-branches
 def replace_attreqs(key, value, fmt, meta):
