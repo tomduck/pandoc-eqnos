@@ -1,8 +1,7 @@
 
-pandoc-eqnos 0.7
+pandoc-eqnos 0.7 (2016-01-11)
 
     * Fixed problems when --autolink_bare_uris is used.
-    * Updated demo for testing purposes.
 
 
 pandoc-eqnos 0.6 (2016-01-01)
