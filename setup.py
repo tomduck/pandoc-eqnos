@@ -9,7 +9,7 @@ LONG_DESCRIPTION = """\
 pandoc-eqnos is a pandoc filter for numbering equations and equation references.
 """
 
-VERSION = '0.7'
+VERSION = '0.7.1'
 
 setup(
     name='pandoc-eqnos',

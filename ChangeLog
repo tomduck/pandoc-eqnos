@@ -1,4 +1,10 @@
 
+pandoc-eqnos 0.7.1 (2016-01-13)
+
+    * Fixed TypeError bug that occurs with pandoc < 1.16 (Issue #7).
+      This bug was inadvertently introduced with pandoc-eqnos 0.7.
+
+
 pandoc-eqnos 0.7 (2016-01-11)
 
     * Fixed problems when --autolink_bare_uris is used.
