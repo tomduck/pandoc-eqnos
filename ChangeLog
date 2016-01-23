@@ -1,13 +1,21 @@
 
+pandoc-eqnos 0.7.2 (2016-01-22)
+
+    * Fixed AttributeError bug that occurred for links
+      emphasized [*like this*](http://example.com/).
+    * Fixed TypeError for pandoc < 1.16 when autolink_bare_uris is
+      used.
+
+
 pandoc-eqnos 0.7.1 (2016-01-13)
 
-    * Fixed TypeError bug that occurs with pandoc < 1.16 (Issue #7).
+    * Fixed TypeError bug that occurred with pandoc < 1.16 (Issue #7).
       This bug was inadvertently introduced with pandoc-eqnos 0.7.
 
 
 pandoc-eqnos 0.7 (2016-01-11)
 
-    * Fixed problems when --autolink_bare_uris is used.
+    * Fixed problems when pandoc's autolink_bare_uris is used.
 
 
 pandoc-eqnos 0.6 (2016-01-01)

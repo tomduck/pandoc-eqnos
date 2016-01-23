@@ -1,12 +1,12 @@
 
-pandoc-eqnos 0.7.1
+pandoc-eqnos 0.7.2
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
 
 Demonstration: Processing [`demo.md`] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.16.0.1 and 1.15.2, and should be compatible with earlier pandoc versions.  It is known to work under linux, Mac OS X and Windows.
+This version of pandoc-eqnos was tested using pandoc 1.16.0.2 and 1.15.2, and should be compatible with earlier pandoc versions.  It is known to work under linux, Mac OS X and Windows.
 
 Installation of the filter is straight-forward, with minimal dependencies.  It is simple to use and has been tested extensively.
 

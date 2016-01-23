@@ -89,11 +89,13 @@ def parse_ref(value):
 
 def is_broken_ref(key1, value1, key2, value2):
     """True if this is a broken link; False otherwise."""
-    try:     # Pandoc >= 1.16
-        return key1 == 'Link' and value1[1][0]['c'].endswith('{@eq') \
+    try:  # Pandoc >= 1.16
+        return key1 == 'Link' and value1[1][0]['t'] == 'Str' and \
+          value1[1][0]['c'].endswith('{@eq') \
             and key2 == 'Str' and '}' in value2
     except TypeError:  # Pandoc < 1.16
-        return key1 == 'Link' and value1[0][0]['c'].endswith('{@eq') \
+        return key1 == 'Link' and value1[0][0]['t'] == 'Str' and \
+          value1[0][0]['c'].endswith('{@eq') \
             and key2 == 'Str' and '}' in value2
 
 def repair_broken_refs(value):
@@ -110,7 +112,10 @@ def repair_broken_refs(value):
         if is_broken_ref(value[i]['t'], value[i]['c'],
                          value[i+1]['t'], value[i+1]['c']):
             flag = True  # Found broken reference
-            s1 = value[i]['c'][1][0]['c']  # Get the first half of the ref
+            try:  # Pandoc >= 1.16
+                s1 = value[i]['c'][1][0]['c']  # Get the first half of the ref
+            except TypeError:  # Pandoc < 1.16
+                s1 = value[i]['c'][0][0]['c']  # Get the first half of the ref  
             s2 = value[i+1]['c']           # Get the second half of the ref
             ref = '@eq' + s2[:s2.index('}')]  # Form the reference
             prefix = s1[:s1.index('{@eq')]    # Get the prefix
