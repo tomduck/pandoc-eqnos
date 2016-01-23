@@ -1,8 +1,14 @@
 
+pandoc-eqnos 0.X (unreleased)
+
+    * Added regression tests.
+
+
 pandoc-eqnos 0.7.2 (2016-01-22)
 
     * Fixed AttributeError bug that occurred for links
       emphasized [*like this*](http://example.com/).
+
     * Fixed TypeError for pandoc < 1.16 when autolink_bare_uris is
       used.
 
