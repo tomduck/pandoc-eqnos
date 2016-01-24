@@ -130,6 +130,8 @@ You may also choose to install sources [downloaded from github].  After installi
     python setup.py install
 
 [downloaded from github]: https://github.com/tomduck/pandoc-eqnos/archive/master.zip
+[pandocfilters]: https://github.com/jgm/pandocfilters
+[pandoc-attributes]: https://github.com/aaren/pandoc-attributes
 
 
 Getting Help
