@@ -45,13 +45,25 @@ if os.name == 'nt':
                 'install_scripts': install_scripts_quoted_shebang},
 
     # Hack to overcome a separate bug
-    def get_command_class(self, command):
-        print('\n\n\n***\n\n')
-        print(self.cmdclass)
-        print('\n\n***\n\n\n')
-        return dist.Distribution._get_command_class(self, command)
-    
+
+    # pylint: disable=protected-access
     dist.Distribution._get_command_class = dist.Distribution.get_command_class
+
+    def get_command_class(self, command):
+        """Pluggable version of get_command_class()"""
+        try:
+            return dist.Distribution._get_command_class(self, command)
+        except TypeError:
+            if type(self.cmdclass) is tuple and type(self.cmdclass[0]) is dict:
+                # Why is the cmdclass dict stored in a tuple!?
+                cmdclass_list = self.cmdclass
+                self.cmdclass = self.cmdclass[0]
+                ret = dist.Distribution._get_command_class(self, command)
+                self.cmdclass = cmdclass_list
+                return ret
+            else:
+                raise
+
     dist.Distribution.get_command_class = get_command_class
 
 else:
