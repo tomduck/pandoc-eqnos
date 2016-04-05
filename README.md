@@ -1,6 +1,10 @@
 
-pandoc-eqnos 0.7.2
-==================
+
+**NOTE:** An issue with installing on Windows 10 has been fixed with release 0.8 (unreleased development version available from GitHub).  Please file an Issue if problems persist.
+
+
+pandoc-eqnos 0.8
+================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
 
