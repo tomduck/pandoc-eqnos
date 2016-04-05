@@ -10,7 +10,7 @@ from setuptools.command.install import install
 from setuptools.command.install_scripts import install_scripts
 
 LONG_DESCRIPTION = """\
-pandoc-eqnos is a pandoc filter for numbering equations and equation references.
+A pandoc filter for numbering equations and equation references.
 """
 
 VERSION = '0.8'

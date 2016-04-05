@@ -1,8 +1,4 @@
 
-
-**NOTE:** An issue with installing on Windows 10 has been fixed with release 0.8 (unreleased development version available from GitHub).  Please file an Issue if problems persist.
-
-
 pandoc-eqnos 0.8
 ================
 
@@ -95,6 +91,9 @@ Installation
 
 Pandoc-eqnos requires [python], a programming language that comes pre-installed on linux and Mac OS X, and which is easily installed [on Windows].  Either python 2.7 or 3.x will do.
 
+[python]: https://www.python.org/
+[on Windows]: https://www.python.org/downloads/windows/
+
 
 ### Standard installation ###
 
@@ -107,6 +106,8 @@ To upgrade to the most recent release, use
     pip install --upgrade pandoc-eqnos 
 
 Pip is a script that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.
+
+[PyPI]: https://pypi.python.org/pypi
 
 
 ### Installing on linux ###
@@ -121,10 +122,6 @@ During the install you may be asked to run
     easy_install -U setuptools
 
 owing to the ancient version of setuptools that Debian provides.  The command should be executed as root.  The pip install process detailed above should now work.
-
-[python]: https://www.python.org/
-[on Windows]: https://www.python.org/downloads/windows/
-[PyPI]: https://pypi.python.org/pypi
 
 
 ### Installing from source ###
