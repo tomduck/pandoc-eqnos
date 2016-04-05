@@ -46,7 +46,7 @@ if os.name == 'nt':
     cmdclass = {'install': custom_install,
                 'install_scripts': install_scripts_quoted_shebang},
 
-    # Below is another hack to overcome a separate bug in setuptools.  The
+    # Below is another hack to overcome a separate bug.  The
     # dist.Distribution.cmdclass dict should not be stored in a length-1 list.
 
     # Save the original method
