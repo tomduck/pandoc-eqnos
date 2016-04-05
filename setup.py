@@ -49,7 +49,8 @@ if os.name == 'nt':
         """Ensures self.cmdclass is not a tuple."""
         if type(self.cmdclass) is tuple:
             self.cmdclass = list(self.cmdclass)
-        return dist.Distribution.get_command_class(self, command)
+        return dist.Distribution._get_command_class(self, command)
+    dist.Distribution._get_command_class = dist.Distribution.get_command_class
     dist.Distribution.get_command_class = get_command_class
 
 else:
