@@ -46,9 +46,16 @@ if os.name == 'nt':
 
     # Hack to overcome a separate bug
     def get_command_class(self, command):
-        """Ensures self.cmdclass is not a tuple."""
-        if type(self.cmdclass) is tuple:
-            self.cmdclass = list(self.cmdclass)
+        """Replacement that doesn't write to self.cmdclass."""
+        if command in self.cmdclass:
+            return self.cmdclass[command]
+
+        for ep in pkg_resources.iter_entry_points('distutils.commands',command):
+            ep.require(installer=self.fetch_build_egg)
+            return ep.load()
+        else:
+            return _Distribution.get_command_class(self, command)
+
         return dist.Distribution._get_command_class(self, command)
     dist.Distribution._get_command_class = dist.Distribution.get_command_class
     dist.Distribution.get_command_class = get_command_class
