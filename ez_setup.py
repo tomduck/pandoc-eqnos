@@ -16,8 +16,7 @@ import subprocess
 import platform
 import textwrap
 import contextlib
-import json
-import codecs
+import warnings
 
 from distutils import log
 
@@ -31,8 +30,7 @@ try:
 except ImportError:
     USER_SITE = None
 
-LATEST = object()
-DEFAULT_VERSION = LATEST
+DEFAULT_VERSION = "17.0"
 DEFAULT_URL = "https://pypi.python.org/packages/source/s/setuptools/"
 DEFAULT_SAVE_DIR = os.curdir
 
@@ -127,7 +125,7 @@ def _do_download(version, download_base, to_dir, download_delay):
     # Remove previously-imported pkg_resources if present (see
     # https://bitbucket.org/pypa/setuptools/pull-request/7/ for details).
     if 'pkg_resources' in sys.modules:
-        _unload_pkg_resources()
+        del sys.modules['pkg_resources']
 
     import setuptools
     setuptools.bootstrap_install_from = egg
@@ -142,7 +140,6 @@ def use_setuptools(
     Return None. Raise SystemExit if the requested version
     or later cannot be installed.
     """
-    version = _resolve_version(version)
     to_dir = os.path.abspath(to_dir)
 
     # prior to importing, capture the module state for
@@ -225,8 +222,8 @@ def download_file_powershell(url, target):
     ps_cmd = (
         "[System.Net.WebRequest]::DefaultWebProxy.Credentials = "
         "[System.Net.CredentialCache]::DefaultCredentials; "
-        '(new-object System.Net.WebClient).DownloadFile("%(url)s", "%(target)s")'
-        % locals()
+        "(new-object System.Net.WebClient).DownloadFile(%(url)r, %(target)r)"
+        % vars()
     )
     cmd = [
         'powershell',
@@ -324,7 +321,6 @@ def download_setuptools(
     ``downloader_factory`` should be a function taking no arguments and
     returning a function for downloading a URL to a target.
     """
-    version = _resolve_version(version)
     # making sure we use the absolute path
     to_dir = os.path.abspath(to_dir)
     zip_name = "setuptools-%s.zip" % version
@@ -335,26 +331,6 @@ def download_setuptools(
         downloader = downloader_factory()
         downloader(url, saveto)
     return os.path.realpath(saveto)
-
-
-def _resolve_version(version):
-    """
-    Resolve LATEST version
-    """
-    if version is not LATEST:
-        return version
-
-    resp = urlopen('https://pypi.python.org/pypi/setuptools/json')
-    with contextlib.closing(resp):
-        try:
-            charset = resp.info().get_content_charset()
-        except Exception:
-            # Python 2 compat; assume UTF-8
-            charset = 'UTF-8'
-        reader = codecs.getreader(charset)
-        doc = json.load(reader(resp))
-
-    return str(doc['info']['version'])
 
 
 def _build_install_args(options):
