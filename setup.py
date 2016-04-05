@@ -46,17 +46,11 @@ if os.name == 'nt':
 
     # Hack to overcome a separate bug
     def get_command_class(self, command):
-        """Replacement that doesn't write to self.cmdclass."""
-        if command in self.cmdclass:
-            return self.cmdclass[command]
-
-        for ep in pkg_resources.iter_entry_points('distutils.commands',command):
-            ep.require(installer=self.fetch_build_egg)
-            return ep.load()
-        else:
-            return _Distribution.get_command_class(self, command)
-
+        print('\n\n\n***\n\n')
+        print(self.cmdclass)
+        print('\n\n***\n\n\n')
         return dist.Distribution._get_command_class(self, command)
+    
     dist.Distribution._get_command_class = dist.Distribution.get_command_class
     dist.Distribution.get_command_class = get_command_class
 
