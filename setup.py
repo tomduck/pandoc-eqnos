@@ -32,7 +32,7 @@ class custom_install(install):
 class install_scripts_quoted_shebang(install_scripts):
     """Ensure there are quotes around shebang paths with spaces."""
     def write_script(self, script_name, contents, mode="t", *ignored):
-        shebang = contents.splitlines()[0]
+        shebang = str(contents.splitlines()[0])
         if shebang.startswith('#!') and ' ' in shebang[2:].strip() \
           and '"' not in shebang:
             quoted_shebang = '#!"%s"' % shebang[2:].strip()
