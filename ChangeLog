@@ -1,5 +1,5 @@
 
-pandoc-eqnos 0.8 (unreleased)
+pandoc-eqnos 0.8 (2016-04-05)
 
     * Fixed broken installation in Win 10 (Issue #6).
     * Added regression tests.
