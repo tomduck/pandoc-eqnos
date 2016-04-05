@@ -37,7 +37,7 @@ class install_scripts_quoted_shebang(install_scripts):
           and '"' not in shebang:
             quoted_shebang = '#!"%s"' % shebang[2:].strip()
             contents = contents.replace(shebang, quoted_shebang)
-        super().write_script(script_name, contents, mode="t", *ignored)
+        super().write_script(script_name, contents, mode, *ignored)
 
 # The hack only needs to be applied to Windows machines
 if os.name == 'nt':
