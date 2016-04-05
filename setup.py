@@ -5,7 +5,7 @@ import os
 import ez_setup
 ez_setup.use_setuptools()
 
-from setuptools import setup
+from setuptools import setup, dist
 from setuptools.command.install import install
 from setuptools.command.install_scripts import install_scripts
 
@@ -43,6 +43,15 @@ class install_scripts_quoted_shebang(install_scripts):
 if os.name == 'nt':
     cmdclass = {'install': custom_install,
                 'install_scripts': install_scripts_quoted_shebang},
+
+    # Hack to overcome a separate bug
+    def get_command_class(self, command):
+        """Ensures self.cmdclass is not a tuple."""
+        if type(self.cmdclass) is tuple:
+            self.cmdclass = list(self.cmdclass)
+        return dist.Distribution.get_command_class(self, command)
+    dist.Distribution.get_command_class = get_command_class
+
 else:
     cmdclass = {}
 
