@@ -55,12 +55,9 @@ if os.name == 'nt':
             return dist.Distribution._get_command_class(self, command)
         except TypeError:
             if type(self.cmdclass) is tuple and type(self.cmdclass[0]) is dict:
-                # Why is the cmdclass dict stored in a tuple!?
-                cmdclass_list = self.cmdclass
+                # Why is the cmdclass dict stored in a tuple!?  This is a bug.
                 self.cmdclass = self.cmdclass[0]
-                ret = dist.Distribution._get_command_class(self, command)
-                self.cmdclass = cmdclass_list
-                return ret
+                return dist.Distribution._get_command_class(self, command)
             else:
                 raise
 
