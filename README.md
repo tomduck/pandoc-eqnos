@@ -6,9 +6,9 @@ pandoc-eqnos 0.8
 
 Demonstration: Processing [demo.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf], [tex], [html], [epub], [md] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.17.0.2, 1.16.0.2 and 1.15.2.  It works under linux, Mac OS X and Windows.
+This version of pandoc-eqnos was tested using pandoc 1.17.0.2, 1.16.0.2 and 1.15.2.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.
 
-Installation of the filter is straight-forward.  It is simple to use and has been tested extensively.
+Installation of the filter is straight-forward.  It is simple to use and has been tested extensively.   I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -21,6 +21,7 @@ See also: [pandoc-fignos], [pandoc-tablenos]
 [md]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo.md
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 [pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos 
+[Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 
 
 Contents
