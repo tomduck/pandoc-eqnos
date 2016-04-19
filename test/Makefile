@@ -15,10 +15,14 @@ FLAGS = --variable geometry:margin=1in --standalone --mathml
 
 all: pdf html
 
-pdf: out/demo-1.17.pdf \
-     out/demo-1.17-py2.7.pdf \
-     out/demo-1.17-py3.4.pdf \
-     out/demo-1.17-autolink.pdf \
+current: current-pdf current-html
+
+current-pdf: out/demo-1.17.pdf \
+         out/demo-1.17-py2.7.pdf \
+         out/demo-1.17-py3.4.pdf \
+         out/demo-1.17-autolink.pdf
+
+pdf: current-pdf \
      out/demo-1.16.pdf \
      out/demo-1.16-py2.7.pdf \
      out/demo-1.16-py3.4.pdf \
@@ -28,7 +32,9 @@ pdf: out/demo-1.17.pdf \
      out/demo-1.15-py3.4.pdf \
      out/demo-1.15-autolink.pdf
 
-html: out/demo-1.17.html \
+current-html: out/demo-1.17.html
+
+html: current-html\
       out/demo-1.16.html \
       out/demo-1.15.html
 
