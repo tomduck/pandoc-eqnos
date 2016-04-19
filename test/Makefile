@@ -3,9 +3,9 @@ v1.17 = 1.17.0.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
-PANDOC-1.17 = pandoc-1.17.0.2
-PANDOC-1.16 = pandoc-1.16.0.2
-PANDOC-1.15 = pandoc-1.15.2
+PANDOC-1.17 = pandoc-$(v1.17)
+PANDOC-1.16 = pandoc-$(v1.16)
+PANDOC-1.15 = pandoc-$(v1.15)
 
 PYTHON-2.7 = python2.7
 PYTHON-3.4 = python3.4
