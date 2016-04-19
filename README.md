@@ -1,4 +1,8 @@
 
+
+NOTICE: pandoc-eqnos now supports [tagged equations](#tagged-equations).
+
+
 pandoc-eqnos 0.9
 ================
 
@@ -69,6 +73,15 @@ Curly braces around a reference are stripped from the output.
 See [demo.md] for an example.
 
 
+### Tagged Equations ###
+
+You may optionally override the equation number by placing a tag in the attributes block as follows:
+
+    $$ y = mx + b $$ {#eq:id tag="B.1"}
+
+The tag may be arbitrary text, or an inline equation such as `$\mathrm{B.1'}$`.  Mixtures of the two are not currently supported.
+
+
 Usage
 -----
 
@@ -83,6 +96,8 @@ Details
 -------
 
 For tex/pdf output, LaTeX's `equation` environment and `\label` and `\ref` macros are used; for all others the numbers are hard-coded.
+
+Similarly, tagged equations make use of LaTeX's' `\tag` macro, whereas hard-coding is used for the rest.
 
 Links are constructed for html and pdf output.
 
