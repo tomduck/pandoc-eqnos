@@ -207,7 +207,7 @@ def repair_broken_refs(value):
                   "citationHash":0}],
                 [Str(ref)])
     if flag:
-        return [v for v in value if v is not None]
+        return [v for v in value if not v is None]
 
 def is_braced_eqref(i, value):
     """Returns true if a reference is braced; otherwise False.
@@ -224,7 +224,7 @@ def remove_braces_from_eqrefs(value):
     for i in range(len(value)-1)[1:]:
         if is_braced_eqref(i, value):
             flag = True  # Found reference
-            value[i-1]['c'] = value[i-1]['c'][:-1]
+            value[i-1]['c'] = value[i-1]['c'][:-1]  # Remove the braces
             value[i+1]['c'] = value[i+1]['c'][1:]
     return flag
 
@@ -277,7 +277,7 @@ def get_attrs(value, n):
         for i, v in enumerate(value[n:]):
             if v['t'] == 'Str' and v['c'].strip().endswith('}'):
                 s = stringify(deQuoted(value[n:n+i+1]))  # Extract the attrs
-                value[n:n+i+1] = [None]*(i+1)    # Remove extracted elements
+                value[n:n+i+1] = [None]*(i+1)  # Remove extracted elements
                 return PandocAttributes(s.strip(), 'markdown')
 
 # pylint: disable=unused-argument,too-many-branches
@@ -298,7 +298,7 @@ def replace_attreqs(key, value, fmt, meta):
                 attrs = get_attrs(value, i)
                 if attrs:
                     value[i] = AttrMath(attrs.to_pandoc(), *v['c'])
-                    value = [v for v in value if v is not None]
+                    value = [v for v in value if not v is None]
                     flag = True
 
         # Return modified content
