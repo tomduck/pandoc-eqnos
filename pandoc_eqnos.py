@@ -52,7 +52,7 @@ import argparse
 
 # pylint: disable=import-error
 import pandocfilters
-from pandocfilters import stringify, walk
+from pandocfilters import walk
 from pandocfilters import RawInline, Str, Para, Plain, Cite, elt
 from pandocattributes import PandocAttributes
 
@@ -106,6 +106,32 @@ REF_PATTERN = re.compile(r'@(eq:[\w/-]+)')
 
 Nreferences = 0  # The numbered references count (i.e., excluding tags)
 references = {}  # Global references tracker
+
+# Override pandocfilters.stringify() to handle Math better
+def stringify(x):
+    """Walks the tree x and returns concatenated string content,
+    leaving out all formatting.
+    """
+    result = []
+
+    # pylint: disable=unused-argument
+    def go(key, val, fmt, meta):
+        """Stringifies."""
+        if key in ['Str', 'MetaString']:
+            result.append(val)
+        elif key == 'Code':
+            result.append(val[1])
+        elif key == 'Math':
+            result.append('$')     # Put $ around math
+            result.append(val[1])
+            result.append('$')
+        elif key == 'LineBreak':
+            result.append(" ")
+        elif key == 'Space':
+            result.append(" ")
+
+    walk(x, go, "", {})
+    return ''.join(result)
 
 def is_attreq(key, value):
     """True if this is an attributed equation; False otherwise."""
@@ -240,6 +266,8 @@ def get_attrs(value, n):
     Extracted elements are set to None in the list.
     n is the index of the equation.
     """
+    # Fix me: This currently does not allow curly braces inside quoted
+    # attributes.  The close bracket is interpreted as the end of the attrs.
     assert value[n]['t'] == 'Math'
     # Set n to the index where attributes should start
     n += 1
@@ -301,7 +329,7 @@ def replace_attreqs(key, value, fmt, meta):
             Nreferences += 1
             references[attrs.id] = Nreferences
 
-        # Adjust eqation depending on the output format
+        # Adjust equation depending on the output format
         if fmt == 'latex':
             if 'tag' in attrs.kvs:
                 equation += r'\tag{%s}\label{%s}' % \
@@ -309,10 +337,15 @@ def replace_attreqs(key, value, fmt, meta):
             else:
                 equation += r'\label{%s}'%attrs.id
         elif type(references[attrs.id]) is int:
-            equation += r'\qquad (\mathrm{%d})' % references[attrs.id]
+            equation += r'\qquad (%d)' % references[attrs.id]
         else:  # It is a str
-            equation += r'\qquad (\mathrm{%s})' % \
-              references[attrs.id].replace(' ', r'\ ')
+            # Handle both math and text
+            text = references[attrs.id].replace(' ', r'\ ')
+            if text.startswith('$') and text.endswith('$'):
+                label = text[1:-1]
+            else:
+                label = r'\text{%s}' % text
+            equation += r'\qquad (%s)' % label
 
         # Return the replacement
         if fmt == 'latex':
@@ -342,11 +375,20 @@ def replace_refs(key, value, fmt, meta):
         # The replacement depends on the output format
         if fmt == 'latex':
             return prefix + [RawInline('tex', r'\ref{%s}'%label)] + suffix
-        elif fmt in ('html', 'html5'):
-            link = '<a href="#%s">%s</a>' % (label, references[label])
-            return prefix + [RawInline('html', link)] + suffix
         else:
-            return prefix + [Str('%d'%references[label])]+suffix
+            # Handle both math and text
+            text = str(references[label])
+            if text.startswith('$') and text.endswith('$'):
+                v = Math({"t":"InlineMath", "c":[]}, text[1:-1])
+            else:
+                v = Str(text)
+            if fmt in ('html', 'html5'):
+                # Link the reference to the equation
+                ahref = RawInline('html', '<a href="#%s">' % label)
+                slasha = RawInline('html', '</a>')
+                return prefix + [ahref, v, slasha] + suffix
+            else:
+                return prefix + [v] + suffix
 
 def main():
     """Filters the document AST."""

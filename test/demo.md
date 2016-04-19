@@ -22,9 +22,13 @@ Equation @eq:6 has a single-quoted tag with space:
 
 $$ y = H(x) $$ {#eq:6 tag='Eq. B.3'}
 
+Equation @eq:7 has a primed tag:
+
+$$ y = H'(x) $$ {#eq:7 tag="$\mathrm{B.3'}$"}
+
 Here is another numbered equation:
 
-$$ y = mx + b $$ {#eq:}
+$$ E = mc^2 $$ {#eq:}
 
 A [regular link](http://example.com/), an [*italicized link*](http://example.com/) and an email.address@mailinator.com.
 
