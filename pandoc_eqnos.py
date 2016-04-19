@@ -86,7 +86,6 @@ if PANDOCVERSION is None:
                        'https://github.com/tomduck/pandoc-eqnos/issues')
 
 # Create our own pandoc equation primitives
-# pylint: disable=invalid-name
 Math = elt('Math', 2)
 AttrMath = elt('Math', 3)
 
@@ -105,7 +104,7 @@ else:    # No decoding; utf-8-encoded strings in means the same out
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
 REF_PATTERN = re.compile(r'@(eq:[\w/-]+)')
 
-# pylint: disable=invalid-name
+Nreferences = 0  # The numbered references count (i.e., excluding tags)
 references = {}  # Global references tracker
 
 def is_attreq(key, value):
@@ -218,6 +217,24 @@ def preprocess(key, value, fmt, meta):
         else:
             return Plain(value)
 
+def deQuoted(value):
+    """Replaces Quoted elements that stringify() can't handle."""
+    # pandocfilters.stringify() needs to be updated...
+
+    # The weird thing about this is that chained filters do not see this
+    # element.  Pandoc gives different json depending on whether or it is
+    # calling the filter directly.  This should not be happening.
+    newvalue = []
+    for v in value:
+        if v['t'] != 'Quoted':
+            newvalue.append(v)
+        else:
+            quote = '"' if v['c'][0]['t'] == 'DoubleQuote' else "'"
+            newvalue.append(Str(quote))
+            newvalue += v['c'][1]
+            newvalue.append(Str(quote))
+    return newvalue
+
 def get_attrs(value, n):
     """Extracts attributes from a list of elements.
     Extracted elements are set to None in the list.
@@ -231,13 +248,16 @@ def get_attrs(value, n):
     if value[n:] and value[n]['t'] == 'Str' and value[n]['c'].startswith('{'):
         for i, v in enumerate(value[n:]):
             if v['t'] == 'Str' and v['c'].strip().endswith('}'):
-                s = stringify(value[n:n+i+1])    # Extract the attrs
+                s = stringify(deQuoted(value[n:n+i+1]))  # Extract the attrs
                 value[n:n+i+1] = [None]*(i+1)    # Remove extracted elements
                 return PandocAttributes(s.strip(), 'markdown')
 
 # pylint: disable=unused-argument,too-many-branches
 def replace_attreqs(key, value, fmt, meta):
     """Replaces attributed equations while storing reference labels."""
+
+    # pylint: disable=global-statement
+    global Nreferences
 
     if key in ('Para', 'Plain'):
 
@@ -270,13 +290,29 @@ def replace_attreqs(key, value, fmt, meta):
             return Math(env, equation)
 
         # Save the reference
-        references[attrs.id] = len(references) + 1
+        if 'tag' in attrs.kvs:
+            # Remove any surrounding quotes
+            if attrs['tag'][0] == '"' and attrs['tag'][-1] == '"':
+                attrs['tag'] = attrs['tag'].strip('"')
+            elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
+                attrs['tag'] = attrs['tag'].strip("'")
+            references[attrs.id] = attrs['tag']
+        else:
+            Nreferences += 1
+            references[attrs.id] = Nreferences
 
         # Adjust eqation depending on the output format
         if fmt == 'latex':
-            equation += r'\label{%s}'%attrs.id
-        else:
-            equation += r'\qquad (%s)'%references[attrs.id]
+            if 'tag' in attrs.kvs:
+                equation += r'\tag{%s}\label{%s}' % \
+                  (references[attrs.id].replace(' ', r'\ '), attrs.id)
+            else:
+                equation += r'\label{%s}'%attrs.id
+        elif type(references[attrs.id]) is int:
+            equation += r'\qquad (\mathrm{%d})' % references[attrs.id]
+        else:  # It is a str
+            equation += r'\qquad (\mathrm{%s})' % \
+              references[attrs.id].replace(' ', r'\ ')
 
         # Return the replacement
         if fmt == 'latex':

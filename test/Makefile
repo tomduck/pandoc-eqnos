@@ -10,7 +10,8 @@ PANDOC-1.15 = pandoc-1.15.2
 PYTHON-2.7 = python2.7
 PYTHON-3.4 = python3.4
 
-FLAGS = --variable geometry:margin=1in --standalone
+# mathml needed for \mathrm{}
+FLAGS = --variable geometry:margin=1in --standalone --mathml
 
 PDF = out/demo-1.17.pdf \
       out/demo-1.17-py2.7.pdf \
@@ -37,11 +38,11 @@ out/demo-1.17.%: demo.md
 
 out/demo-1.17-py2.7.pdf: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-1.17) $< -t json | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v1.17) | $(PANDOC-1.17) -f json $(FLAGS) $(FLAGS) -o $@
+	$(PANDOC-1.17) $< -t json | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v1.17) | $(PANDOC-1.17) -f json $(FLAGS) -o $@
 
 out/demo-1.17-py3.4.pdf: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-1.17) $< -t json | $(PYTHON-3.4) ../pandoc_eqnos.py latex --pandocversion=$(v1.17) | $(PANDOC-1.17) -f json $(FLAGS) $(FLAGS) -o $@
+	$(PANDOC-1.17) $< -t json | $(PYTHON-3.4) ../pandoc_eqnos.py latex --pandocversion=$(v1.17) | $(PANDOC-1.17) -f json $(FLAGS) -o $@
 
 out/demo-1.17-autolink.pdf: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
