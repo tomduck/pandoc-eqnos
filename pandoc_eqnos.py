@@ -78,9 +78,8 @@ else:
     except:  # pylint: disable=bare-except
         # Call whatever pandoc is available and hope for the best
         command = 'pandoc'
-    if 'eqnos' in command:  # Infinite process creation if we call pandoc-eqnos!
-        raise RuntimeError('Could not find parent to pandoc-eqnos. ' \
-                           'Please contact developer.')
+    if 'eqnos' in command:  # Infinite process creation!
+        command = 'pandoc'  # Hope for the best here too
     if os.path.basename(command).startswith('pandoc'):
         output = subprocess.check_output([command, '-v'])
         line = output.decode('utf-8').split('\n')[0]
