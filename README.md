@@ -73,7 +73,7 @@ Curly braces around a reference are stripped from the output.
 See [demo.md] for an example.
 
 
-### Tagged Equations ###
+#### Tagged Equations ####
 
 You may optionally override the equation number by placing a tag in the attributes block as follows:
 
