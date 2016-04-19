@@ -13,24 +13,24 @@ PYTHON-3.4 = python3.4
 # mathml needed for \mathrm{}
 FLAGS = --variable geometry:margin=1in --standalone --mathml
 
-PDF = out/demo-1.17.pdf \
-      out/demo-1.17-py2.7.pdf \
-      out/demo-1.17-py3.4.pdf \
-      out/demo-1.17-autolink.pdf \
-      out/demo-1.16.pdf \
-      out/demo-1.16-py2.7.pdf \
-      out/demo-1.16-py3.4.pdf \
-      out/demo-1.16-autolink.pdf \
-      out/demo-1.15.pdf \
-      out/demo-1.15-py2.7.pdf \
-      out/demo-1.15-py3.4.pdf \
-      out/demo-1.15-autolink.pdf
+all: pdf html
 
-HTML = out/demo-1.17.html \
-       out/demo-1.16.html \
-       out/demo-1.15.html
+pdf: out/demo-1.17.pdf \
+     out/demo-1.17-py2.7.pdf \
+     out/demo-1.17-py3.4.pdf \
+     out/demo-1.17-autolink.pdf \
+     out/demo-1.16.pdf \
+     out/demo-1.16-py2.7.pdf \
+     out/demo-1.16-py3.4.pdf \
+     out/demo-1.16-autolink.pdf \
+     out/demo-1.15.pdf \
+     out/demo-1.15-py2.7.pdf \
+     out/demo-1.15-py3.4.pdf \
+     out/demo-1.15-autolink.pdf
 
-all: $(PDF) $(HTML)
+html: out/demo-1.17.html \
+      out/demo-1.16.html \
+      out/demo-1.15.html
 
 out/demo-1.17.%: demo.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
