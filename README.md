@@ -75,7 +75,7 @@ See [demo.md] for an example.
 
 #### Tagged Equations ####
 
-You may optionally override the equation number by placing a tag in the attributes block as follows:
+You may optionally override the equation number by placing a tag in an equation's attributes block as follows:
 
     $$ y = mx + b $$ {#eq:id tag="B.1"}
 
