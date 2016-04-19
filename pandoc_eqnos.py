@@ -62,8 +62,8 @@ parser.add_argument('fmt')
 parser.add_argument('--pandocversion', help='The pandoc version.')
 args = parser.parse_args()
 
-# Get the pandoc version.  Inspect the parent process first, then check the
-# python command line args.
+# Get the pandoc version.  Check the command-line args first, then inspect the
+# parent process.  As a last resort, make a bare call to pandoc.
 PANDOCVERSION = None
 if args.pandocversion:
     PANDOCVERSION = args.pandocversion
