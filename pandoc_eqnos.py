@@ -302,11 +302,11 @@ def replace_attreqs(key, value, fmt, meta):
                 attrs = get_attrs(value, i)
                 if attrs:
                     value[i] = AttrMath(attrs.to_pandoc(), *v['c'])
-                    value = [v for v in value if not v is None]
                     flag = True
 
         # Return modified content
         if flag:
+            value = [v for v in value if not v is None]
             if key == 'Para':
                 return Para(value)
             else:

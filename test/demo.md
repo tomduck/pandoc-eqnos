@@ -5,6 +5,11 @@ $$ y = g(x) $${#eq:2}
 
 Equations {@eq:1} and @eq:2, Eqs. {@eq:1}-{@eq:3} and Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
 
+Here is an equation together with some text:
+$$ y' = f'(x) $$ {#eq:1b}
+and here is another:
+$$ y' = g'(x) $${#eq:2b}
+
 Equations and references in lists:
 
   * Equation {@eq:3}:
