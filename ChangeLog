@@ -2,6 +2,7 @@
 pandoc-eqnos 0.9 (unreleased)
 
     * Allow tagged equations (Issue #9).
+    * Improved pandoc version detection (Issue #10).
 
 
 pandoc-eqnos 0.8 (2016-04-05)
