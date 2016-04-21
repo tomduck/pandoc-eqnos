@@ -120,7 +120,7 @@ To upgrade to the most recent release, use
 
     pip install --upgrade pandoc-eqnos 
 
-Pip is a script that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.
+Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.
 
 If you are prompted to upgrade `pip`, then do so.  Installation errors may occur with older versions.  The command is
 
