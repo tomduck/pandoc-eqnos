@@ -84,7 +84,7 @@ else:
         # Get the version number and confirm it conforms to expectations
         output = subprocess.check_output([command, '-v'])
         line = output.decode('utf-8').split('\n')[0]
-        pandocversion = line.split(' ')[-1]
+        pandocversion = line.split(' ')[-1].strip()
         pattern = re.compile(r'^1\.[0-9]+(?:\.[0-9]+)?(?:\.[0-9]+)?$')
         if pattern.match(pandocversion):
             PANDOCVERSION = pandocversion
