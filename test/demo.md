@@ -5,11 +5,6 @@ $$ y = g(x) $${#eq:2}
 
 Equations {@eq:1} and @eq:2, Eqs. {@eq:1}-{@eq:3} and Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
 
-Here is an equation together with some text:
-$$ y' = f'(x) $$ {#eq:1b}
-and here is another:
-$$ y' = g'(x) $${#eq:2b}
-
 Equations and references in lists:
 
   * Equation {@eq:3}:
@@ -23,15 +18,12 @@ $$ y = F(x) $$ {#eq:4 tag="B.1"}
 
 $$ y = G(x) $$ {#eq:5 tag=B.2}
 
-Equation @eq:6 has a single-quoted tag with space:
-
+@eq:6 has a single-quoted tag with space:
 $$ y = H(x) $$ {#eq:6 tag='Eq. B.3'}
-
 Equation @eq:7 has a primed tag:
-
 $$ y = H'(x) $$ {#eq:7 tag="$\mathrm{B.3'}$"}
 
-Here is another numbered equation:
+Here is an unreferenceable numbered equation:
 
 $$ E = mc^2 $$ {#eq:}
 

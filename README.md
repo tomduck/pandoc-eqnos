@@ -3,8 +3,8 @@
 NOTICE: pandoc-eqnos now supports [tagged equations](#tagged-equations).
 
 
-pandoc-eqnos 0.9
-================
+pandoc-eqnos 0.10
+=================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
 
