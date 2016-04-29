@@ -29,3 +29,35 @@ $$ E = mc^2 $$ {#eq:}
 
 A [regular link](http://example.com/), an [*italicized link*](http://example.com/) and an email.address@mailinator.com.
 
+
+\newpage
+
+
+--------------------------------------------------------------------
+
+Corner Cases
+------------
+
+Below is an equation with empty attributes.  It shouldn't be numbered.
+
+$$ E = mc^2 $$ {}
+
+
+****
+
+
+Below is an equation with no attributes.  It shouldn't be numbered.
+
+$$ E = mc^2 $$
+
+
+****
+
+
+Here is a series of unreferenceable equations:
+
+$$ y = F(x) $$ {#eq:}
+
+$$ y = G(x) $$ {#eq:}
+
+$$ y = H(x) $$ {#eq:}
