@@ -49,6 +49,7 @@ import os, os.path
 import subprocess
 import psutil
 import argparse
+import uuid
 
 # pylint: disable=import-error
 import pandocfilters
@@ -158,7 +159,7 @@ def parse_attreq(value):
     o, env, equation = value
     attrs = PandocAttributes(o, 'pandoc')
     if attrs.id == 'eq:': # Make up a unique description
-        attrs.id = attrs.id + '__'+str(hash(equation))+'__'
+        attrs.id = attrs.id + '__'+str(uuid.uuid4())+'__'
     return attrs, env, equation
 
 def is_eqref(key, value):
