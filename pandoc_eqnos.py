@@ -54,7 +54,7 @@ from pandocattributes import PandocAttributes
 
 
 # Read the command-line arguments
-parser = argparse.ArgumentParser(description='Pandoc figure numbers filter.')
+parser = argparse.ArgumentParser(description='Pandoc equations numbers filter.')
 parser.add_argument('fmt')
 parser.add_argument('--pandocversion', help='The pandoc version.')
 args = parser.parse_args()
