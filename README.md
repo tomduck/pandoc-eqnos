@@ -1,9 +1,9 @@
 
 
-NOTICE: pandoc-eqnos now supports [tagged equations](#tagged-equations).
+NEW: Pandoc-fignos supports clever referencing.  Details below.
 
 
-pandoc-eqnos 0.10
+pandoc-eqnos 0.11
 =================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
@@ -23,26 +23,27 @@ See also: [pandoc-fignos], [pandoc-tablenos]
 [html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
 [epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
 [md]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo.md
+[Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues 
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 [pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos 
-[Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 
 
 Contents
 --------
 
  1. [Rationale](#rationale)
- 2. [Markdown Syntax](#markdown-syntax)
- 3. [Usage](#usage)
- 4. [Details](#details)
- 5. [Installation](#installation)
- 6. [Getting Help](#getting-help)
+ 2. [Usage](#usage)
+ 3. [Markdown Syntax](#markdown-syntax)
+ 4. [Customization](#customization)
+ 5. [Technical Details](#technical-details)
+ 6. [Installation](#installation)
+ 7. [Getting Help](#getting-help)
 
 
 Rationale
 ---------
 
-Equation numbers and references are required for academic writing, but are not currently supported by pandoc.  Pandoc-eqnos is an add-on filter that provides the missing functionality.
+Equation numbers and references are frequently used in academic writing, but are not supported by pandoc.  Pandoc-eqnos is an add-on filter that provides the missing functionality.
 
 The markdown syntax recognized by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].  It seems likely that this will be close to what pandoc ultimately adopts.  Pandoc-eqnos is a transitional package for those who need equation numbers and references now.
 
@@ -51,8 +52,23 @@ The markdown syntax recognized by pandoc-eqnos was developed in [pandoc Issue #8
 [@scaramouche1]: https://github.com/scaramouche1
 
 
+Usage
+-----
+
+To apply the filter, use the following option with pandoc:
+
+    --filter pandoc-eqnos
+
+Note that any use of `--filter pandoc-citeproc` or `--bibliography=FILE` options should come *after* the pandoc-eqnos filter call.
+
+
 Markdown Syntax
 ---------------
+
+The basic syntax is taken from [this post] in [pandoc Issue #813].  The extended syntax goes further.
+
+
+### Basic Syntax ###
 
 To number an equation, add the label `eq:id` to its attributes:
 
@@ -73,6 +89,36 @@ Curly braces around a reference are stripped from the output.
 See [demo.md] for an example.
 
 
+### Extended Syntax ###
+
+#### Clever References ####
+
+Writing markdown like
+
+    See eq. @eq:id.
+
+seems a bit redundant.  Pandoc-eqnos supports "clever referencing" via single-character modifiers in front of a reference.  You can write
+
+     See +@eq:id.
+
+to have the reference name (i.e., "eq.") automatically generated.  The above form is used mid-sentence.  At the beginning of a sentence, use
+
+     *@eq:id
+
+instead.  If clever referencing is enabled by default (see [Customization](#customization), below), you can disable it for a given reference using
+
+    !@eq:id
+
+Demonstration: Processing [demo2.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf2], [tex][tex2], [html][html2], [epub][epub2], [md][md2] and other formats.
+
+[demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
+[pdf2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
+[tex2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
+[html2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
+[epub2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
+[md2]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo2.md
+
+
 #### Tagged Equations ####
 
 You may optionally override the equation number by placing a tag in an equation's attributes block as follows:
@@ -82,22 +128,47 @@ You may optionally override the equation number by placing a tag in an equation'
 The tag may be arbitrary text, or an inline equation such as `$\mathrm{B.1'}$`.  Mixtures of the two are not currently supported.
 
 
-Usage
------
+Customization
+-------------
 
-To apply the filter, use the following option with pandoc:
+Pandoc-eqnos may be customized by setting variables in the [metadata block] or on the command line (using `-M KEY=VAL`).  The following variables are supported:
 
-    --filter pandoc-eqnos
+  * `eqnos-cleveref` or just `cleveref` - Set to `On` to assume "+"
+    clever references by default;
 
-Note that any use of `--filter pandoc-citeproc` or `--bibliography=FILE` options should come *after* the pandoc-eqnos filter call.
+  * `eqnos-plus-name` - Sets the name of a "+" reference 
+    (e.g., change it from "eq." to "equation"); and
+
+  * `eqnos-star-name` - Sets the name of a "*" reference 
+    (e.g., change it from "Equation" to "Eq.").
+
+[metadata block]: http://pandoc.org/README.html#extension-yaml_metadata_block
+
+Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
+
+[demo3.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo3.md
+[pdf3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
+[tex3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
+[html3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.html
+[epub3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
+[md3]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo3.md
 
 
-Details
--------
+Technical Details
+-----------------
 
-For tex/pdf output, LaTeX's `equation` environment and `\label` and `\ref` macros are used; for all others the numbers are hard-coded.
+For TeX/pdf output:
 
-Similarly, tagged equations make use of LaTeX's' `\tag` macro, whereas hard-coding is used for the rest.
+  * The `equation` environment is used;
+  * Tagged equations make use of the `\tag` macro;
+  * The `\label` and `\ref` macros are used for equation labels and
+    references;
+  * The clever referencing macros `\cref` and `\Cref` are used
+    if they are available (i.e., included in your pandoc template
+    via `\usepackage{cleveref}`), otherwise they are faked. 
+    Non-breaking spaces are always used.
+
+For all other formats the numbers/tags and clever references are hand-coded into the output.
 
 Links are constructed for html and pdf output.
 
@@ -165,6 +236,6 @@ Once python is installed, start the "Command Prompt" program.  Depending on wher
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-eqnos, please [file an issue] on github.
+If you have any difficulties with pandoc-eqnos, or would like to see a new feature, please [file an Issue] on GitHub.
 
 [file an issue]: https://github.com/tomduck/pandoc-eqnos/issues

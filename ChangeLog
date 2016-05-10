@@ -1,4 +1,10 @@
 
+pandoc-eqnos 0.11 (unreleased)
+
+    * Added clever referencing.
+    * Moved library code to pandocfiltering project.
+
+
 pandoc-eqnos 0.10 (2016-04-27)
 
     * Improved pandoc version detection (Issue #14).
