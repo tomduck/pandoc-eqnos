@@ -20,7 +20,7 @@
 
 # OVERVIEW
 #
-# The basic idea is to scan the AST twice in order to:
+# The basic idea is to scan the document twice in order to:
 #
 #   1. Insert text for the equation number in each equation.
 #      For LaTeX, change to a numbered equation and use \label{...}
@@ -29,8 +29,6 @@
 #
 #   2. Replace each reference with an equation number.  For LaTeX,
 #      replace with \ref{...} instead.
-#
-# There is also an initial scan to do some preprocessing.
 
 # pylint: disable=invalid-name
 
