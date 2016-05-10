@@ -41,7 +41,7 @@ html: out/demo-1.17.html \
       out/demo-1.16.html \
       out/demo-1.15.html
 
-tex: out/demo-1.17.html
+tex: out/demo-1.17.tex
 
 md: out/demo-1.17.md
 
