@@ -1,9 +1,13 @@
+---
+eqnos-plus-name: EQ.
+eqnos-star-name: EQUATION
+...
 
 $$ y = f(x) $$ {#eq:1}
 
 $$ y = g(x) $${#eq:2}
 
-Equations {@eq:1} and @eq:2, Eqs. {@eq:1}-{@eq:3} and Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
+*@eq:1 and +@eq:2, Eqs. {@eq:1}-{@eq:3} and Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
 
 Equations and references in lists:
 
@@ -38,7 +42,7 @@ A [regular link](http://example.com/), an [*italicized link*](http://example.com
 Corner Cases
 ------------
 
-Below is an equation with empty attributes.  It shouldn't be numbered.
+An equation with empty attributes (shouldn't be numbered):
 
 $$ E = mc^2 $$ {}
 
@@ -46,7 +50,7 @@ $$ E = mc^2 $$ {}
 ****
 
 
-Below is an equation with no attributes.  It shouldn't be numbered.
+An equation with no attributes (shouldn't be numbered):
 
 $$ E = mc^2 $$
 
@@ -54,7 +58,7 @@ $$ E = mc^2 $$
 ****
 
 
-Here is a series of unreferenceable equations:
+A series of unreferenceable equations (check for correct numbers):
 
 $$ y = F(x) $$ {#eq:}
 
