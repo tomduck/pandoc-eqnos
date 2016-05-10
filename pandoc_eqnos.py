@@ -41,10 +41,9 @@ import json
 import uuid
 
 from pandocfilters import walk
-from pandocfilters import RawInline
+from pandocfilters import RawInline, elt
 
 import pandocfiltering
-from pandocfiltering import repeat
 from pandocfiltering import STRTYPES, STDIN, STDOUT
 from pandocfiltering import get_meta
 from pandocfiltering import repair_refs, use_refs_factory, replace_refs_factory
@@ -95,22 +94,6 @@ def parse_attrmath(key, value):
 use_attrs_math = use_attrs_factory('Math', allow_space=True)
 filter_attrs_math = filter_attrs_factory('Math', 2)
 
-@repeat
-def _insert_anchors(value):
-    """Inserts html anchors in front of equations."""
-    for i, v in enumerate(value):
-        if is_attrmath(v['t'], v['c']) and (i == 0 or \
-          not (value[i-1]['t'] == 'RawInline' and \
-               value[i-1]['c'][-1].startswith('<a name'))):
-            # pylint: disable=unused-variable
-            attrs, env, equation = parse_attrmath(v['t'], v['c'])
-            if LABEL_PATTERN.match(attrs[0]):
-                anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
-                value.insert(i, anchor)
-                return  # Forces processing to repeat
-    return True  # Terminates processing
-
-
 # pylint: disable=unused-argument,too-many-branches
 def process_equations(key, value, fmt, meta):
     """Processes the attributed equations."""
@@ -118,10 +101,7 @@ def process_equations(key, value, fmt, meta):
     # pylint: disable=global-statement
     global Nreferences
 
-    if key in ('Para', 'Plain') and fmt in ('html', 'html5'):
-        _insert_anchors(value)
-
-    elif is_attrmath(key, value):
+    if is_attrmath(key, value):
 
         # Parse the equation
         # pylint: disable=unused-variable
@@ -163,11 +143,18 @@ def process_equations(key, value, fmt, meta):
                 label = r'\text{%s}' % text
             equation += r'\qquad (%s)' % label
 
-        if fmt == 'latex':  # Return the replacement
+        # Return the replacement
+        if fmt == 'latex':
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%equation)
         else:
             value[-1] = equation
+
+        if fmt in ('html', 'html5'):  # Insert anchor
+            anchor = RawInline('html', '<a name="%s"></a>'%attrs.id)
+            math = elt('Math', 3)(*value)  # pylint: disable=star-args
+            math['c'] = list(math['c'])
+            return [anchor, math]
 
 
 # Main program ---------------------------------------------------------------
