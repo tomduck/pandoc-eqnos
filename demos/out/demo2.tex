@@ -1,10 +1,23 @@
+% Cleveref macros
+\providecommand{\crefname}[3]{}
+\providecommand{\Crefname}[3]{}
+\crefname{equation}{eq.}{eqs.}
+\Crefname{equation}{Equation}{Equations}
+
+% Cleveref fakery
+\providecommand{\plusnamesingular}{}
+\providecommand{\starnamesingular}{}
+\providecommand{\cref}{\plusnamesingular~\ref}
+\providecommand{\Cref}{\starnamesingular~\ref}
+
 The equation for a straight line is
 \begin{equation} y = mx + b \label{eq:line}\end{equation} and the
 equation for a polynomial is
 \begin{equation} y = \sum_{n=0}^{\infty} a_n x^n \label{eq:polynomial}\end{equation}
 
-Equation \ref{eq:line} and eq. \ref{eq:polynomial} are known to all
-first-year math students.
+\renewcommand{\starnamesingular}{Equation}\Cref{eq:line} and
+\renewcommand{\plusnamesingular}{eq.}\cref{eq:polynomial} are known to
+all first-year math students.
 
 The Fourier series is a little more advanced:
 
@@ -20,5 +33,5 @@ Equations can be left unnumbered if we do not need to refer to them:
 
 It is also possible to number equations generically without planning to
 refer to them; e.g.:
-\begin{equation} \pi = 3.141592653589793238462643\dots \label{eq:1390c39f-e13f-49a0-bde6-3224b4cbd2ac}\end{equation}
+\begin{equation} \pi = 3.141592653589793238462643\dots \label{eq:2e164d44-0fd6-4e2f-ae73-abee7b6817c7}\end{equation}
 

@@ -4,7 +4,7 @@ $$ y = mx + b $$ {#eq:line}
 and the equation for a  polynomial is
 $$ y = \sum_{n=0}^{\infty} a_n x^n $$ {#eq:polynomial}
 
-Equation @eq:line and eq. @eq:polynomial are known to all first-year math students.
+*@eq:line and +@eq:polynomial are known to all first-year math students.
 
 The Fourier series is a little more advanced:
 

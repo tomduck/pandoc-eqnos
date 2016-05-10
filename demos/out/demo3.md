@@ -2,7 +2,7 @@ The equation for a straight line is $$ y = mx + b \qquad (1)$$ and the
 equation for a polynomial is
 $$ y = \sum_{n=0}^{\infty} a_n x^n \qquad (2)$$
 
-Equation 1 and eq. 2 are known to all first-year math students.
+EQUATION 1 and EQ. 2 are known to all first-year math students.
 
 The Fourier series is a little more advanced:
 
