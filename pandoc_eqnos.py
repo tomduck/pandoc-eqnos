@@ -42,9 +42,9 @@ import uuid
 
 from pandocfilters import walk
 from pandocfilters import RawInline
-from pandocfilters import Para, Plain
 
 import pandocfiltering
+from pandocfiltering import repeat
 from pandocfiltering import STRTYPES, STDIN, STDOUT
 from pandocfiltering import get_meta
 from pandocfiltering import repair_refs, use_refs_factory, replace_refs_factory
@@ -95,6 +95,22 @@ def parse_attrmath(key, value):
 use_attrs_math = use_attrs_factory('Math', allow_space=True)
 filter_attrs_math = filter_attrs_factory('Math', 2)
 
+@repeat
+def _insert_anchors(value):
+    """Inserts html anchors in front of equations."""
+    for i, v in enumerate(value):
+        if is_attrmath(v['t'], v['c']) and (i == 0 or \
+          not (value[i-1]['t'] == 'RawInline' and \
+               value[i-1]['c'][-1].startswith('<a name'))):
+            # pylint: disable=unused-variable
+            attrs, env, equation = parse_attrmath(v['t'], v['c'])
+            if LABEL_PATTERN.match(attrs[0]):
+                anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
+                value.insert(i, anchor)
+                return  # Forces processing to repeat
+    return True  # Terminates processing
+
+
 # pylint: disable=unused-argument,too-many-branches
 def process_equations(key, value, fmt, meta):
     """Processes the attributed equations."""
@@ -102,20 +118,13 @@ def process_equations(key, value, fmt, meta):
     # pylint: disable=global-statement
     global Nreferences
 
-    if key in ('Para', 'Plain'):
-
-        # Prepend html anchors for figures.
-        if fmt in ('html', 'html5') and is_attrmath(key, value):
-            # pylint: disable=unused-variable
-            attrs, env, equation = parse_attrmath(key, value)
-            if LABEL_PATTERN.match(attrs[0]):
-                anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
-                return [Plain([anchor]), \
-                        (Para(value) if key == 'Para' else Plain(value))]
+    if key in ('Para', 'Plain') and fmt in ('html', 'html5'):
+        _insert_anchors(value)
 
     elif is_attrmath(key, value):
 
         # Parse the equation
+        # pylint: disable=unused-variable
         attrs, env, equation = parse_attrmath(key, value)
         attrs = PandocAttributes(attrs, 'pandoc')
 
