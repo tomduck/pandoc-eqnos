@@ -1,6 +1,6 @@
 
 
-NEW: Pandoc-fignos supports clever referencing.  Details below.
+NOTICE: Clever referencing is now supported -- details below.  A code overhaul was performed during the implementation.  All regressions tests are passing.  If you find anything broken, please file a report on the [Issues tracker].
 
 
 pandoc-eqnos 0.11
@@ -169,7 +169,6 @@ For TeX/pdf output:
   * The clever referencing macros `\cref` and `\Cref` are used
     if they are available (i.e., included in your pandoc template
     via `\usepackage{cleveref}`), otherwise they are faked. 
-    Non-breaking spaces are always used.
 
 For all other formats the numbers/tags and clever references are hand-coded into the output.
 
