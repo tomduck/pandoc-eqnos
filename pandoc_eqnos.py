@@ -72,21 +72,6 @@ starname = ['Equation', 'Equations']  # Used with \Cref
 cleveref_default = False              # Default setting for clever referencing
 
 
-# Helper functions ----------------------------------------------------------
-
-def is_attrmath(key, value):
-    """True if this is an attributed equation; False otherwise."""
-    return key == 'Math' and len(value) == 3
-
-def parse_attrmath(key, value):
-    """Parses an attributed equation."""
-    assert key == 'Math'
-    attrs, env, equation = value
-    if attrs[0] == 'eq:': # Make up a unique description
-        attrs[0] = attrs[0] + str(uuid.uuid4())
-    return attrs, env, equation
-
-
 # Actions --------------------------------------------------------------------
 
 use_attrs_math = use_attrs_factory('Math', allow_space=True)
@@ -99,11 +84,13 @@ def process_equations(key, value, fmt, meta):
     # pylint: disable=global-statement
     global Nreferences
 
-    if is_attrmath(key, value):
+    if key == 'Math' and len(value) == 3:
 
         # Parse the equation
         # pylint: disable=unused-variable
-        attrs, env, equation = parse_attrmath(key, value)
+        attrs, env, equation = value
+        if attrs[0] == 'eq:': # Make up a unique description
+            attrs[0] = attrs[0] + str(uuid.uuid4())
         attrs = PandocAttributes(attrs, 'pandoc')
 
         # Bail out if the label does not conform
