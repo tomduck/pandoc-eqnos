@@ -89,15 +89,16 @@ def process_equations(key, value, fmt, meta):
         # Parse the equation
         # pylint: disable=unused-variable
         attrs, env, equation = value
-        if attrs[0] == 'eq:': # Make up a unique description
-            attrs[0] = attrs[0] + str(uuid.uuid4())
-        attrs = PandocAttributes(attrs, 'pandoc')
 
         # Bail out if the label does not conform
-        if not attrs.id or not LABEL_PATTERN.match(attrs.id):
+        if not attrs[0] or not LABEL_PATTERN.match(attrs[0]):
             return
 
+        if attrs[0] == 'eq:': # Make up a unique description
+            attrs[0] = attrs[0] + str(uuid.uuid4())
+
         # Save the reference
+        attrs = PandocAttributes(attrs, 'pandoc')
         if 'tag' in attrs.kvs:
             # Remove any surrounding quotes
             if attrs['tag'][0] == '"' and attrs['tag'][-1] == '"':
