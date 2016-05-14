@@ -41,11 +41,11 @@ restore: clean
 	git checkout out/demo2.pdf
 	git checkout out/demo2.tex
 
-	git checkout out/demo2.epub
-	git checkout out/demo2.html
-	git checkout out/demo2.md
-	git checkout out/demo2.pdf
-	git checkout out/demo2.tex
+	git checkout out/demo3.epub
+	git checkout out/demo3.html
+	git checkout out/demo3.md
+	git checkout out/demo3.pdf
+	git checkout out/demo3.tex
 
 .PHONY: clean
 
