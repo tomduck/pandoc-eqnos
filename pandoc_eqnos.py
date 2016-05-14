@@ -38,16 +38,16 @@ import argparse
 import json
 import uuid
 
-from pandocfilters import walk
-from pandocfilters import RawInline, elt
-
-import pandocfiltering
-from pandocfiltering import STRTYPES, STDIN, STDOUT
-from pandocfiltering import get_meta
-from pandocfiltering import repair_refs, use_refs_factory, replace_refs_factory
-from pandocfiltering import use_attrs_factory, filter_attrs_factory
+from pandocfilters import walk, elt
+from pandocfilters import Math, RawInline
 
 from pandocattributes import PandocAttributes
+
+import pandocxnos
+from pandocxnos import STRTYPES, STDIN, STDOUT
+from pandocxnos import get_meta
+from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
+from pandocxnos import attach_attrs_factory, detach_attrs_factory
 
 
 # Read the command-line arguments
@@ -56,9 +56,8 @@ parser.add_argument('fmt')
 parser.add_argument('--pandocversion', help='The pandoc version.')
 args = parser.parse_args()
 
-# Set/get PANDOCVERSION
-pandocfiltering.init(args.pandocversion)
-PANDOCVERSION = pandocfiltering.PANDOCVERSION
+# Initialize pandocxnos
+pandocxnos.init(args.pandocversion)
 
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
@@ -74,8 +73,8 @@ cleveref_default = False              # Default setting for clever referencing
 
 # Actions --------------------------------------------------------------------
 
-use_attrs_math = use_attrs_factory('Math', allow_space=True)
-filter_attrs_math = filter_attrs_factory('Math', 2)
+attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
+detach_attrs_math = detach_attrs_factory(Math)
 
 # pylint: disable=unused-argument,too-many-branches
 def process_equations(key, value, fmt, meta):
@@ -196,15 +195,16 @@ def main():
 
     # First pass
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
-                               [repair_refs, use_attrs_math, process_equations,
-                                filter_attrs_math], doc)
+                               [attach_attrs_math, process_equations,
+                                detach_attrs_math], doc)
 
     # Second pass
-    use_refs = use_refs_factory(references.keys())
+    process_refs = process_refs_factory(references.keys())
     replace_refs = replace_refs_factory(references, cleveref_default,
-                                        'equation', plusname, starname)
+                                        plusname, starname, 'equation')
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
-                               [use_refs, replace_refs], altered)
+                               [repair_refs, process_refs, replace_refs],
+                               altered)
 
     # Dump the results
     json.dump(altered, STDOUT)
