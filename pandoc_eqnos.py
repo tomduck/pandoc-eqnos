@@ -118,7 +118,7 @@ def process_equations(key, value, fmt, meta):
                 equation += r'\label{%s}'%attrs.id
         elif type(references[attrs.id]) is int:
             equation += r'\qquad (%d)' % references[attrs.id]
-        else:  # It is a str
+        else:  # It is a string
             assert type(references[attrs.id]) in STRTYPES
             # Handle both math and text
             text = references[attrs.id].replace(' ', r'\ ')
