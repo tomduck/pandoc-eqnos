@@ -22,7 +22,7 @@ See also: [pandoc-fignos], [pandoc-tablenos]
 [tex]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
 [html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
 [epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
-[md]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo.md
+[md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
 [Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues 
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 [pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos 
@@ -118,7 +118,7 @@ Note: The disabling modifier "!" is used instead of "-" because [pandoc unnecess
 [tex2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
 [html2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
 [epub2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
-[md2]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo2.md
+[md2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
 [pandoc unnecessarily drops minus signs]: https://github.com/jgm/pandoc/issues/2901
 
 
@@ -154,7 +154,7 @@ Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives n
 [tex3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
 [html3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.html
 [epub3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
-[md3]: https://github.com/tomduck/pandoc-eqnos/blob/master/demos/out/demo3.md
+[md3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
 
 
 Technical Details
