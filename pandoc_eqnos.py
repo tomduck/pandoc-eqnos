@@ -76,12 +76,29 @@ cleveref_default = False              # Default setting for clever referencing
 attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
 detach_attrs_math = detach_attrs_factory(Math)
 
-# pylint: disable=unused-argument,too-many-branches
-def process_equations(key, value, fmt, meta):
-    """Processes the attributed equations."""
+def _store_ref(attrs):
+    """Stores the reference in the global references tracker.
+    Returns True if this is a tagged table; False otherwise."""
 
     # pylint: disable=global-statement
     global Nreferences
+
+    attrs = PandocAttributes(attrs, 'pandoc')
+    if 'tag' in attrs.kvs:
+        # Remove any surrounding quotes
+        if attrs['tag'][0] == '"' and attrs['tag'][-1] == '"':
+            attrs['tag'] = attrs['tag'].strip('"')
+        elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
+            attrs['tag'] = attrs['tag'].strip("'")
+        references[attrs.id] = attrs['tag']
+    else:
+        Nreferences += 1
+        references[attrs.id] = Nreferences
+    return 'tag' in attrs.kvs
+
+# pylint: disable=unused-argument,too-many-branches
+def process_equations(key, value, fmt, meta):
+    """Processes the attributed equations."""
 
     if key == 'Math' and len(value) == 3:
 
@@ -97,31 +114,21 @@ def process_equations(key, value, fmt, meta):
             attrs[0] = attrs[0] + str(uuid.uuid4())
 
         # Save the reference
-        attrs = PandocAttributes(attrs, 'pandoc')
-        if 'tag' in attrs.kvs:
-            # Remove any surrounding quotes
-            if attrs['tag'][0] == '"' and attrs['tag'][-1] == '"':
-                attrs['tag'] = attrs['tag'].strip('"')
-            elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
-                attrs['tag'] = attrs['tag'].strip("'")
-            references[attrs.id] = attrs['tag']
-        else:
-            Nreferences += 1
-            references[attrs.id] = Nreferences
+        is_tagged = _store_ref(attrs)
 
         # Adjust equation depending on the output format
         if fmt == 'latex':
-            if 'tag' in attrs.kvs:
+            if is_tagged:
                 equation += r'\tag{%s}\label{%s}' % \
-                  (references[attrs.id].replace(' ', r'\ '), attrs.id)
+                  (references[attrs[0]].replace(' ', r'\ '), attrs[0])
             else:
-                equation += r'\label{%s}'%attrs.id
-        elif type(references[attrs.id]) is int:
-            equation += r'\qquad (%d)' % references[attrs.id]
+                equation += r'\label{%s}'%attrs[0]
+        elif type(references[attrs[0]]) is int:
+            equation += r'\qquad (%d)' % references[attrs[0]]
         else:  # It is a string
-            assert type(references[attrs.id]) in STRTYPES
+            assert type(references[attrs[0]]) in STRTYPES
             # Handle both math and text
-            text = references[attrs.id].replace(' ', r'\ ')
+            text = references[attrs[0]].replace(' ', r'\ ')
             if text.startswith('$') and text.endswith('$'):
                 label = text[1:-1]
             else:
@@ -136,7 +143,7 @@ def process_equations(key, value, fmt, meta):
             value[-1] = equation
 
         if fmt in ('html', 'html5'):  # Insert anchor
-            anchor = RawInline('html', '<a name="%s"></a>'%attrs.id)
+            anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
             math = elt('Math', 3)(*value)  # pylint: disable=star-args
             math['c'] = list(math['c'])
             return [anchor, math]
