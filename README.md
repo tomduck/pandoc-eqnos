@@ -165,10 +165,12 @@ For TeX/pdf output:
   * The `equation` environment is used;
   * Tagged equations make use of the `\tag` macro;
   * The `\label` and `\ref` macros are used for equation labels and
-    references;
+    references; and
   * The clever referencing macros `\cref` and `\Cref` are used
-    if they are available (i.e., included in your pandoc template
-    via `\usepackage{cleveref}`), otherwise they are faked. 
+    if they are available (i.e. included in your LaTeX template via
+    `\usepackage{cleveref}`), otherwise they are faked.  Set the 
+    meta variable `xnos-cleveref-fake` to `Off` to disable cleveref
+    faking.
 
 For all other formats the numbers/tags and clever references are hand-coded into the output.
 
