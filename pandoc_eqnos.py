@@ -38,7 +38,7 @@ import argparse
 import json
 import uuid
 
-from pandocfilters import walk, elt
+from pandocfilters import walk
 from pandocfilters import Math, RawInline
 
 from pandocattributes import PandocAttributes
@@ -48,7 +48,7 @@ from pandocxnos import STRTYPES, STDIN, STDOUT
 from pandocxnos import get_meta
 from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
 from pandocxnos import attach_attrs_factory, detach_attrs_factory
-
+from pandocxnos import elt
 
 # Read the command-line arguments
 parser = argparse.ArgumentParser(description='Pandoc equations numbers filter.')
@@ -69,6 +69,9 @@ references = {}  # Global references tracker
 plusname = ['eq.', 'eqs.']            # Used with \cref
 starname = ['Equation', 'Equations']  # Used with \Cref
 cleveref_default = False              # Default setting for clever referencing
+
+# Element primitives
+AttrMath = elt('Math', 3)
 
 
 # Actions --------------------------------------------------------------------
@@ -144,8 +147,7 @@ def process_equations(key, value, fmt, meta):
 
         if fmt in ('html', 'html5'):  # Insert anchor
             anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
-            math = elt('Math', 3)(*value)  # pylint: disable=star-args
-            math['c'] = list(math['c'])
+            math = AttrMath(*value)  # pylint: disable=star-args
             return [anchor, math]
 
 

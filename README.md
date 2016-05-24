@@ -3,7 +3,7 @@
 NOTICE: Clever referencing is now supported.  Details below.
 
 
-pandoc-eqnos 0.11
+pandoc-eqnos 0.12
 =================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
@@ -74,7 +74,7 @@ To number an equation, add the label `eq:id` to its attributes:
 
     $$ y = mx + b $$ {#eq:id}
 
-The prefix `#eq:` is required. `id` should be replaced with a unique identifier composed of letters, numbers, dashes, slashes and underscores.
+The prefix `#eq:` is required. `id` should be replaced with a unique identifier composed of letters, numbers, dashes, slashes and underscores.  If `id` is omitted then the figure will be numbered but unreferenceable.
 
 To reference the equation, use
 
