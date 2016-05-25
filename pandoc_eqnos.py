@@ -122,10 +122,10 @@ def _process_equation(value, fmt):
 
     # Adjust equation depending on the output format
     if fmt == 'latex':
-        # Code in the tags
-        value[-1] += r'\tag{%s}\label{%s}' % \
-          (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
-          if eq['is_tagged'] else r'\label{%s}'%attrs[0]
+        if not eq['is_unreferenceable']:  # Code in the tags
+            value[-1] += r'\tag{%s}\label{%s}' % \
+              (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
+              if eq['is_tagged'] else r'\label{%s}'%attrs[0]
     else:  # Hard-code in the number/tag
         if type(references[attrs[0]]) is int:  # Numbered reference
             value[-1] += r'\qquad (%d)' % references[attrs[0]]
