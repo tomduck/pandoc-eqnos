@@ -109,7 +109,7 @@ def _process_equation(value, fmt):
     # Save to the global references tracker
     kvs = PandocAttributes(attrs, 'pandoc').kvs
     eq['is_tagged'] = 'tag' in kvs
-    if 'tag' in kvs:
+    if eq['is_tagged']:
         # Remove any surrounding quotes
         if kvs['tag'][0] == '"' and kvs['tag'][-1] == '"':
             kvs['tag'] = kvs['tag'].strip('"')
