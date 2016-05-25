@@ -1,7 +1,7 @@
 
 pandoc-eqnos 0.12 (unreleased)
 
-    *
+    * Removed anchors and ids in output for unreferenceable figures.
 
 
 pandoc-eqnos 0.11 (2016-05-15)

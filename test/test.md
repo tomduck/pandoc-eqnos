@@ -36,29 +36,22 @@ A [regular link](http://example.com/), an [*italicized link*](http://example.com
 
 \newpage
 
+More Tests
+----------
 
---------------------------------------------------------------------
+### Unnumbered equations ###
 
-Corner Cases
-------------
-
-An equation with empty attributes (shouldn't be numbered):
+An equation with empty attributes:
 
 $$ E = mc^2 $$ {}
 
 
-****
-
-
-An equation with no attributes (shouldn't be numbered):
+An equation with no attributes:
 
 $$ E = mc^2 $$
 
 
-****
-
-
-A series of unreferenceable equations (check for correct numbers):
+### Unreferenceable equations ###
 
 $$ y = F(x) $$ {#eq:}
 

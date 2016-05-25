@@ -62,8 +62,9 @@ pandocxnos.init(args.pandocversion)
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
 
-Nreferences = 0  # The numbered references count (i.e., excluding tags)
-references = {}  # Global references tracker
+Nreferences = 0        # The numbered references count (i.e., excluding tags)
+references = {}        # Global references tracker
+unreferenceable = []   # List of labels that are unreferenceable
 
 # Meta variables; may be reset elsewhere
 plusname = ['eq.', 'eqs.']            # Used with \cref
@@ -79,25 +80,66 @@ AttrMath = elt('Math', 3)
 attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
 detach_attrs_math = detach_attrs_factory(Math)
 
-def _store_ref(attrs):
-    """Stores the reference in the global references tracker.
-    Returns True if this is a tagged table; False otherwise."""
 
-    # pylint: disable=global-statement
-    global Nreferences
+def _process_equation(value, fmt):
+    """Processes the equation.  Returns a dict containing eq properties."""
 
-    attrs = PandocAttributes(attrs, 'pandoc')
-    if 'tag' in attrs.kvs:
+    global Nreferences # pylint: disable=global-statement
+
+    # Parse the equation
+    attrs = value[0]
+
+    # Initialize the return value
+    eq = {'is_unnumbered': False,
+          'is_unreferenceable': False,
+          'is_tagged': False,
+          'attrs': attrs}
+
+    # Bail out if the label does not conform
+    if not LABEL_PATTERN.match(attrs[0]):
+        eq['is_unnumbered'] = True
+        eq['is_unreferenceable'] = True
+        return eq
+
+    if attrs[0] == 'eq:': # Make up a unique description
+        attrs[0] = attrs[0] + str(uuid.uuid4())
+        eq['is_unreferenceable'] = True
+        unreferenceable.append(attrs[0])
+
+    # Save to the global references tracker
+    kvs = PandocAttributes(attrs, 'pandoc').kvs
+    eq['is_tagged'] = 'tag' in kvs
+    if 'tag' in kvs:
         # Remove any surrounding quotes
-        if attrs['tag'][0] == '"' and attrs['tag'][-1] == '"':
-            attrs['tag'] = attrs['tag'].strip('"')
-        elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
-            attrs['tag'] = attrs['tag'].strip("'")
-        references[attrs.id] = attrs['tag']
+        if kvs['tag'][0] == '"' and kvs['tag'][-1] == '"':
+            kvs['tag'] = kvs['tag'].strip('"')
+        elif kvs['tag'][0] == "'" and kvs['tag'][-1] == "'":
+            kvs['tag'] = kvs['tag'].strip("'")
+        references[attrs[0]] = kvs['tag']
     else:
         Nreferences += 1
-        references[attrs.id] = Nreferences
-    return 'tag' in attrs.kvs
+        references[attrs[0]] = Nreferences
+
+    # Adjust equation depending on the output format
+    if fmt == 'latex':
+        # Code in the tags
+        value[-1] += r'\tag{%s}\label{%s}' % \
+          (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
+          if eq['is_tagged'] else r'\label{%s}'%attrs[0]
+    else:  # Hard-code in the number/tag
+        if type(references[attrs[0]]) is int:  # Numbered reference
+            value[-1] += r'\qquad (%d)' % references[attrs[0]]
+        else:  # Tagged reference
+            assert type(references[attrs[0]]) in STRTYPES
+            text = references[attrs[0]].replace(' ', r'\ ')
+            if text.startswith('$') and text.endswith('$'):  # Math
+                tag = text[1:-1]
+            else:  # Text
+                tag = r'\text{%s}' % text
+            value[-1] += r'\qquad (%s)' % tag
+
+    return eq
+
 
 # pylint: disable=unused-argument,too-many-branches
 def process_equations(key, value, fmt, meta):
@@ -105,50 +147,23 @@ def process_equations(key, value, fmt, meta):
 
     if key == 'Math' and len(value) == 3:
 
-        # Parse the equation
-        # pylint: disable=unused-variable
-        attrs, env, equation = value
+        # Process the equation
+        eq = _process_equation(value, fmt)
 
-        # Bail out if the label does not conform
-        if not attrs[0] or not LABEL_PATTERN.match(attrs[0]):
+        # Context-dependent output
+        attrs = eq['attrs']
+        if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
             return
-
-        if attrs[0] == 'eq:': # Make up a unique description
-            attrs[0] = attrs[0] + str(uuid.uuid4())
-
-        # Save the reference
-        is_tagged = _store_ref(attrs)
-
-        # Adjust equation depending on the output format
-        if fmt == 'latex':
-            if is_tagged:
-                equation += r'\tag{%s}\label{%s}' % \
-                  (references[attrs[0]].replace(' ', r'\ '), attrs[0])
-            else:
-                equation += r'\label{%s}'%attrs[0]
-        elif type(references[attrs[0]]) is int:
-            equation += r'\qquad (%d)' % references[attrs[0]]
-        else:  # It is a string
-            assert type(references[attrs[0]]) in STRTYPES
-            # Handle both math and text
-            text = references[attrs[0]].replace(' ', r'\ ')
-            if text.startswith('$') and text.endswith('$'):
-                label = text[1:-1]
-            else:
-                label = r'\text{%s}' % text
-            equation += r'\qquad (%s)' % label
-
-        # Return the replacement
-        if fmt == 'latex':
+        elif fmt == 'latex':
             return RawInline('tex',
-                             r'\begin{equation}%s\end{equation}'%equation)
-        else:
-            value[-1] = equation
-
-        if fmt in ('html', 'html5'):  # Insert anchor
+                             r'\begin{equation}%s\end{equation}'%value[-1])
+        elif eq['is_unreferenceable']:
+            attrs[0] = ''  # The label isn't needed any further
+            return
+        elif fmt in ('html', 'html5') and LABEL_PATTERN.match(attrs[0]):
+            # Insert anchor
             anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
-            math = AttrMath(*value)  # pylint: disable=star-args
-            return [anchor, math]
+            return [anchor, AttrMath(*value)]  # pylint: disable=star-args
 
 
 # Main program ---------------------------------------------------------------
