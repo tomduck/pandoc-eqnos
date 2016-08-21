@@ -1,8 +1,5 @@
 
 
-NOTICE: Clever referencing is now supported.  Details below.
-
-
 pandoc-eqnos 0.12
 =================
 
