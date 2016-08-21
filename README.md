@@ -1,7 +1,7 @@
 
 
-pandoc-eqnos 0.12
-=================
+pandoc-eqnos 0.12.1
+===================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in markdown documents.
 
