@@ -92,7 +92,7 @@ setup(
     url='https://github.com/tomduck/pandoc-eqnos',
     download_url='https://github.com/tomduck/pandoc-eqnos/tarball/' + VERSION,
 
-    install_requires=['pandoc-xnos>=0.4',
+    install_requires=['pandoc-xnos>=0.4.1',
                       'pandocfilters',
                       'pandoc-attributes'],
 
