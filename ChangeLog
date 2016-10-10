@@ -1,4 +1,10 @@
 
+pandoc-eqnos 0.13 (unreleased)
+
+    * Fixed python 2.7 install on Windows.
+    * Require pandoc-xnos >= 0.5.
+
+
 pandoc-eqnos 0.12.1 (2016-08-21)
 
     * Require pandoc-xnos >= 0.4.1
