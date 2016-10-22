@@ -1,4 +1,7 @@
 
+pandoc-eqnos 0.14 (unreleased)
+
+
 pandoc-eqnos 0.13 (2016-10-22)
 
     * Fixed metadata corruption bug (pandoc-fignos Issue #23).
