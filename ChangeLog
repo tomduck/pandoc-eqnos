@@ -1,7 +1,8 @@
 
-pandoc-eqnos 0.13 (unreleased)
+pandoc-eqnos 0.13 (2016-10-22)
 
-    * Fixed python 2.7 install on Windows.
+    * Fixed metadata corruption bug (pandoc-fignos Issue #23).
+    * Fixed python 2.7 install on Windows (pandoc-fignos Issue #27).
     * Require pandoc-xnos >= 0.5.
 
 
@@ -99,5 +100,5 @@ pandoc-eqnos 0.2 (2015-06-01)
 
 pandoc-eqnos 0.1 (2015-03-14)
 
-    * initial release
+    * initial release.
 
