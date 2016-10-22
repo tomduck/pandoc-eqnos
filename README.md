@@ -40,7 +40,7 @@ Contents
 Rationale
 ---------
 
-Equation numbers and references are frequently used in academic writing, but are not supported by pandoc.  Pandoc-eqnos is an add-on filter that provides the missing functionality.
+Equation numbers and references are frequently used in academic writing, but are not supported natively by pandoc.  Pandoc-eqnos is an add-on filter that provides the missing functionality.
 
 The markdown syntax recognized by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].  It seems likely that this will be close to what pandoc ultimately adopts.  Pandoc-eqnos is a transitional package for those who need equation numbers and references now.
 
@@ -62,11 +62,6 @@ Note that any use of `--filter pandoc-citeproc` or `--bibliography=FILE` options
 Markdown Syntax
 ---------------
 
-The basic syntax is taken from [this post] in [pandoc Issue #813].  The extended syntax goes further.
-
-
-### Basic Syntax ###
-
 To number an equation, add the label `eq:id` to its attributes:
 
     $$ y = mx + b $$ {#eq:id}
@@ -85,8 +80,6 @@ Curly braces around a reference are stripped from the output.
 
 See [demo.md] for an example.
 
-
-### Extended Syntax ###
 
 #### Clever References ####
 
