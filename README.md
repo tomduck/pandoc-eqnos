@@ -9,6 +9,8 @@ Demonstration: Processing [demo.md] with `pandoc --filter pandoc-eqnos` gives nu
 
 This version of pandoc-eqnos was tested using pandoc 1.15 - 1.18.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
 
+If you find pandoc-eqnos useful, please encourage further development by giving it a star [on GitHub].
+
 See also: [pandoc-fignos], [pandoc-tablenos]
 
 [pandoc]: http://pandoc.org/
@@ -18,9 +20,10 @@ See also: [pandoc-fignos], [pandoc-tablenos]
 [html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
 [epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
 [md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
-[Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues 
+[Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
+[on GitHub]:  https://github.com/tomduck/pandoc-eqnos
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
-[pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos 
+[pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos
 
 
 Contents
