@@ -56,9 +56,6 @@ parser.add_argument('fmt')
 parser.add_argument('--pandocversion', help='The pandoc version.')
 args = parser.parse_args()
 
-# Initialize pandocxnos
-pandocxnos.init(args.pandocversion)
-
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
 
@@ -71,15 +68,11 @@ plusname = ['eq.', 'eqs.']            # Used with \cref
 starname = ['Equation', 'Equations']  # Used with \Cref
 cleveref_default = False              # Default setting for clever referencing
 
-# Element primitives
-AttrMath = elt('Math', 3)
+PANDOCVERSION = None
+AttrMath = None
 
 
 # Actions --------------------------------------------------------------------
-
-attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
-detach_attrs_math = detach_attrs_factory(Math)
-
 
 def _process_equation(value, fmt):
     """Processes the equation.  Returns a dict containing eq properties."""
@@ -209,18 +202,34 @@ def process(meta):
 def main():
     """Filters the document AST."""
 
-    # Get the output format, document and metadata
+    # pylint: disable=global-statement
+    global PANDOCVERSION
+    global AttrMath
+
+    # Get the output format and document
     fmt = args.fmt
     doc = json.loads(STDIN.read())
-    meta = doc[0]['unMeta']
+
+    # Initialize pandocxnos
+    # pylint: disable=too-many-function-args
+    PANDOCVERSION = pandocxnos.init(args.pandocversion, doc)
+
+    # Element primitives
+    AttrMath = elt('Math', 3)
+
+    # Chop up the doc
+    meta = doc['meta'] if PANDOCVERSION >= '1.18' else doc[0]['unMeta']
+    blocks = doc['blocks'] if PANDOCVERSION >= '1.18' else doc[1:]
 
     # Process the metadata variables
     process(meta)
 
     # First pass; don't walk metadata
+    attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
+    detach_attrs_math = detach_attrs_factory(Math)
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
                                [attach_attrs_math, process_equations,
-                                detach_attrs_math], doc[1:])
+                                detach_attrs_math], blocks)
 
     # Second pass
     process_refs = process_refs_factory(references.keys())
@@ -230,8 +239,14 @@ def main():
                                [repair_refs, process_refs, replace_refs],
                                altered)
 
+    # Update the doc
+    if PANDOCVERSION >= '1.18':
+        doc['blocks'] = altered
+    else:
+        doc = doc[:1] + altered
+
     # Dump the results
-    json.dump(doc[:1] + altered, STDOUT)
+    json.dump(doc, STDOUT)
 
     # Flush stdout
     STDOUT.flush()
