@@ -16,17 +16,6 @@ To install the most recent sources from github using pip:
 Testing
 -------
 
-To test pandoc-eqnos using a specific version of python:
-
- a) Copy pandoc_eqnos.py into the test directory;
-
- b) Use a pipe chain on test.md as follows:
-
-    ~~~
-    $ pandoc test.md -t json | \
-             python2.7 pandoc_eqnos.py | \
-             pandoc -f json -o test.pdf
-
 A suite of regression tests are provided in test/.  Read the README.md in that
 directory for instructions.
 
