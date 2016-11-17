@@ -50,7 +50,7 @@ Note that any use of `--filter pandoc-citeproc` or `--bibliography=FILE` options
 Markdown Syntax
 ---------------
 
-The markdown syntax used by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].
+The markdown syntax extension used by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].
 
 To mark an equation for numbering, add the label `eq:id` to its attributes:
 
