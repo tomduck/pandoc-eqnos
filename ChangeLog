@@ -1,4 +1,10 @@
 
+pandoc-eqnos 0.14.1 (2016-11-17)
+
+    * Python 2.7.3 bug addressed with pandoc-xnos 0.7.
+    * Clarified purpose of this filter in README.md.
+
+
 pandoc-eqnos 0.14 (2016-11-05)
 
     * Updated for pandoc 1.18 (pandoc-fignos Issue #30)
