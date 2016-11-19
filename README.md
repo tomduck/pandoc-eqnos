@@ -103,7 +103,6 @@ Note: If you use `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence,
 [html2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
 [epub2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
 [md2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
-[pandoc unnecessarily drops minus signs]: https://github.com/jgm/pandoc/issues/2901
 
 
 #### Tagged Equations ####
