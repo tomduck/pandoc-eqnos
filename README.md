@@ -89,15 +89,13 @@ to have the reference name (i.e., "eq.") automatically generated.  The above for
 
      *@eq:id
 
-instead.  If clever referencing is enabled by default (see [Customization](#customization), below), you can disable it for a given reference using
+instead.  If clever referencing is enabled by default (see [Customization](#customization), below), you can disable it for a given reference using<sup>[1](#footnote1)</sup>
 
     !@eq:id
 
 Demonstration: Processing [demo2.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf2], [tex][tex2], [html][html2], [epub][epub2], [md][md2] and other formats.
 
 Note: If you use `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence, then you must backslash escape the `*` in the clever reference; e.g., `\*eq:id`.
-
-Note: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references.
 
 [demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
 [pdf2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
@@ -241,3 +239,12 @@ Getting Help
 If you have any difficulties with pandoc-eqnos, or would like to see a new feature, please [file an Issue] on GitHub.
 
 [file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
+
+
+----
+
+**Footnotes**
+
+<a name="footnote1">1</a>: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references.
+
+[pandoc unnecessarily drops minus signs]: https://github.com/jgm/pandoc/issues/2901
