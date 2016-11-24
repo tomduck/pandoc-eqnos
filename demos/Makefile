@@ -15,7 +15,7 @@ out/%.tex: %.md
 
 out/%.html: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< -t html --filter pandoc-eqnos --standalone --mathml -o $@
+	pandoc $< --filter pandoc-eqnos --standalone --mathml -o $@
 
 out/%.epub: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
@@ -23,11 +23,11 @@ out/%.epub: %.md
 
 out/%.md: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< -t markdown --filter pandoc-eqnos -o $@
+	pandoc $< --filter pandoc-eqnos -o $@
 
 out/%.json: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< -t json -o $@
+	pandoc $< -o $@
 
 restore: clean
 	git checkout out/demo.epub
