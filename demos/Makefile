@@ -6,7 +6,8 @@ all: out/demo.pdf out/demo.tex out/demo.html out/demo.md out/demo.epub \
 
 out/%.pdf: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos --variable geometry:margin=1in -o $@
+	pandoc $< --filter pandoc-eqnos --variable geometry:margin=1in \
+              --variable urlcolor=blue -o $@
 
 out/%.tex: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
