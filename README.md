@@ -13,12 +13,12 @@ If you find pandoc-eqnos useful, then please encourage further development by gi
 See also: [pandoc-fignos], [pandoc-tablenos]
 
 [pandoc]: http://pandoc.org/
-[demo.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo.md
-[pdf]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
-[tex]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
+[demo.md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/demo.md
+[pdf]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
+[tex]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
 [html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
-[epub]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
-[md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
+[epub]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
+[md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
 [Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 [on GitHub]:  https://github.com/tomduck/pandoc-eqnos
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
@@ -96,12 +96,12 @@ Demonstration: Processing [demo2.md] with `pandoc --filter pandoc-eqnos` gives n
 
 Note: If you use `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence, then you must backslash escape the `*` in the clever reference; e.g., `\*eq:id`.
 
-[demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
-[pdf2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
-[tex2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
+[demo2.md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/demo2.md
+[pdf2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
+[tex2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
 [html2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
-[epub2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
-[md2]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
+[epub2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
+[md2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
 
 
 #### Tagged Equations ####
@@ -131,12 +131,12 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
 
-[demo3.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo3.md
-[pdf3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
-[tex3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
+[demo3.md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/demo3.md
+[pdf3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
+[tex3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
 [html3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.html
-[epub3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
-[md3]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
+[epub3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
+[md3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
 
 
 #### Pandoc Flags ####
