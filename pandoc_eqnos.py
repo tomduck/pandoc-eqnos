@@ -157,6 +157,16 @@ def process_equations(key, value, fmt, meta):
             # Insert anchor
             anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
             return [anchor, AttrMath(*value)]  # pylint: disable=star-args
+        ## elif fmt == 'docx':
+        ##     # As per http://officeopenxml.com/WPhyperlink.php
+        ##     bookmarkstart = \
+        ##       RawInline('openxml',
+        ##                 '<w:p><w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
+        ##                 %attrs[0])
+        ##     bookmarkend = \
+        ##       RawInline('openxml',
+        ##                 '</w:t></w:r><w:bookmarkEnd w:id="0"/></w:p>')
+        ##     return [bookmarkstart, AttrMath(*value), bookmarkend]
 
 
 # Main program ---------------------------------------------------------------

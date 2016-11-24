@@ -1,4 +1,8 @@
 
+pandoc-eqnos 0.15 (unreleased)
+
+
+
 pandoc-eqnos 0.14.1 (2016-11-17)
 
     * Python 2.7.3 bug addressed with pandoc-xnos 0.7.

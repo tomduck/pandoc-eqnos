@@ -18,7 +18,7 @@ PDFFLAGS = --variable geometry:margin=1in --standalone --mathml \
 HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 
-all: pdf html
+all: pdf html docx
 
 
 pdf: out/test-1.18.pdf \
@@ -45,6 +45,9 @@ html: out/test-1.18.html \
       out/test-1.15.html
 
 
+docx: out/test-1.18.docx
+
+
 out/test-%.html: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< --filter pandoc-eqnos $(HTMLFLAGS) -o $@
@@ -65,6 +68,9 @@ out/test-%.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< --filter pandoc-eqnos $(PDFFLAGS) -o $@
 
+out/test-%.docx: test.md
+	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
+	$(PANDOC-$*) $< --filter pandoc-eqnos -o $@
 
 
 .PHONY: clean
