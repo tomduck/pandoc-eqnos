@@ -1,9 +1,18 @@
 
 extensions = .pdf .html .epub .tex .docx .json .md
 
-all: $(addprefix out/demo,$(extensions)) \
-     $(addprefix out/demo2,$(extensions)) \
-     $(addprefix out/demo3,$(extensions))
+dest = $(addprefix out/demo,$(extensions)) \
+       $(addprefix out/demo2,$(extensions)) \
+       $(addprefix out/demo3,$(extensions))
+
+
+all: $(dest) 
+
+
+$(filter out/demo.%,$(dest)): demo.md
+$(filter out/demo2.%,$(dest)): demo2.md
+$(filter out/demo3.%,$(dest)): demo3.md
+
 
 out/%.pdf: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
@@ -17,34 +26,18 @@ out/%.epub: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	pandoc $< -t epub3 --filter pandoc-eqnos -o $@
 
-out/%.tex: %.md
+out/%:
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos -o $@
+	pandoc $^ --filter pandoc-eqnos -o $@
 
-out/%.docx: %.md
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos -o $@
-
-out/%.json: %.md
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos -o $@
-
-out/%.md: %.md
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos -o $@
 
 restore: clean
-	for ext in $(extensions) ; do \
-    git checkout out/demo$$ext ; \
+	for num in "" 2 3 ; do \
+      for ext in $(extensions) ; do \
+        git checkout out/demo$$num$$ext ; \
+      done ; \
     done
 
-	for ext in $(extensions) ; do \
-    git checkout out/demo2$$ext ; \
-    done
-
-	for ext in $(extensions) ; do \
-    git checkout out/demo3$$ext ; \
-    done
 
 .PHONY: clean
 
