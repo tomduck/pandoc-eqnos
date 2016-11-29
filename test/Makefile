@@ -20,7 +20,6 @@ HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 all: pdf html docx
 
-
 pdf: out/test-1.18.pdf \
      out/test-1.18-py2.7.pdf \
      out/test-1.18-py3.4.pdf \
@@ -38,12 +37,7 @@ pdf: out/test-1.18.pdf \
      out/test-1.15-py3.4.pdf \
      out/test-1.15-cleveref.pdf
 
-
-html: out/test-1.18.html \
-      out/test-1.17.html \
-      out/test-1.16.html \
-      out/test-1.15.html
-
+html: out/test-1.18.html
 
 docx: out/test-1.18.docx
 

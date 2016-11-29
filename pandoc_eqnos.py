@@ -39,7 +39,7 @@ import json
 import uuid
 
 from pandocfilters import walk
-from pandocfilters import Math, RawInline
+from pandocfilters import Math, RawInline, Str
 
 from pandocattributes import PandocAttributes
 
@@ -74,6 +74,7 @@ AttrMath = None
 
 # Actions --------------------------------------------------------------------
 
+# pylint: disable=too-many-branches
 def _process_equation(value, fmt):
     """Processes the equation.  Returns a dict containing eq properties."""
 
@@ -119,6 +120,8 @@ def _process_equation(value, fmt):
             value[-1] += r'\tag{%s}\label{%s}' % \
               (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
               if eq['is_tagged'] else r'\label{%s}'%attrs[0]
+    elif fmt in ('html', 'html5'):
+        pass  # Insert html in process_equations() instead
     else:  # Hard-code in the number/tag
         if type(references[attrs[0]]) is int:  # Numbered reference
             value[-1] += r'\qquad (%d)' % references[attrs[0]]
@@ -143,30 +146,55 @@ def process_equations(key, value, fmt, meta):
         # Process the equation
         eq = _process_equation(value, fmt)
 
-        # Context-dependent output
+        # Get the attributes and label
         attrs = eq['attrs']
+        label = attrs[0]
+        if eq['is_unreferenceable']:
+            attrs[0] = ''  # The label isn't needed outside this function
+
+        # Context-dependent output
         if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
             return
         elif fmt == 'latex':
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        elif eq['is_unreferenceable']:
-            attrs[0] = ''  # The label isn't needed any further
-            return
-        elif fmt in ('html', 'html5') and LABEL_PATTERN.match(attrs[0]):
+        elif fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
             # Insert anchor
-            anchor = RawInline('html', '<a name="%s"></a>'%attrs[0])
-            return [anchor, AttrMath(*value)]  # pylint: disable=star-args
-        ## elif fmt == 'docx':
-        ##     # As per http://officeopenxml.com/WPhyperlink.php
-        ##     bookmarkstart = \
-        ##       RawInline('openxml',
-        ##                 '<w:p><w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
-        ##                 %attrs[0])
-        ##     bookmarkend = \
-        ##       RawInline('openxml',
-        ##                 '</w:t></w:r><w:bookmarkEnd w:id="0"/></w:p>')
-        ##     return [bookmarkstart, AttrMath(*value), bookmarkend]
+            anchor = RawInline('html', '<a name="%s"></a>'%label) \
+              if not eq['is_unreferenceable'] else None
+            # Present equation and its number in a span
+            text = str(references[label])
+            outerspan = RawInline('html',
+                                  '<span style="display: inline-block; '
+                                  'position: relative; width: 100%">')
+            if text.startswith('$') and text.endswith('$'):
+                innerspan = RawInline('html',
+                                      '<span style="position: absolute; ' \
+                                      'right: 0em; top: 0; line-height:0; ' \
+                                      'text-align: right">')
+            else:
+                innerspan = RawInline('html',
+                                      '<span style="position: absolute; ' \
+                                      'right: 0em; top: 50%; line-height:0; ' \
+                                      'text-align: right">')                
+            num = Math({"t":"InlineMath"}, '(%s)' % text[1:-1]) \
+              if text.startswith('$') and text.endswith('$') \
+              else Str('(%s)' % text)
+            endspans = RawInline('html', '</span></span>')
+            # pylint: disable=star-args
+            return [x for x in [anchor, outerspan, AttrMath(*value), innerspan,
+                                num, endspans] if not x is None]
+        elif fmt == 'docx':
+            # As per http://officeopenxml.com/WPhyperlink.php
+            bookmarkstart = \
+              RawInline('openxml',
+                        '<w:p><w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
+                        %label)
+            bookmarkend = \
+              RawInline('openxml',
+                        '</w:t></w:r><w:bookmarkEnd w:id="0"/></w:p>')
+            # pylint: disable=star-args
+            return [bookmarkstart, AttrMath(*value), bookmarkend]
 
 
 # Main program ---------------------------------------------------------------
