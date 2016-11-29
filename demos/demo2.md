@@ -7,7 +7,6 @@ $$ y = \sum_{n=0}^{\infty} a_n x^n $$ {#eq:polynomial}
 *@eq:line and +@eq:polynomial are known to all first-year math students.
 
 The Fourier series is a little more advanced:
-
 $$ y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
                       + \sum_{n=1}^{\infty}b_n\cos(nx)
 $$ {#eq:fourier}

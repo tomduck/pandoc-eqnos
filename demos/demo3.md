@@ -1,7 +1,6 @@
 ---
 eqnos-cleveref: On
-eqnos-plus-name: EQ.
-eqnos-star-name: EQUATION
+eqnos-plus-name: Eq.
 ...
 
 The equation for a straight line is

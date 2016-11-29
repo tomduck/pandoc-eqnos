@@ -1,23 +1,24 @@
-% Cleveref macros
-\providecommand{\crefformat}[2]{}
-\providecommand{\Crefformat}[2]{}
-\crefformat{equation}{EQ.~#2#1#3}
-\Crefformat{equation}{EQUATION~#2#1#3}
-
-% Cleveref fakery
-\providecommand{\plusnamesingular}{}
-\providecommand{\starnamesingular}{}
+% pandoc-xnos: cleveref fakery
+\newcommand{\plusnamesingular}{}
+\newcommand{\starnamesingular}{}
+\newcommand{\xrefname}[1]{\protect\renewcommand{\plusnamesingular}{#1}}
+\newcommand{\Xrefname}[1]{\protect\renewcommand{\starnamesingular}{#1}}
 \providecommand{\cref}{\plusnamesingular~\ref}
 \providecommand{\Cref}{\starnamesingular~\ref}
+\providecommand{\crefformat}[2]{}
+\providecommand{\Crefformat}[2]{}
+
+% pandoc-xnos: cleveref formatting
+\crefformat{equation}{Eq.~#2#1#3}
+\Crefformat{equation}{Equation~#2#1#3}
 
 The equation for a straight line is
 \begin{equation} y = mx + b \label{eq:line}\end{equation} and the
 equation for a polynomial is
 \begin{equation} y = \sum_{n=0}^{\infty} a_n x^n \label{eq:polynomial}\end{equation}
 
-\protect\renewcommand{\starnamesingular}{EQUATION}\Cref{eq:line} and
-\protect\renewcommand{\plusnamesingular}{EQ.}\cref{eq:polynomial} are
-known to all first-year math students.
+\Xrefname{Equation}\Cref{eq:line} and \xrefname{Eq.}\cref{eq:polynomial}
+are known to all first-year math students.
 
 The Fourier series is a little more advanced:
 
@@ -33,5 +34,4 @@ Equations can be left unnumbered if we do not need to refer to them:
 
 It is also possible to number equations generically without planning to
 refer to them; e.g.:
-\begin{equation} \pi = 3.141592653589793238462643\dots \label{eq:d8713f25-dcbf-40c7-980e-e5d256f91b61}\end{equation}
-
+\begin{equation} \pi = 3.141592653589793238462643\dots \end{equation} 

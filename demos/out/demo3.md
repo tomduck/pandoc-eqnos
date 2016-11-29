@@ -2,7 +2,8 @@ The equation for a straight line is $$ y = mx + b \qquad (1)$$ and the
 equation for a polynomial is
 $$ y = \sum_{n=0}^{\infty} a_n x^n \qquad (2)$$
 
-EQUATION 1 and EQ. 2 are known to all first-year math students.
+Equation [1](#eq:line) and Eq. [2](#eq:polynomial) are known to all
+first-year math students.
 
 The Fourier series is a little more advanced:
 
@@ -10,7 +11,8 @@ $$ y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
                       + \sum_{n=1}^{\infty}b_n\cos(nx)
 \qquad (3)$$
 
-Equations 1--3 are used throughout science and engineering.
+Equations [1](#eq:line)--[3](#eq:fourier) are used throughout science
+and engineering.
 
 Equations can be left unnumbered if we do not need to refer to them:
 $$ y = A e^{-\gamma t}\cos(2\pi f t) $$
