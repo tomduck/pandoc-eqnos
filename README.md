@@ -1,5 +1,5 @@
 
-**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change in approach, but has significant benefits.  Please file issues if you have difficulties with it.
+**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change, but has significant benefits.  Please file an Issue if you encounter difficulties.
 
 
 pandoc-eqnos 0.15
