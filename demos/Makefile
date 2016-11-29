@@ -35,15 +35,15 @@ out/%.md: %.md
 
 restore: clean
 	for ext in $(extensions) ; do \
-    git checkout out/demo.$$ext ; \
+    git checkout out/demo$$ext ; \
     done
 
 	for ext in $(extensions) ; do \
-    git checkout out/demo2.$$ext ; \
+    git checkout out/demo2$$ext ; \
     done
 
 	for ext in $(extensions) ; do \
-    git checkout out/demo3.$$ext ; \
+    git checkout out/demo3$$ext ; \
     done
 
 .PHONY: clean
