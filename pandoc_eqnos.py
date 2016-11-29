@@ -167,16 +167,12 @@ def process_equations(key, value, fmt, meta):
             outerspan = RawInline('html',
                                   '<span style="display: inline-block; '
                                   'position: relative; width: 100%">')
-            if text.startswith('$') and text.endswith('$'):
-                innerspan = RawInline('html',
-                                      '<span style="position: absolute; ' \
-                                      'right: 0em; top: 0; line-height:0; ' \
-                                      'text-align: right">')
-            else:
-                innerspan = RawInline('html',
-                                      '<span style="position: absolute; ' \
-                                      'right: 0em; top: 50%; line-height:0; ' \
-                                      'text-align: right">')                
+            innerspan = RawInline('html',
+                                  '<span style="position: absolute; ' \
+                                  'right: 0em; top: %s; line-height:0; ' \
+                                  'text-align: right">' %
+                                  ('0' if text.startswith('$') and
+                                   text.endswith('$') else '50%',))
             num = Math({"t":"InlineMath"}, '(%s)' % text[1:-1]) \
               if text.startswith('$') and text.endswith('$') \
               else Str('(%s)' % text)

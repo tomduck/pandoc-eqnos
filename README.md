@@ -1,10 +1,13 @@
 
+**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change in approach, but has significant benefits.  Please file issues if you have difficulties with it.
+
+
 pandoc-eqnos 0.15
 =================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in processed markdown documents.  A cross-referencing syntax is added to markdown for this purpose.
 
-Demonstration: Processing [demo.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf], [tex], [html], [epub], [md] and other formats.   A design goal of pandoc-eqnos is that all output formats should be equally supported.
+Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
 
 This version of pandoc-eqnos was tested using pandoc 1.15 - 1.18.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
 
@@ -13,12 +16,6 @@ If you find pandoc-eqnos useful, then please encourage further development by gi
 See also: [pandoc-fignos], [pandoc-tablenos]
 
 [pandoc]: http://pandoc.org/
-[demo.md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/demo.md
-[pdf]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
-[tex]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
-[html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
-[epub]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
-[md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
 [Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 [on GitHub]:  https://github.com/tomduck/pandoc-eqnos
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
@@ -67,11 +64,17 @@ or
 
 Curly braces around a reference are stripped from the output.
 
-See [demo.md] for an example.
+Demonstration: Processing [demo.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf], [tex], [html], [epub], [md] and other formats.
 
 [pandoc Issue #813]: https://github.com/jgm/pandoc/issues/813
 [this post]: https://github.com/jgm/pandoc/issues/813#issuecomment-70423503
 [@scaramouche1]: https://github.com/scaramouche1
+[demo.md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/demo.md
+[pdf]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
+[tex]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
+[html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
+[epub]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
+[md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
 
 
 #### Clever References ####

@@ -1,6 +1,9 @@
 
-pandoc-eqnos 0.15 (unreleased)
+pandoc-eqnos 0.15 (2016-11-29)
 
+    * For html, write equation numbers in a span and justify them
+      right.  Before, the equation numbers were written into
+      the equation.  This is a big change in approach.
 
 
 pandoc-eqnos 0.14.1 (2016-11-17)
