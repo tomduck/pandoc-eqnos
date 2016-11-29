@@ -173,7 +173,7 @@ For html output:
 
   * The `math` element and a hard-coded equation number/tag are
     wrapped in an "outer" `span` element;
-  * The equation number is wrapped in its own "inner" `span` and
+  * The equation number/tag is wrapped in its own "inner" `span` and
     justified right;
   * (Clever) references are hard-coded and linked to their target.
 
