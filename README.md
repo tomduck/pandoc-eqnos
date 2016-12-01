@@ -9,7 +9,7 @@ pandoc-eqnos 0.15
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
 
-This version of pandoc-eqnos was tested using pandoc 1.15 - 1.18.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
+This version of pandoc-eqnos was tested using pandoc 1.15 - 1.19.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
 
 If you find pandoc-eqnos useful, then please encourage further development by giving it a star [on GitHub].
 
@@ -157,7 +157,7 @@ Some of pandoc's command-line flags impact equation numbering:
 Technical Details
 -----------------
 
-For TeX/pdf output:
+TeX/pdf:
 
   * The `equation` environment is used;
   * Tagged equations make use of the `\tag` macro;
@@ -169,17 +169,17 @@ For TeX/pdf output:
     meta variable `xnos-cleveref-fake` to `Off` to disable cleveref
     faking.
 
-For html output:
+Html:
 
   * The `math` element and a hard-coded equation number/tag are
     wrapped in an "outer" `span` element;
   * The equation number/tag is wrapped in its own "inner" `span` and
-    justified right;
+    justified right; and
   * (Clever) references are hard-coded and linked to their target.
 
 Other formats:
 
-  * Numbers/tags are hard-coded into the equation itself;
+  * Numbers/tags are hard-coded into the equation; and
   * (Clever) references are hard-coded into the output.
 
 
