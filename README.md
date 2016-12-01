@@ -1,5 +1,5 @@
 
-**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change, but has significant benefits.  Please file an Issue if you encounter difficulties.
+**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change, but has significant benefits.  Please submit a report to our [Issues tracker] if you encounter difficulties.
 
 
 pandoc-eqnos 0.15
@@ -226,6 +226,15 @@ owing to the ancient version of setuptools that Debian provides.  The command sh
 [standard installation]: #standard-installation
 
 
+#### Installing on Mac OS X ####
+
+To install as root on Mac OS X, you will need to use the `sudo` command.  For example:
+
+    sudo pip install pandoc-eqnos
+
+Testing with `which` should be done as a regular user (i.e., without using `sudo`).
+
+
 #### Installing on Windows ####
 
 It is easy to install python on Windows.  First, [download] the latest release.  Run the installer and complete the following steps:
@@ -246,9 +255,7 @@ Once python is installed, start the "Command Prompt" program.  Depending on wher
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-eqnos, or would like to see a new feature, please [file an Issue] on GitHub.
-
-[file an issue]: https://github.com/tomduck/pandoc-eqnos/issues
+If you have any difficulties with pandoc-eqnos, or would like to see a new feature, please submit a report to our [Issues tracker].
 
 
 ----
