@@ -193,7 +193,7 @@ Pandoc-eqnos requires [python], a programming language that comes pre-installed 
 
 #### Standard installation ####
 
-Install pandoc-eqnos as root using the shell command
+Install pandoc-eqnos (as root) using the shell command
 
     pip install pandoc-eqnos
 
@@ -203,11 +203,20 @@ To upgrade to the most recent release, use
 
 Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It should come installed with your python distribution.
 
-If you are prompted to upgrade `pip`, then do so.  Installation errors may occur with older versions.  The command is
+[PyPI]: https://pypi.python.org/pypi
+
+
+#### Troubleshooting ####
+
+If you are prompted to upgrade `pip`, then do so.  Installation errors may occur with older versions.   The command you need to execute (as root) is
 
     python -m pip install --upgrade pip
 
-[PyPI]: https://pypi.python.org/pypi
+You may test the installation as a regular user using the shell command
+
+    which pandoc-eqnos
+
+This will tell you where pandoc-eqnos is installed.  If it is not found, then please submit a report to our [Issues tracker].
 
 
 #### Installing on linux ####
