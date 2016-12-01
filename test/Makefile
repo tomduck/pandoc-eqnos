@@ -29,7 +29,7 @@ pdf: out/test-1.19.pdf \
      out/test-1.18.pdf \
      out/test-1.17.pdf \
      out/test-1.16.pdf \
-     out/test-1.15.pdf \
+     out/test-1.15.pdf
 
 html: out/test-1.19.html
 
