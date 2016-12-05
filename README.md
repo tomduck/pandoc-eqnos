@@ -1,8 +1,8 @@
 
-**NEW:** For html, equation numbers are now written into a span and justified right.  Before, the equation numbers were written directly into the equation.  This is a big change, but has significant benefits.  Please submit a report to our [Issues tracker] if you encounter difficulties.
+**NEW:** For html, equation numbers are now written into a span and justified right.  Also: Equation numbers by section in LaTeX/pdf and html.
 
 
-pandoc-eqnos 0.15
+pandoc-eqnos 0.16
 =================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in processed markdown documents.  A cross-referencing syntax is added to markdown for this purpose.
@@ -52,7 +52,7 @@ To mark an equation for numbering, add the label `eq:id` to its attributes:
 
     $$ y = mx + b $$ {#eq:id}
 
-The prefix `#eq:` is required. `id` should be replaced with a unique identifier composed of letters, numbers, dashes, slashes and underscores.  If `id` is omitted then the figure will be numbered but unreferenceable.
+The prefix `#eq:` is required. `id` should be replaced with a unique identifier composed of letters, numbers, dashes, slashes and underscores.  If `id` is omitted then the equation will be numbered but unreferenceable.
 
 To reference the equation, use
 
@@ -142,16 +142,34 @@ Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives n
 [md3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
 
 
-#### Pandoc Flags ####
+#### Equation Numbers by Section ####
 
-Some of pandoc's command-line flags impact equation numbering:
+The `--number-sections` option enables section numbers in pandoc.  Equation numbers by section (e.g., "Eq. 2.1") can be obtained as follows:
 
-  * `-N`, `--number-sections`: Numbers section (or chapter) headings
-    in LaTeX/pdf, ConTeXt, html, and epub output.  Equation numbers
-    are given in X.Y format, where X is the section (or chapter)
-    number and Y is the equation number.  Equation numbers restart
-    at 1 for each section (or chapter).  See also pandoc's
-    `--top-level-division` flag and `documentclass` meta variable.
+ 1) **html:** Add `xnos-section-numbers: On` to your YAML metadata or
+    use the `-M xnos-section-numbers=On` option with pandoc.  This
+    variable is ignored for other output formats.
+
+ 2) **LaTeX/pdf:** Add 
+    `header-includes: \numberwithin{equation}{section}` to your YAML
+    metadata.  If you need multiple header includes, then add
+    something like this:
+
+    ~~~
+    header-includes:
+      - \numberwithin{figure}{section}
+      - \numberwithin{equation}{section}
+      - \numberwithin{table}{section}
+    ~~~
+
+    Alternatively, write your header includes into FILE,
+    and use the `--include-in-header=FILE` option with pandoc.
+
+    If you set either `--top-level-division=part` or
+    `--top-level-division=chapter` then these header includes can be
+    dropped.
+
+    LaTeX header-includes are ignored for html output.
 
 
 Technical Details

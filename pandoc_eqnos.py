@@ -48,6 +48,7 @@ from pandocxnos import STRTYPES, STDIN, STDOUT
 from pandocxnos import get_meta
 from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
 from pandocxnos import attach_attrs_factory, detach_attrs_factory
+from pandocxnos import insert_secnos_factory, delete_secnos_factory
 from pandocxnos import elt
 
 # Read the command-line arguments
@@ -59,7 +60,7 @@ args = parser.parse_args()
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
 
-Nreferences = 0        # The numbered references count (i.e., excluding tags)
+Nreferences = 0        # Global references counter
 references = {}        # Global references tracker
 unreferenceable = []   # List of labels that are unreferenceable
 
@@ -67,6 +68,10 @@ unreferenceable = []   # List of labels that are unreferenceable
 plusname = ['eq.', 'eqs.']            # Used with \cref
 starname = ['Equation', 'Equations']  # Used with \Cref
 cleveref_default = False              # Default setting for clever referencing
+
+# Variables for tracking section numbers
+numbersections = False
+cursec = None
 
 PANDOCVERSION = None
 AttrMath = None
@@ -78,7 +83,9 @@ AttrMath = None
 def _process_equation(value, fmt):
     """Processes the equation.  Returns a dict containing eq properties."""
 
-    global Nreferences # pylint: disable=global-statement
+    # pylint: disable=global-statement
+    global Nreferences  # Global references counter
+    global cursec       # Current section
 
     # Parse the equation
     attrs = value[0]
@@ -95,13 +102,22 @@ def _process_equation(value, fmt):
         eq['is_unreferenceable'] = True
         return eq
 
+    # Process unreferenceable equations
     if attrs[0] == 'eq:': # Make up a unique description
         attrs[0] = attrs[0] + str(uuid.uuid4())
         eq['is_unreferenceable'] = True
         unreferenceable.append(attrs[0])
 
-    # Save to the global references tracker
+    # For html, hard-code in the section numbers as tags
     kvs = PandocAttributes(attrs, 'pandoc').kvs
+    if numbersections and fmt in ['html', 'html5'] and not 'tag' in kvs:
+        if kvs['secno'] != cursec:
+            cursec = kvs['secno']
+            Nreferences = 1
+        kvs['tag'] = cursec + '.' + str(Nreferences)
+        Nreferences += 1
+
+    # Save to the global references tracker
     eq['is_tagged'] = 'tag' in kvs
     if eq['is_tagged']:
         # Remove any surrounding quotes
@@ -200,7 +216,7 @@ def process(meta):
     computed fields."""
 
     # pylint: disable=global-statement
-    global cleveref_default, plusname, starname
+    global cleveref_default, plusname, starname, numbersections
 
     # Read in the metadata fields and do some checking
 
@@ -232,6 +248,9 @@ def process(meta):
         for name in starname:
             assert type(name) in STRTYPES
 
+    if 'xnos-number-sections' in meta and meta['xnos-number-sections']['c']:
+        numbersections = True
+
 
 def main():
     """Filters the document AST."""
@@ -258,11 +277,14 @@ def main():
     # Process the metadata variables
     process(meta)
 
-    # First pass; don't walk metadata
+    # First pass
     attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
     detach_attrs_math = detach_attrs_factory(Math)
+    insert_secnos = insert_secnos_factory(Math)
+    delete_secnos = delete_secnos_factory(Math)
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
-                               [attach_attrs_math, process_equations,
+                               [attach_attrs_math, insert_secnos,
+                                process_equations, delete_secnos,
                                 detach_attrs_math], blocks)
 
     # Second pass

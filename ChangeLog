@@ -1,4 +1,9 @@
 
+pandoc-eqnos 0.16 (2016-12-05)
+
+   * Added numbering equations by section for html.
+
+
 pandoc-eqnos 0.15 (2016-11-29)
 
     * For html, write equation numbers in a span and justify them
