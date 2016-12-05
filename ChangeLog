@@ -1,7 +1,8 @@
 
 pandoc-eqnos 0.16 (2016-12-05)
 
-   * Added numbering equations by section for html.
+    * Added numbering equations by section for html
+      (pandoc-eqnos Issue #15).
 
 
 pandoc-eqnos 0.15 (2016-11-29)
