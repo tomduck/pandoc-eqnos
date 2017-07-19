@@ -200,11 +200,11 @@ def process_equations(key, value, fmt, meta):
             # As per http://officeopenxml.com/WPhyperlink.php
             bookmarkstart = \
               RawInline('openxml',
-                        '<w:p><w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
+                        '<w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
                         %label)
             bookmarkend = \
               RawInline('openxml',
-                        '</w:t></w:r><w:bookmarkEnd w:id="0"/></w:p>')
+                        '</w:t></w:r><w:bookmarkEnd w:id="0"/>')
             # pylint: disable=star-args
             return [bookmarkstart, AttrMath(*value), bookmarkend]
 
