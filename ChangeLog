@@ -1,10 +1,15 @@
 
-pandoc-fignos 0.17 (2017-09-19)
+pandoc-eqnos 0.18 (2017-09-19)
+
+    * Fixes for beamer (pandoc-fignos Issue #38).
+
+
+pandoc-eqnos 0.17 (2017-09-19)
 
     * Bug fix for Word output (Issue #16).
 
 
-pandoc-fignos 0.16.1 (2017-09-12)
+pandoc-eqnos 0.16.1 (2017-09-12)
 
     * Documentation updates.
 

@@ -1,10 +1,14 @@
 
-pandoc-eqnos 0.17
-===================
+
+*NEW: Beamer slideshow support.*
+
+
+pandoc-eqnos 0.18
+=================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in processed markdown documents.  A cross-referencing syntax is added to markdown for this purpose.
 
-Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
+Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
 This version of pandoc-eqnos was tested using pandoc 1.15.2 - 1.19.2.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
 
@@ -241,6 +245,12 @@ You may test the installation as a regular user using the shell command
     which pandoc-eqnos
 
 This will tell you where pandoc-eqnos is installed.  If it is not found, then please submit a report to our [Issues tracker].
+
+To determine which version of pandoc-eqnos you have installed, use
+
+    pip show pandoc-eqnos
+
+Please be sure you have the latest version installed before reporting a bug on our [Issues tracker]
 
 
 #### Installing on linux ####

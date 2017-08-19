@@ -131,7 +131,7 @@ def _process_equation(value, fmt):
         references[attrs[0]] = Nreferences
 
     # Adjust equation depending on the output format
-    if fmt == 'latex':
+    if fmt in ['latex', 'beamer']:
         if not eq['is_unreferenceable']:  # Code in the tags
             value[-1] += r'\tag{%s}\label{%s}' % \
               (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
@@ -171,7 +171,7 @@ def process_equations(key, value, fmt, meta):
         # Context-dependent output
         if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
             return
-        elif fmt == 'latex':
+        elif fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
         elif fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
