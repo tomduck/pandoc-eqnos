@@ -1,4 +1,9 @@
 
+pandoc-fignos 0.17 (2017-09-19)
+
+    * Bug fix for Word output (Issue #16).
+
+
 pandoc-fignos 0.16.1 (2017-09-12)
 
     * Documentation updates.
@@ -6,8 +11,7 @@ pandoc-fignos 0.16.1 (2017-09-12)
 
 pandoc-eqnos 0.16 (2016-12-05)
 
-    * Added numbering equations by section for html
-      (pandoc-eqnos Issue #15).
+    * Added numbering equations by section for html (Issue #15).
 
 
 pandoc-eqnos 0.15 (2016-11-29)
