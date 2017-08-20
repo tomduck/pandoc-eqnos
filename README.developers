@@ -32,9 +32,12 @@ Tagging:
     $ git tag -a <tag> -m <message>
     $ git push origin <tag>
 
+Creating a source distribution:
+
+    $ python3 setup.py sdist
 
 Uploading to pypi (update the version number):
 
-    $ twine upload dist/pandoc_eqnos-0.18-py*
+    $ twine upload dist/pandoc-eqnos-0.18.1.tar.gz
 
 (from https://pypi.python.org/pypi/twine)

@@ -1,5 +1,5 @@
 
-pandoc-eqnos 0.18 (2017-09-19)
+pandoc-eqnos 0.18.1 (2017-09-19)
 
     * Fixes for beamer (pandoc-fignos Issue #38).
 
