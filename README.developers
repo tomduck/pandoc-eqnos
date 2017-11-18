@@ -38,6 +38,6 @@ Creating a source distribution:
 
 Uploading to pypi (update the version number):
 
-    $ twine upload dist/pandoc-eqnos-0.18.1.tar.gz
+    $ twine upload dist/pandoc-eqnos-1.0.0-rc.1.tar.gz
 
 (from https://pypi.python.org/pypi/twine).
