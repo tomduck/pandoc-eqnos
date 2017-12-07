@@ -9,7 +9,7 @@ $ pip3 install --upgrade --pre pandoc-eqnos
 ~~~
 
 
-pandoc-eqnos 1.0.0rc1
+pandoc-eqnos 1.0.0rc2
 =====================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references in processed markdown documents.  A cross-referencing syntax is added to markdown for this purpose.

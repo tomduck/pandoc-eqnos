@@ -175,17 +175,16 @@ def process_equations(key, value, fmt, meta):
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
         elif fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
-            # Insert anchor
-            anchor = RawInline('html', '<a name="%s"></a>'%label) \
-              if not eq['is_unreferenceable'] else None
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
-                                  '<span style="display: inline-block; '
-                                  'position: relative; width: 100%">')
+                                  '<span %s style="display: inline-block; '
+                                  'position: relative; width: 100%%">'%(''\
+                                  if eq['is_unreferenceable'] \
+                                  else 'id="%s"'%label))
             innerspan = RawInline('html',
-                                  '<span style="position: absolute; ' \
-                                  'right: 0em; top: %s; line-height:0; ' \
+                                  '<span style="position: absolute; '
+                                  'right: 0em; top: %s; line-height:0; '
                                   'text-align: right">' %
                                   ('0' if text.startswith('$') and
                                    text.endswith('$') else '50%',))
@@ -194,8 +193,7 @@ def process_equations(key, value, fmt, meta):
               else Str('(%s)' % text)
             endspans = RawInline('html', '</span></span>')
             # pylint: disable=star-args
-            return [x for x in [anchor, outerspan, AttrMath(*value), innerspan,
-                                num, endspans] if not x is None]
+            return [outerspan, AttrMath(*value), innerspan, num, endspans]
         elif fmt == 'docx':
             # As per http://officeopenxml.com/WPhyperlink.php
             bookmarkstart = \

@@ -1,3 +1,9 @@
+pandoc-eqnos 1.0.0rc2 (2017-11-18)
+
+    * Write equation id in outer span; removed redundant
+      "<a name=..." tag (pandoc-eqnos Issue #26).
+
+
 pandoc-eqnos 1.0.0rc1 (2017-11-18)
 
     * Release candidate updated for pandoc 2.0.
