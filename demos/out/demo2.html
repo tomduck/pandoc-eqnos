@@ -1,93 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <script type="text/javascript">/*<![CDATA[*/
-  /*
-  March 19, 2004 MathHTML (c) Peter Jipsen http://www.chapman.edu/~jipsen
-  Released under the GNU General Public License version 2 or later.
-  See the GNU General Public License (at http://www.gnu.org/copyleft/gpl.html)
-  for more details.
-  */
-  
-  function convertMath(node) {// for Gecko
-    if (node.nodeType==1) {
-      var newnode =
-        document.createElementNS("http://www.w3.org/1998/Math/MathML",
-          node.nodeName.toLowerCase());
-      for(var i=0; i < node.attributes.length; i++)
-        newnode.setAttribute(node.attributes[i].nodeName,
-          node.attributes[i].value);
-      for (var i=0; i<node.childNodes.length; i++) {
-        var st = node.childNodes[i].nodeValue;
-        if (st==null || st.slice(0,1)!=" " && st.slice(0,1)!="\n")
-          newnode.appendChild(convertMath(node.childNodes[i]));
-      }
-      return newnode;
-    }
-    else return node;
-  }
-  
-  function convert() {
-    var mmlnode = document.getElementsByTagName("math");
-    var st,str,node,newnode;
-    for (var i=0; i<mmlnode.length; i++)
-      if (document.createElementNS!=null)
-        mmlnode[i].parentNode.replaceChild(convertMath(mmlnode[i]),mmlnode[i]);
-      else { // convert for IE
-        str = "";
-        node = mmlnode[i];
-        while (node.nodeName!="/MATH") {
-          st = node.nodeName.toLowerCase();
-          if (st=="#text") str += node.nodeValue;
-          else {
-            str += (st.slice(0,1)=="/" ? "</m:"+st.slice(1) : "<m:"+st);
-            if (st.slice(0,1)!="/")
-               for(var j=0; j < node.attributes.length; j++)
-                 if (node.attributes[j].value!="italic" &&
-                   node.attributes[j].value!="" &&
-                   node.attributes[j].value!="inherit" &&
-                   node.attributes[j].value!=undefined)
-                   str += " "+node.attributes[j].nodeName+"="+
-                       "\""+node.attributes[j].value+"\"";
-            str += ">";
-          }
-          node = node.nextSibling;
-          node.parentNode.removeChild(node.previousSibling);
-        }
-        str += "</m:math>";
-        newnode = document.createElement("span");
-        node.parentNode.replaceChild(newnode,node);
-        newnode.innerHTML = str;
-      }
-  }
-  
-  if (document.createElementNS==null) {
-    document.write("<object id=\"mathplayer\"\
-    classid=\"clsid:32F66A20-7614-11D4-BD11-00104BD3F987\"></object>");
-    document.write("<?import namespace=\"m\" implementation=\"#mathplayer\"?>");
-  }
-  if(typeof window.addEventListener != 'undefined'){
-    window.addEventListener('load', convert, false);
-  }
-  if(typeof window.attachEvent != 'undefined') {
-    window.attachEvent('onload', convert);
-  }
-  /*]]>*/
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>demo2</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-<p>The equation for a straight line is <a name="eq:line"></a><span style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y = mx + b </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(1)</span></span>  and the equation for a polynomial is <a name="eq:polynomial"></a><span style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mi>∞</mi></munderover><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex"> y = \sum_{n=0}^{\infty} a_n x^n </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(2)</span></span> </p>
+<p>The equation for a straight line is <span id="eq:line" style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y = mx + b </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(1)</span></span>  and the equation for a polynomial is <span id="eq:polynomial" style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex"> y = \sum_{n=0}^{\infty} a_n x^n </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(2)</span></span> </p>
 <p>Equation <a href="#eq:line">1</a> and eq. <a href="#eq:polynomial">2</a> are known to all first-year math students.</p>
-<p>The Fourier series is a little more advanced: <a name="eq:fourier"></a><span style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>a</mi><mn>0</mn></msub><mo>+</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>∞</mi></munderover><msub><mi>a</mi><mi>n</mi></msub><mo>cos</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>∞</mi></munderover><msub><mi>b</mi><mi>n</mi></msub><mo>cos</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex"> y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
+<p>The Fourier series is a little more advanced: <span id="eq:fourier" style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>a</mi><mn>0</mn></msub><mo>+</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>a</mi><mi>n</mi></msub><mo>cos</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo accent="false">∞</mo></munderover><msub><mi>b</mi><mi>n</mi></msub><mo>cos</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex"> y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
                       + \sum_{n=1}^{\infty}b_n\cos(nx)
 </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(3)</span></span> </p>
-<p>Equations <a href="#eq:line">1</a>--<a href="#eq:fourier">3</a> are used throughout science and engineering.</p>
+<p>Equations <a href="#eq:line">1</a>–<a href="#eq:fourier">3</a> are used throughout science and engineering.</p>
 <p>Equations can be left unnumbered if we do not need to refer to them: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>A</mi><msup><mi>e</mi><mrow><mo>−</mo><mi>γ</mi><mi>t</mi></mrow></msup><mo>cos</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex"> y = A e^{-\gamma t}\cos(2\pi f t) </annotation></semantics></math></p>
-<p>It is also possible to number equations generically without planning to refer to them; e.g.: <span style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mn>3.141592653589793238462643</mn><mi>…</mi></mrow><annotation encoding="application/x-tex"> \pi = 3.141592653589793238462643\dots </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(4)</span></span> </p>
+<p>It is also possible to number equations generically without planning to refer to them; e.g.: <span  style="display: inline-block; position: relative; width: 100%"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mn>3.141592653589793238462643</mn><mi>…</mi></mrow><annotation encoding="application/x-tex"> \pi = 3.141592653589793238462643\dots </annotation></semantics></math><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(4)</span></span> </p>
 </body>
 </html>
