@@ -5,20 +5,18 @@
 *To install it with pip, you must use the `--pre` flag.  e.g.:*
 
 ~~~
-$ pip3 install --upgrade --pre pandoc-eqnos
+$ pip install --upgrade --pre pandoc-eqnos
 ~~~
 
 
 pandoc-eqnos 1.0.0rc2
 =====================
 
-*pandoc-eqnos* is a [pandoc] filter that extends the markdown document syntax for equation numbering and cross-referencing.
+*pandoc-eqnos* is a [pandoc] filter that extends markdown for equation numbering and cross-referencing.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.0.4.  It works under linux, Mac OS X and Windows.  Older versions and other platforms can be supported on request.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].
-
-If you find pandoc-eqnos useful, then please encourage further development by giving it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.0.4.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -43,7 +41,7 @@ Contents
 Usage
 -----
 
-To apply the filter during document processing, use the following option with pandoc:
+Use the following option with pandoc:
 
     --filter pandoc-eqnos
 
@@ -55,7 +53,7 @@ Markdown Syntax
 
 The markdown syntax extension used by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].
 
-To mark an equation for numbering, add the label `eq:id` to its attributes:
+To mark an equation for numbering, add an id to its attributes:
 
     $$ y = mx + b $$ {#eq:id}
 
