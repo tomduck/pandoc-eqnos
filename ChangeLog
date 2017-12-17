@@ -1,8 +1,8 @@
-pandoc-eqnos 1.0.0rc2 (2017-12-16)
+pandoc-eqnos 1.0.0rc3 (2017-12-16)
 
     * Write equation id in outer span; removed redundant
       "<a name=..." tag (pandoc-eqnos Issue #26).
-    * Added workaround for a pandoc-attributes install error
+    * Removed dependency on pandoc-attributes
       (pandoc-fignos Issue #42).
 
 

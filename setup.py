@@ -38,7 +38,7 @@ LONG_DESCRIPTION = """\
 A pandoc filter for numbering equations and equation references.
 """
 
-VERSION = '1.0.0rc2'
+VERSION = '1.0.0rc3'
 
 
 #-----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ setup(
     url='https://github.com/tomduck/pandoc-eqnos',
     download_url='https://github.com/tomduck/pandoc-eqnos/tarball/' + VERSION,
 
-    install_requires=['pandoc-xnos>=0.12'],
+    install_requires=['pandoc-xnos>=0.13'],
 
     py_modules=['pandoc_eqnos'],
     entry_points={'console_scripts':['pandoc-eqnos = pandoc_eqnos:main']},
