@@ -17,4 +17,4 @@ Equations can be left unnumbered if we do not need to refer to them:
 $$ y = A e^{-\gamma t}\cos(2\pi f t) $$
 
 It is also possible to number equations generically without planning to refer to them; e.g.:
-$$ \pi = 3.141592653589793238462643\dots $$ {#eq:}
+$$ \pi = 3.141592653589793238462643 \ldots $$ {#eq:}

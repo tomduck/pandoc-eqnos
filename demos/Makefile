@@ -20,7 +20,7 @@ out/%.pdf: %.md
 
 out/%.html: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos --standalone --mathml -o $@
+	pandoc $< --filter pandoc-eqnos --standalone --katex -o $@
 
 out/%.epub: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
