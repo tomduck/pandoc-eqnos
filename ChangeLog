@@ -1,3 +1,8 @@
+pandoc-eqnos 1.0.0 (2018-01-07)
+
+    * Version number bumped to 1.0.0.
+
+
 pandoc-eqnos 1.0.0rc3 (2017-12-16)
 
     * Write equation id in outer span; removed redundant

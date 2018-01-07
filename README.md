@@ -1,22 +1,12 @@
 
-
-*NOTE:  This is a release candidate.  It will become the 1.0.0 release if no pandoc-2.0 compatibility Issues are reported.*
-
-*To install it with pip, you must use the `--pre` flag.  e.g.:*
-
-~~~
-$ pip install --upgrade --pre pandoc-eqnos
-~~~
-
-
-pandoc-eqnos 1.0.0rc3
-=====================
+pandoc-eqnos 1.0.0
+==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references.  An extension to markdown is provided for this purpose.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.0.5.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.0.6.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -53,11 +43,11 @@ Markdown Syntax
 
 The markdown syntax extension used by pandoc-eqnos was developed in [pandoc Issue #813] -- see [this post] by [@scaramouche1].
 
-To mark an equation for numbering, add an id to its attributes:
+To mark an equation for numbering, add an identifier to its attributes:
 
     $$ y = mx + b $$ {#eq:id}
 
-The prefix `#eq:` is required. `id` should be replaced with a unique identifier composed of letters, numbers, dashes, slashes and underscores.  If `id` is omitted then the equation will be numbered but unreferenceable.
+The prefix `#eq:` is required. `id` should be replaced with a unique string composed of letters, numbers, dashes and underscores.  If `id` is omitted then the equation will be numbered but unreferenceable.
 
 To reference the equation, use
 
@@ -155,7 +145,7 @@ The `--number-sections` option enables section numbers in pandoc.  Equation numb
     use the `-M xnos-numbers-sections=On` option with pandoc.  This
     variable is ignored for other output formats.
 
- 2) **LaTeX/pdf:** Add 
+ 2) **LaTeX/pdf:** Add
     `header-includes: \numberwithin{equation}{section}` to your YAML
     metadata.  If you need multiple header includes, then add
     something like this:
