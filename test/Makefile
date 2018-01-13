@@ -30,7 +30,6 @@ pdf: out/test-2.1.pdf \
      out/test-2.1-py2.7.pdf \
      out/test-2.1-py3.4.pdf \
      out/test-2.1-cleveref.pdf \
-     out/test-2.1-eqref.pdf \
      out/test-2.0.pdf \
      out/test-1.19.pdf \
      out/test-1.18.pdf \
