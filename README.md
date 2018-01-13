@@ -1,6 +1,6 @@
 
 
-New: AMS-style equations references can be enabled by setting `eqnos-eqref: On` in the metadata block.
+New: AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: On` in the metadata block.
 
 
 pandoc-eqnos 1.1.0
@@ -191,6 +191,8 @@ TeX/pdf:
     `\usepackage{cleveref}`), otherwise they are faked.  Set the 
     meta variable `xnos-cleveref-fake` to `Off` to disable cleveref
     faking.
+  * AMS-style referencing is achieved using the amsmath `\eqref`
+    macro.
 
 Html:
 
