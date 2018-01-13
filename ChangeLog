@@ -1,3 +1,8 @@
+pandoc-eqnos 1.1.0 (2018-01-13)
+
+    * Added AMS-style equations referencing (Issue #27).
+
+
 pandoc-eqnos 1.0.0 (2018-01-07)
 
     * Version number bumped to 1.0.0.

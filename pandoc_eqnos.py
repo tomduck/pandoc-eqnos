@@ -66,7 +66,8 @@ unreferenceable = []   # List of labels that are unreferenceable
 # Meta variables; may be reset elsewhere
 plusname = ['eq.', 'eqs.']            # Used with \cref
 starname = ['Equation', 'Equations']  # Used with \Cref
-cleveref_default = False              # Default setting for clever referencing
+use_cleveref_default = False          # Default setting for clever referencing
+use_eqref = False                     # Flags that \eqref should be used
 
 # Variables for tracking section numbers
 numbersections = False
@@ -213,17 +214,23 @@ def process(meta):
     computed fields."""
 
     # pylint: disable=global-statement
-    global cleveref_default, plusname, starname, numbersections
+    global use_cleveref_default, use_eqref
+    global plusname, starname, numbersections
 
     # Read in the metadata fields and do some checking
 
     if 'cleveref' in meta:
-        cleveref_default = get_meta(meta, 'cleveref')
-        assert cleveref_default in [True, False]
+        use_cleveref_default = get_meta(meta, 'cleveref')
+        assert use_cleveref_default in [True, False]
 
     if 'eqnos-cleveref' in meta:
-        cleveref_default = get_meta(meta, 'eqnos-cleveref')
-        assert cleveref_default in [True, False]
+        use_cleveref_default = get_meta(meta, 'eqnos-cleveref')
+        assert use_cleveref_default in [True, False]
+
+    if 'eqnos-eqref' in meta:
+        use_cleveref_default = False
+        use_eqref = get_meta(meta, 'eqnos-eqref')
+        assert use_eqref in [True, False]
 
     if 'eqnos-plus-name' in meta:
         tmp = get_meta(meta, 'eqnos-plus-name')
@@ -286,7 +293,8 @@ def main():
 
     # Second pass
     process_refs = process_refs_factory(references.keys())
-    replace_refs = replace_refs_factory(references, cleveref_default,
+    replace_refs = replace_refs_factory(references,
+                                        use_cleveref_default, use_eqref,
                                         plusname, starname, 'equation')
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
                                [repair_refs, process_refs, replace_refs],

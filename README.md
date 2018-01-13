@@ -1,12 +1,16 @@
 
-pandoc-eqnos 1.0.0
+
+New: AMS-style equations references can be enabled by setting `eqnos-eqref: On` in the metadata block.
+
+
+pandoc-eqnos 1.1.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references.  An extension to markdown is provided for this purpose.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.0.6.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.1.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -119,11 +123,17 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
   * `eqnos-cleveref` or just `cleveref` - Set to `On` to assume "+"
     clever references by default;
 
+  * `eqnos-eqref` - Set to `On` to use AMS-style equation references
+     (i.e., equation numbers set in brackets);
+
   * `eqnos-plus-name` - Sets the name of a "+" reference 
     (e.g., change it from "eq." to "equation"); and
 
   * `eqnos-star-name` - Sets the name of a "*" reference 
     (e.g., change it from "Equation" to "Eq.").
+
+Note: `eqnos-eqref` takes precedence over `eqnos-cleveref`; they cannot be used together.
+
 
 [metadata block]: http://pandoc.org/README.html#extension-yaml_metadata_block
 

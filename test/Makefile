@@ -1,4 +1,5 @@
 
+v2.1 = 2.1
 v2.0 = 2.0.6
 v1.19 = 1.19.2
 v1.18 = 1.18
@@ -6,6 +7,7 @@ v1.17 = 1.17.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
+PANDOC-2.1 = pandoc-$(v2.1)
 PANDOC-2.0 = pandoc-$(v2.0)
 PANDOC-1.19 = pandoc-$(v1.19)
 PANDOC-1.18 = pandoc-$(v1.18)
@@ -24,19 +26,21 @@ HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 all: pdf html docx
 
-pdf: out/test-2.0.pdf \
-     out/test-2.0-py2.7.pdf \
-     out/test-2.0-py3.4.pdf \
-     out/test-2.0-cleveref.pdf \
+pdf: out/test-2.1.pdf \
+     out/test-2.1-py2.7.pdf \
+     out/test-2.1-py3.4.pdf \
+     out/test-2.1-cleveref.pdf \
+     out/test-2.1-eqref.pdf \
+     out/test-2.0.pdf \
      out/test-1.19.pdf \
      out/test-1.18.pdf \
      out/test-1.17.pdf \
      out/test-1.16.pdf \
      out/test-1.15.pdf
 
-html: out/test-2.0.html
+html: out/test-2.1.html
 
-docx: out/test-2.0.docx
+docx: out/test-2.1.docx
 
 
 out/test-%.html: test.md
