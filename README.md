@@ -1,16 +1,18 @@
 
 
-New: AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: On` in the metadata block.
+**New in 1.2.0:** Added `fignos-capitalise` meta variable to capitalise clever references (e.g., change "eq." to "Eq.").
+
+**New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: On` in the metadata block.
 
 
-pandoc-eqnos 1.1.0
+pandoc-eqnos 1.2.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references.  An extension to markdown is provided for this purpose.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.1.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.1.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -90,7 +92,7 @@ to have the reference name (i.e., "eq.") automatically generated.  The above for
 
      *@eq:id
 
-instead.  If clever referencing is enabled by default (see [Customization](#customization), below), you can disable it for a given reference using<sup>[1](#footnote1)</sup>
+instead.  If clever referencing is enabled by default (see [Customization](#customization), below), then you can disable it for a given reference using<sup>[1](#footnote1)</sup>
 
     !@eq:id
 
@@ -120,7 +122,10 @@ Customization
 
 Pandoc-eqnos may be customized by setting variables in the [metadata block] or on the command line (using `-M KEY=VAL`).  The following variables are supported:
 
-  * `eqnos-cleveref` or just `cleveref` - Set to `On` to assume "+"
+  * `eqnos-capitalise` or `xnos-capitalise` - Capitalizes the names
+     of "+" references (e.g., change from "eq." to "Eq.");
+
+  * `eqnos-cleveref` or `xnos-cleveref` - Set to `On` to assume "+"
     clever references by default;
 
   * `eqnos-eqref` - Set to `On` to use AMS-style equation references
@@ -191,6 +196,10 @@ TeX/pdf:
     `\usepackage{cleveref}`), otherwise they are faked.  Set the 
     meta variable `xnos-cleveref-fake` to `Off` to disable cleveref
     faking.
+  * The clever reference names are set using `\crefformat` and
+    `\Crefformat`.  For this reason the cleveref package's
+    `capitalise` parameter has no effect.  Use the
+    `eqnos-capitalise` meta variable instead.
   * AMS-style referencing is achieved using the amsmath `\eqref`
     macro.
 
@@ -256,12 +265,12 @@ To determine which version of pandoc-eqnos you have installed, use
 
     pip show pandoc-eqnos
 
-Please be sure you have the latest version installed before reporting a bug on our [Issues tracker]
+Please be sure you have the latest version installed before reporting a bug on our [Issues tracker].
 
 
 #### Installing on linux ####
 
-If you are running linux, pip may be packaged separately from python.  On Debian-based systems (including Ubuntu), you can install pip as root using
+If you are running linux, then pip may be packaged separately from python.  On Debian-based systems (including Ubuntu), you can install pip as root using
 
     apt-get update
     apt-get install python-pip
@@ -304,7 +313,7 @@ Once python is installed, start the "Command Prompt" program.  Depending on wher
 Getting Help
 ------------
 
-If you have any difficulties with pandoc-eqnos, or would like to see a new feature, please submit a report to our [Issues tracker].
+If you have any difficulties with pandoc-eqnos, or would like to see a new feature, then please submit a report to our [Issues tracker].
 
 
 ----

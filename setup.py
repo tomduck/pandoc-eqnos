@@ -38,7 +38,7 @@ LONG_DESCRIPTION = """\
 A pandoc filter for numbering equations and equation references.
 """
 
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 
 
 #-----------------------------------------------------------------------------

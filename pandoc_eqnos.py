@@ -67,7 +67,8 @@ unreferenceable = []   # List of labels that are unreferenceable
 plusname = ['eq.', 'eqs.']            # Used with \cref
 starname = ['Equation', 'Equations']  # Used with \Cref
 use_cleveref_default = False          # Default setting for clever referencing
-use_eqref = False                     # Flags that \eqref should be used
+capitalize = False   # Default setting for capitalizing plusname
+use_eqref = False    # Flags that \eqref should be used
 
 # Variables for tracking section numbers
 numbersections = False
@@ -214,23 +215,31 @@ def process(meta):
     computed fields."""
 
     # pylint: disable=global-statement
-    global use_cleveref_default, use_eqref
-    global plusname, starname, numbersections
+    global capitalize
+    global use_cleveref_default
+    global plusname
+    global starname
+    global numbersections
 
     # Read in the metadata fields and do some checking
 
-    if 'cleveref' in meta:
-        use_cleveref_default = get_meta(meta, 'cleveref')
-        assert use_cleveref_default in [True, False]
+    for name in ['eqnos-cleveref', 'xnos-cleveref', 'cleveref']:
+        # 'xnos-cleveref' enables cleveref in all 3 of fignos/eqnos/tablenos
+        # 'cleveref' is deprecated
+        if name in meta:
+            use_cleveref_default = get_meta(meta, name)
+            assert use_cleveref_default in [True, False]
+            break
 
-    if 'eqnos-cleveref' in meta:
-        use_cleveref_default = get_meta(meta, 'eqnos-cleveref')
-        assert use_cleveref_default in [True, False]
-
-    if 'eqnos-eqref' in meta:
-        use_cleveref_default = False
-        use_eqref = get_meta(meta, 'eqnos-eqref')
-        assert use_eqref in [True, False]
+    for name in ['eqnos-capitalize', 'eqnos-capitalise',
+                 'xnos-capitalize', 'xnos-capitalise']:
+        # 'eqnos-capitalise' is an alternative spelling
+        # 'xnos-capitalise' enables capitalise in all 3 of fignos/eqnos/tablenos
+        # 'xnos-capitalize' is an alternative spelling
+        if name in meta:
+            capitalize = get_meta(meta, name)
+            assert capitalize in [True, False]
+            break
 
     if 'eqnos-plus-name' in meta:
         tmp = get_meta(meta, 'eqnos-plus-name')
@@ -295,7 +304,9 @@ def main():
     process_refs = process_refs_factory(references.keys())
     replace_refs = replace_refs_factory(references,
                                         use_cleveref_default, use_eqref,
-                                        plusname, starname, 'equation')
+                                        plusname if not capitalize else
+                                        [name.title() for name in plusname],
+                                        starname, 'equation')
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
                                [repair_refs, process_refs, replace_refs],
                                altered)
