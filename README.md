@@ -5,7 +5,7 @@
 **New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: On` in the metadata block.
 
 
-pandoc-eqnos 1.2.0
+pandoc-eqnos 1.3.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references.  An extension to markdown is provided for this purpose.
