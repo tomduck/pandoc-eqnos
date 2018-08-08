@@ -111,7 +111,7 @@ def _process_equation(value, fmt):
 
     # For html, hard-code in the section numbers as tags
     kvs = PandocAttributes(attrs, 'pandoc').kvs
-    if numbersections and fmt in ['html', 'html5'] and not 'tag' in kvs:
+    if numbersections and fmt in ['html', 'html5'] and 'tag' not in kvs:
         if kvs['secno'] != cursec:
             cursec = kvs['secno']
             Nreferences = 1
@@ -140,10 +140,10 @@ def _process_equation(value, fmt):
     elif fmt in ('html', 'html5'):
         pass  # Insert html in process_equations() instead
     else:  # Hard-code in the number/tag
-        if type(references[attrs[0]]) is int:  # Numbered reference
+        if isinstance(references[attrs[0]], int):  # Numbered reference
             value[-1] += r'\qquad (%d)' % references[attrs[0]]
         else:  # Tagged reference
-            assert type(references[attrs[0]]) in STRTYPES
+            assert isinstance(references[attrs[0]], STRTYPES)
             text = references[attrs[0]].replace(' ', r'\ ')
             if text.startswith('$') and text.endswith('$'):  # Math
                 tag = text[1:-1]
@@ -171,7 +171,7 @@ def process_equations(key, value, fmt, meta):
 
         # Context-dependent output
         if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
-            return
+            return None
         elif fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
@@ -193,7 +193,6 @@ def process_equations(key, value, fmt, meta):
               if text.startswith('$') and text.endswith('$') \
               else Str('(%s)' % text)
             endspans = RawInline('html', '</span></span>')
-            # pylint: disable=star-args
             return [outerspan, AttrMath(*value), innerspan, num, endspans]
         elif fmt == 'docx':
             # As per http://officeopenxml.com/WPhyperlink.php
@@ -204,8 +203,9 @@ def process_equations(key, value, fmt, meta):
             bookmarkend = \
               RawInline('openxml',
                         '</w:t></w:r><w:bookmarkEnd w:id="0"/>')
-            # pylint: disable=star-args
             return [bookmarkstart, AttrMath(*value), bookmarkend]
+
+    return None
 
 
 # Main program ---------------------------------------------------------------
@@ -241,23 +241,23 @@ def process(meta):
 
     if 'eqnos-plus-name' in meta:
         tmp = get_meta(meta, 'eqnos-plus-name')
-        if type(tmp) is list:
+        if isinstance(tmp, list):
             plusname = tmp
         else:
             plusname[0] = tmp
         assert len(plusname) == 2
         for name in plusname:
-            assert type(name) in STRTYPES
+            assert isinstance(name, STRTYPES)
 
     if 'eqnos-star-name' in meta:
         tmp = get_meta(meta, 'eqnos-star-name')
-        if type(tmp) is list:
+        if isinstance(tmp, list):
             starname = tmp
         else:
             starname[0] = tmp
         assert len(starname) == 2
         for name in starname:
-            assert type(name) in STRTYPES
+            assert isinstance(name, STRTYPES)
 
     if 'xnos-number-sections' in meta:
         numbersections = check_bool(get_meta(meta, 'xnos-number-sections'))
