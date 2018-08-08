@@ -1,5 +1,5 @@
 ---
-eqnos-cleveref: On
+eqnos-cleveref: True
 eqnos-plus-name: Eq.
 ...
 
