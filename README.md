@@ -4,7 +4,7 @@
 
 **New in 1.2.0:** Added `fignos-capitalise` meta variable to capitalise clever references (e.g., change "eq." to "Eq.").
 
-**New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: On` in the metadata block.
+**New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: True` in the metadata block.
 
 
 pandoc-eqnos 1.3.0
@@ -127,10 +127,10 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
   * `eqnos-capitalise` or `xnos-capitalise` - Capitalizes the names
      of "+" references (e.g., change from "eq." to "Eq.");
 
-  * `eqnos-cleveref` or `xnos-cleveref` - Set to `On` to assume "+"
+  * `eqnos-cleveref` or `xnos-cleveref` - Set to `True` to assume "+"
     clever references by default;
 
-  * `eqnos-eqref` - Set to `On` to use AMS-style equation references
+  * `eqnos-eqref` - Set to `True` to use AMS-style equation references
      (i.e., equation numbers set in brackets);
 
   * `eqnos-plus-name` - Sets the name of a "+" reference 
@@ -158,9 +158,9 @@ Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives n
 
 The `--number-sections` option enables section numbers in pandoc.  Equation numbers by section (e.g., "Eq. 2.1") can be obtained as follows:
 
- 1) **html:** Add `xnos-number-sections: On` to your YAML metadata or
-    use the `-M xnos-numbers-sections=On` option with pandoc.  This
-    variable is ignored for other output formats.
+ 1) **html:** Add `xnos-number-sections: True` to your YAML metadata
+    or use the `-M xnos-numbers-sections=True` option with pandoc. 
+    This variable is ignored for other output formats.
 
  2) **LaTeX/pdf:** Add
     `header-includes: \numberwithin{equation}{section}` to your YAML
@@ -196,7 +196,7 @@ TeX/pdf:
   * The clever referencing macros `\cref` and `\Cref` are used
     if they are available (i.e. included in your LaTeX template via
     `\usepackage{cleveref}`), otherwise they are faked.  Set the 
-    meta variable `xnos-cleveref-fake` to `Off` to disable cleveref
+    meta variable `xnos-cleveref-fake` to `False` to disable cleveref
     faking.
   * The clever reference names are set using `\crefformat` and
     `\Crefformat`.  For this reason the cleveref package's
