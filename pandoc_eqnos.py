@@ -44,7 +44,7 @@ from pandocfilters import Math, RawInline, Str
 import pandocxnos
 from pandocxnos import PandocAttributes
 from pandocxnos import STRTYPES, STDIN, STDOUT
-from pandocxnos import get_meta
+from pandocxnos import check_bool, get_meta
 from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
 from pandocxnos import attach_attrs_factory, detach_attrs_factory
 from pandocxnos import insert_secnos_factory, delete_secnos_factory
@@ -227,8 +227,7 @@ def process(meta):
         # 'xnos-cleveref' enables cleveref in all 3 of fignos/eqnos/tablenos
         # 'cleveref' is deprecated
         if name in meta:
-            use_cleveref_default = get_meta(meta, name)
-            assert use_cleveref_default in [True, False]
+            use_cleveref_default = check_bool(get_meta(meta, name))
             break
 
     for name in ['eqnos-capitalize', 'eqnos-capitalise',
@@ -237,8 +236,7 @@ def process(meta):
         # 'xnos-capitalise' enables capitalise in all 3 of fignos/eqnos/tablenos
         # 'xnos-capitalize' is an alternative spelling
         if name in meta:
-            capitalize = get_meta(meta, name)
-            assert capitalize in [True, False]
+            capitalize = check_bool(get_meta(meta, name))
             break
 
     if 'eqnos-plus-name' in meta:
@@ -261,8 +259,8 @@ def process(meta):
         for name in starname:
             assert type(name) in STRTYPES
 
-    if 'xnos-number-sections' in meta and meta['xnos-number-sections']['c']:
-        numbersections = True
+    if 'xnos-number-sections' in meta:
+        numbersections = check_bool(get_meta(meta, 'xnos-number-sections'))
 
 
 def main():
