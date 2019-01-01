@@ -322,6 +322,6 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 
 **Footnotes**
 
-<a name="footnote1">1</a>: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references.
+<a name="footnote1">1</a>: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references. This error is fixed in Pandoc 2.5 and later.
 
 [pandoc unnecessarily drops minus signs]: https://github.com/jgm/pandoc/issues/2901
