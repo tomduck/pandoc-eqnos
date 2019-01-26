@@ -220,6 +220,7 @@ def process(meta):
     global plusname
     global starname
     global numbersections
+	global use_eqref
 
     # Read in the metadata fields and do some checking
 
@@ -262,6 +263,8 @@ def process(meta):
     if 'xnos-number-sections' in meta:
         numbersections = check_bool(get_meta(meta, 'xnos-number-sections'))
 
+    if 'eqnos-eqref' in meta:
+		use_eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
 
 def main():
     """Filters the document AST."""
