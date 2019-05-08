@@ -14,7 +14,7 @@ pandoc-eqnos 1.3.0
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.2.3.2.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.2, excluding 2.4<sup>[1](#footnote1)</sup>.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -322,6 +322,8 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 
 **Footnotes**
 
-<a name="footnote1">1</a>: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references.
+<a name="footnote1">1</a>: Pandoc 2.4 [broke](https://github.com/jgm/pandoc/issues/5099) how references are parsed.  This was fixed for pandoc 2.5.
+
+<a name="footnote2">2</a>: The disabling modifier "!" is used instead of "-" because [pandoc unnecessarily drops minus signs] in front of references.
 
 [pandoc unnecessarily drops minus signs]: https://github.com/jgm/pandoc/issues/2901

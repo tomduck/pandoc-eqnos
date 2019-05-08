@@ -1,4 +1,10 @@
 
+# Note: pandoc-2.4 broke citation parsing, and so is not supported.
+
+v2.7 = 2.7
+v2.6 = 2.6
+v2.5 = 2.5
+v2.3 = 2.3.1
 v2.2 = 2.2.3.2
 v2.1 = 2.1.3
 v2.0 = 2.0.6
@@ -8,6 +14,10 @@ v1.17 = 1.17.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
+PANDOC-2.7 = pandoc-$(v2.6)
+PANDOC-2.6 = pandoc-$(v2.6)
+PANDOC-2.5 = pandoc-$(v2.5)
+PANDOC-2.3 = pandoc-$(v2.3)
 PANDOC-2.2 = pandoc-$(v2.2)
 PANDOC-2.1 = pandoc-$(v2.1)
 PANDOC-2.0 = pandoc-$(v2.0)
@@ -28,10 +38,14 @@ HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 all: pdf html docx
 
-pdf: out/test-2.2.pdf \
-     out/test-2.2-py2.7.pdf \
-     out/test-2.2-py3.6.pdf \
-     out/test-2.2-cleveref.pdf \
+pdf: out/test-2.7.pdf \
+     out/test-2.7-py2.7.pdf \
+     out/test-2.7-py3.6.pdf \
+     out/test-2.7-cleveref.pdf \
+     out/test-2.6.pdf \
+     out/test-2.5.pdf \
+     out/test-2.3.pdf \
+     out/test-2.2.pdf \
      out/test-2.1.pdf \
      out/test-2.0.pdf \
      out/test-1.19.pdf \
