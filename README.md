@@ -1,4 +1,5 @@
 
+**New in 1.X.X:** Support for docx equation numbering by section.
 
 **New in 1.3.0:** Boolean metadata values must now be one of `true`, `True` `TRUE`, `false`, `False`, or `FALSE`.  This is following a [change of behaviour](https://pandoc.org/releases.html#pandoc-2.2.2-16-july-2018) with pandoc 2.2.2.
 
@@ -139,6 +140,15 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
   * `eqnos-star-name` - Sets the name of a "*" reference 
     (e.g., change it from "Equation" to "Eq.").
 
+  * `xnos-number-sections` - Set to `True` so that equations are
+    numbered per section (i.e. Eq. 1.1, 1.2, etc in Section 1, and
+    Eq. 2.1, 2.2, etc in Section 2). See
+    [Equation Numbering by Section](#equation-numbering-by-section),
+    below.
+
+    This feature is only presently enabled for html, LaTeX/pdf, and
+    docx.
+
 Note: `eqnos-eqref` takes precedence over `eqnos-cleveref`; they cannot be used together.
 
 
@@ -154,13 +164,13 @@ Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives n
 [md3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
 
 
-#### Equation Numbers by Section ####
+#### Equation Numbering by Section ####
 
-The `--number-sections` option enables section numbers in pandoc.  Equation numbers by section (e.g., "Eq. 2.1") can be obtained as follows:
+Pandoc's `--number-sections` option enables section numbering for LaTeX/pdf and html output.  For docx, use of [custom styles](https://pandoc.org/MANUAL.html#custom-styles) instead.  Equation numbering by section (e.g., "Eq. 2.1") can then be obtained as follows:
 
- 1) **html:** Add `xnos-number-sections: True` to your YAML metadata
-    or use the `-M xnos-numbers-sections=True` option with pandoc. 
-    This variable is ignored for other output formats.
+ 1) **html and docx:** Add `xnos-number-sections: True` to your YAML
+    metadata or use the `-M xnos-number-sections=True` option with
+    pandoc.  This variable is ignored for other output formats.
 
  2) **LaTeX/pdf:** Add
     `header-includes: \numberwithin{equation}{section}` to your YAML
@@ -182,6 +192,8 @@ The `--number-sections` option enables section numbers in pandoc.  Equation numb
     dropped.
 
     LaTeX header-includes are ignored for html output.
+
+Section numbering can be achieved in docx through use of [custom styles](https://pandoc.org/MANUAL.html#custom-styles).
 
 
 Technical Details
