@@ -1,5 +1,5 @@
 
-**New in 1.X.X:** Support for docx equation numbering by section.
+**New in 1.3.2:** Support for docx equation numbering by section.
 
 **New in 1.3.0:** Boolean metadata values must now be one of `true`, `True` `TRUE`, `false`, `False`, or `FALSE`.  This is following a [change of behaviour](https://pandoc.org/releases.html#pandoc-2.2.2-16-july-2018) with pandoc 2.2.2.
 
@@ -8,7 +8,7 @@
 **New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: True` in the metadata block.
 
 
-pandoc-eqnos 1.3.1
+pandoc-eqnos 1.3.2
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references when converting markdown documents to other formats.
