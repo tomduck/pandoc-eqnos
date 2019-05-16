@@ -1,4 +1,6 @@
 
+**New in 1.4.2:** Working links in epub output.
+
 **New in 1.4.1:** Restored `eqnos-eqref` functionality.
 
 **New in 1.4.0:** Support for references in bracketed spans.
@@ -6,7 +8,7 @@
 [more...](#whats-new)
 
 
-pandoc-eqnos 1.4.1
+pandoc-eqnos 1.4.2
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references when converting markdown documents to other formats.
@@ -329,6 +331,8 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 
 What's New
 ----------
+
+**New in 1.4.2:** Working links in epub output.
 
 **New in 1.4.1:** Restored `eqnos-eqref` functionality.
 
