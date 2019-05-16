@@ -106,11 +106,11 @@ Demonstration: Processing [demo2.md] with `pandoc --filter pandoc-eqnos` gives n
 Note: If you use `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence, then you must backslash escape the `*` in the clever reference; e.g., `\*eq:id`.
 
 [demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
-[pdf2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
-[tex2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
-[html2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
-[epub2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
-[md2]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
+[pdf2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo2.pdf
+[tex2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo2.tex
+[html2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo2.html
+[epub2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo2.epub
+[md2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo2.md
 
 
 #### Tagged Equations ####
@@ -159,11 +159,11 @@ Note: `eqnos-eqref` takes precedence over `eqnos-cleveref`; they cannot be used 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [md][md3] and other formats.
 
 [demo3.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo3.md
-[pdf3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
-[tex3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
-[html3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.html
-[epub3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
-[md3]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
+[pdf3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
+[tex3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
+[html3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.html
+[epub3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.epub
+[md3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.md
 
 
 #### Equation Numbering by Section ####
