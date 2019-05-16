@@ -330,7 +330,7 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 What's New
 ----------
 
-**New in 1.4.1:** Restored eqnos-eqref functionality.
+**New in 1.4.1:** Restored `eqnos-eqref` functionality.
 
 **New in 1.4.0:** Support for references in bracketed spans.
 
