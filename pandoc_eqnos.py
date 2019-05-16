@@ -111,7 +111,7 @@ def _process_equation(value, fmt):
 
     # For html, hard-code in the section numbers as tags
     kvs = PandocAttributes(attrs, 'pandoc').kvs
-    if numbersections and fmt in ['html', 'html5'] and 'tag' not in kvs:
+    if numbersections and fmt in ['html', 'html5', 'docx'] and 'tag' not in kvs:
         if kvs['secno'] != cursec:
             cursec = kvs['secno']
             Nreferences = 1
@@ -175,7 +175,7 @@ def process_equations(key, value, fmt, meta):
         if fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        if fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
+        if fmt in ('html', 'html5', 'epub') and LABEL_PATTERN.match(label):
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
