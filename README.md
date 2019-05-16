@@ -1,5 +1,5 @@
 
-**New in 1.4.1:** Restored eqnos-eqref functionality.
+**New in 1.4.1:** Restored `eqnos-eqref` functionality.
 
 **New in 1.4.0:** Support for references in bracketed spans.
 
