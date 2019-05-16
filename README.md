@@ -33,6 +33,7 @@ Contents
  4. [Technical Details](#technical-details)
  5. [Installation](#installation)
  6. [Getting Help](#getting-help)
+ 7. [What's New](#whats-new)
 
 
 Usage
