@@ -9,6 +9,8 @@ $$ y = g(x) $${#eq:2}
 
 *@eq:1 and +@eq:2, Eqs. {@eq:1}-{@eq:3} and Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
 
+[Equation @eq:1.]{style="color:red"}
+
 Equations and references in lists:
 
   * Equation {@eq:3}:

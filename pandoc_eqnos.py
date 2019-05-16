@@ -2,7 +2,7 @@
 
 """pandoc-eqnos: a pandoc filter that inserts equation nos. and refs."""
 
-# Copyright 2015-2018 Thomas J. Duck.
+# Copyright 2015-2019 Thomas J. Duck.
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ import json
 import uuid
 
 from pandocfilters import walk
-from pandocfilters import Math, RawInline, Str
+from pandocfilters import Math, RawInline, Str, Span
 
 import pandocxnos
 from pandocxnos import PandocAttributes
@@ -305,8 +305,10 @@ def main():
                                         plusname if not capitalize else
                                         [name.title() for name in plusname],
                                         starname, 'equation')
+    attach_attrs_span = attach_attrs_factory(Span, replace=True)
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
-                               [repair_refs, process_refs, replace_refs],
+                               [repair_refs, process_refs, replace_refs,
+                                attach_attrs_span],
                                altered)
 
     # Update the doc

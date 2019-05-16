@@ -1,3 +1,9 @@
+pandoc-eqnos 1.4.0 (2019-05-15)
+
+    * Support for references in bracketed spans (pandoc-fignos
+      Issue #58).
+
+
 pandoc-eqnos 1.3.2 (2019-05-15)
 
     * Enabled equation numbering by section for docx (addresses

@@ -14,7 +14,7 @@ v1.17 = 1.17.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
-PANDOC-2.7 = pandoc-$(v2.6)
+PANDOC-2.7 = pandoc-$(v2.7)
 PANDOC-2.6 = pandoc-$(v2.6)
 PANDOC-2.5 = pandoc-$(v2.5)
 PANDOC-2.3 = pandoc-$(v2.3)
