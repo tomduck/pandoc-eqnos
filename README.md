@@ -3,7 +3,7 @@
 
 **New in 1.4.0:** Support for references in bracketed spans.
 
-[more...][whats-new]
+\[[more...](#whats-new)\]
 
 
 pandoc-eqnos 1.4.1
