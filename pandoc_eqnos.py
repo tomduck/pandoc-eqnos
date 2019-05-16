@@ -264,8 +264,9 @@ def process(meta):
         numbersections = check_bool(get_meta(meta, 'xnos-number-sections'))
 
     if 'eqnos-eqref' in meta:
-        use_cleveref_default = False
         use_eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
+        if use_eqref:
+            use_cleveref_default = False
 
 
 def main():
