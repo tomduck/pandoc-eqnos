@@ -1,16 +1,12 @@
 
+**New in 1.4.1:** Restored eqnos-eqref functionality.
+
 **New in 1.4.0:** Support for references in bracketed spans.
 
-**New in 1.3.2:** Support for docx equation numbering by section.
-
-**New in 1.3.0:** Boolean metadata values must now be one of `true`, `True` `TRUE`, `false`, `False`, or `FALSE`.  This is following a [change of behaviour](https://pandoc.org/releases.html#pandoc-2.2.2-16-july-2018) with pandoc 2.2.2.
-
-**New in 1.2.0:** Added `fignos-capitalise` meta variable to capitalise clever references (e.g., change "eq." to "Eq.").
-
-**New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: True` in the metadata block.
+[[more...][whats-new]]
 
 
-pandoc-eqnos 1.4.0
+pandoc-eqnos 1.4.1
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references when converting markdown documents to other formats.
@@ -328,6 +324,18 @@ Getting Help
 ------------
 
 If you have any difficulties with pandoc-eqnos, or would like to see a new feature, then please submit a report to our [Issues tracker].
+
+
+What's New
+----------
+
+**New in 1.3.2:** Support for docx equation numbering by section.
+
+**New in 1.3.0:** Boolean metadata values must now be one of `true`, `True` `TRUE`, `false`, `False`, or `FALSE`.  This is following a [change of behaviour](https://pandoc.org/releases.html#pandoc-2.2.2-16-july-2018) with pandoc 2.2.2.
+
+**New in 1.2.0:** Added `fignos-capitalise` meta variable to capitalise clever references (e.g., change "eq." to "Eq.").
+
+**New in 1.1.0:** AMS-style equation references (bracketed references) can be enabled by setting `eqnos-eqref: True` in the metadata block.
 
 
 ----
