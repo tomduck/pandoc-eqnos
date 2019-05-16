@@ -172,10 +172,10 @@ def process_equations(key, value, fmt, meta):
         # Context-dependent output
         if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
             return None
-        elif fmt in ['latex', 'beamer']:
+        if fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        elif fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
+        if fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
@@ -194,7 +194,7 @@ def process_equations(key, value, fmt, meta):
               else Str('(%s)' % text)
             endspans = RawInline('html', '</span></span>')
             return [outerspan, AttrMath(*value), innerspan, num, endspans]
-        elif fmt == 'docx':
+        if fmt == 'docx':
             # As per http://officeopenxml.com/WPhyperlink.php
             bookmarkstart = \
               RawInline('openxml',
@@ -217,6 +217,7 @@ def process(meta):
     # pylint: disable=global-statement
     global capitalize
     global use_cleveref_default
+    global use_eqref
     global plusname
     global starname
     global numbersections
@@ -261,9 +262,6 @@ def process(meta):
 
     if 'xnos-number-sections' in meta:
         numbersections = check_bool(get_meta(meta, 'xnos-number-sections'))
-
-    if 'eqnos-eqref' in meta:
-		use_eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
 
     if 'eqnos-eqref' in meta:
         use_cleveref_default = False
