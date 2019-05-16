@@ -76,11 +76,11 @@ Demonstration: Processing [demo.md] with `pandoc --filter pandoc-eqnos` gives nu
 [this post]: https://github.com/jgm/pandoc/issues/813#issuecomment-70423503
 [@scaramouche1]: https://github.com/scaramouche1
 [demo.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo.md
-[pdf]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
-[tex]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
-[html]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
-[epub]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
-[md]: https://rawgit.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
+[pdf]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo.pdf
+[tex]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo.tex
+[html]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo.html
+[epub]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo.epub
+[md]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo.md
 
 
 #### Clever References ####
