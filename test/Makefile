@@ -31,9 +31,8 @@ PYTHON-2.7 = python2.7
 PYTHON-3.6 = python3.6
 
 # mathml needed for \mathrm{}
-PDFFLAGS = --variable geometry:margin=1in --standalone --mathml \
-           --variable urlcolor=blue
-HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
+PDFFLAGS = --variable geometry:margin=1in --standalone --variable urlcolor=blue
+HTMLFLAGS = --standalone --variable urlcolor=blue
 
 
 all: pdf html docx
