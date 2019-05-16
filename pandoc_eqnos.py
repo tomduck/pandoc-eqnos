@@ -50,8 +50,12 @@ from pandocxnos import attach_attrs_factory, detach_attrs_factory
 from pandocxnos import insert_secnos_factory, delete_secnos_factory
 from pandocxnos import elt
 
+__version__ = '1.4.2'
+
 # Read the command-line arguments
 parser = argparse.ArgumentParser(description='Pandoc equations numbers filter.')
+parser.add_argument('--version', action='version',
+                    version='%(prog)s {version}'.format(version=__version__))
 parser.add_argument('fmt')
 parser.add_argument('--pandocversion', help='The pandoc version.')
 args = parser.parse_args()

@@ -278,6 +278,10 @@ To determine which version of pandoc-eqnos you have installed, use
 
     pip show pandoc-eqnos
 
+As of pandoc-eqnos 1.4.2 you can also use
+
+    pandoc-eqnos --version
+
 Please be sure you have the latest version installed before reporting a bug on our [Issues tracker].
 
 

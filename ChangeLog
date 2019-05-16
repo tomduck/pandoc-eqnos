@@ -3,6 +3,7 @@ pandoc-eqnos 1.4.2 (2019-05-16)
     * Fixed links in epub output (Issue #37).
     * Bug fix for equation numbering by section for docx
       (pandoc-fignos Issue #58).
+    * `pandoc-eqnos --version` now gives the verson.
 
 
 pandoc-eqnos 1.4.1 (2019-05-16)
