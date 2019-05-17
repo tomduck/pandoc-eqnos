@@ -179,8 +179,7 @@ def process_equations(key, value, fmt, meta):
         if fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        if fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
-          LABEL_PATTERN.match(label):
+        if fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
@@ -199,6 +198,14 @@ def process_equations(key, value, fmt, meta):
               else Str('(%s)' % text)
             endspans = RawInline('html', '</span></span>')
             return [outerspan, AttrMath(*value), innerspan, num, endspans]
+        if fmt in ('epub', 'epub2', 'epub3')  and LABEL_PATTERN.match(label):
+            outerspan = RawInline('html',
+                                  '<span %s style="display: inline-block; '
+                                  'position: relative; width: 100%%">'%(''\
+                                  if eq['is_unreferenceable'] \
+                                  else 'id="%s"'%label))
+            endspan = RawInline('html', '</span>')
+            return [outerspan, AttrMath(*value), endspan]
         if fmt == 'docx':
             # As per http://officeopenxml.com/WPhyperlink.php
             bookmarkstart = \
