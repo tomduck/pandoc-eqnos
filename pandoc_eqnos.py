@@ -179,7 +179,8 @@ def process_equations(key, value, fmt, meta):
         if fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        if fmt in ('html', 'html5', 'epub') and LABEL_PATTERN.match(label):
+        if fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
+          LABEL_PATTERN.match(label):
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
