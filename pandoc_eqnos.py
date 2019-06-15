@@ -50,7 +50,7 @@ from pandocxnos import attach_attrs_factory, detach_attrs_factory
 from pandocxnos import insert_secnos_factory, delete_secnos_factory
 from pandocxnos import elt
 
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 
 # Read the command-line arguments
 parser = argparse.ArgumentParser(description='Pandoc equations numbers filter.')
@@ -141,7 +141,7 @@ def _process_equation(value, fmt):
             value[-1] += r'\tag{%s}\label{%s}' % \
               (references[attrs[0]].replace(' ', r'\ '), attrs[0]) \
               if eq['is_tagged'] else r'\label{%s}'%attrs[0]
-    elif fmt in ('html', 'html5'):
+    elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3'):
         pass  # Insert html in process_equations() instead
     else:  # Hard-code in the number/tag
         if isinstance(references[attrs[0]], int):  # Numbered reference
@@ -179,7 +179,8 @@ def process_equations(key, value, fmt, meta):
         if fmt in ['latex', 'beamer']:
             return RawInline('tex',
                              r'\begin{equation}%s\end{equation}'%value[-1])
-        if fmt in ('html', 'html5') and LABEL_PATTERN.match(label):
+        if fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
+          LABEL_PATTERN.match(label):
             # Present equation and its number in a span
             text = str(references[label])
             outerspan = RawInline('html',
@@ -198,14 +199,6 @@ def process_equations(key, value, fmt, meta):
               else Str('(%s)' % text)
             endspans = RawInline('html', '</span></span>')
             return [outerspan, AttrMath(*value), innerspan, num, endspans]
-        if fmt in ('epub', 'epub2', 'epub3')  and LABEL_PATTERN.match(label):
-            outerspan = RawInline('html',
-                                  '<span %s style="display: inline-block; '
-                                  'position: relative; width: 100%%">'%(''\
-                                  if eq['is_unreferenceable'] \
-                                  else 'id="%s"'%label))
-            endspan = RawInline('html', '</span>')
-            return [outerspan, AttrMath(*value), endspan]
         if fmt == 'docx':
             # As per http://officeopenxml.com/WPhyperlink.php
             bookmarkstart = \

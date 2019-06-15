@@ -1,3 +1,8 @@
+pandoc-eqnos 1.4.4 (2019-06-15)
+
+    * For epub output, place equation number in own span (Issue #39).
+
+
 pandoc-eqnos 1.4.3 (2019-05-17)
 
     * Improved epub output and refreshed epub demos.

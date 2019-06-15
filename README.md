@@ -1,5 +1,5 @@
 
-**New in 1.4.3:** Improved epub support.
+**New in 1.4.2 - 1.4.4:** Improved epub support.
 
 **New in 1.4.1:** Restored `eqnos-eqref` functionality.
 
@@ -8,14 +8,14 @@
 [more...](#whats-new)
 
 
-pandoc-eqnos 1.4.3
+pandoc-eqnos 1.4.4
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and equation references when converting markdown documents to other formats.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.2<sup>[1](#footnote1)</sup>.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3<sup>[1](#footnote1)</sup>.  It works under linux, Mac OS X and Windows.  I am pleased to receive bug reports and feature requests on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos]
 
@@ -335,6 +335,8 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 
 What's New
 ----------
+
+**New in 1.4.4:** For epub output, place equation number in own span.
 
 **New in 1.4.3:** Improved epub support.
 

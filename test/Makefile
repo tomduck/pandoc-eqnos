@@ -1,7 +1,7 @@
 
 # Note: pandoc-2.4 broke citation parsing, and so is not supported.
 
-v2.7 = 2.7
+v2.7 = 2.7.3
 v2.6 = 2.6
 v2.5 = 2.5
 v2.3 = 2.3.1
@@ -28,7 +28,7 @@ PANDOC-1.16 = pandoc-$(v1.16)
 PANDOC-1.15 = pandoc-$(v1.15)
 
 PYTHON-2.7 = python2.7
-PYTHON-3.6 = python3.6
+PYTHON-3.7 = python3.7
 
 # mathml needed for \mathrm{}
 PDFFLAGS = --variable geometry:margin=1in --standalone --variable urlcolor=blue
@@ -39,7 +39,7 @@ all: pdf html epub docx
 
 pdf: out/test-2.7.pdf \
      out/test-2.7-py2.7.pdf \
-     out/test-2.7-py3.6.pdf \
+     out/test-2.7-py3.7.pdf \
      out/test-2.7-cleveref.pdf \
      out/test-2.6.pdf \
      out/test-2.5.pdf \
@@ -68,9 +68,9 @@ out/test-%-py2.7.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< -t json | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
 
-out/test-%-py3.6.pdf: test.md
+out/test-%-py3.7.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-$*) $< -t json | $(PYTHON-3.6) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
+	$(PANDOC-$*) $< -t json | $(PYTHON-3.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
 
 out/test-%-cleveref.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi

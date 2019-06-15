@@ -45,15 +45,16 @@ Preparing a Release
 
 Tagging:
 
-    $ git tag -a 1.4.3 -m "New release."
-    $ git push origin 1.4.3
+    $ git tag -a 1.4.4 -m "New release."
+    $ git push origin 1.4.4
 
 Creating a source distribution:
 
-    $ python3 setup.py sdist
+    $ python3 setup.py sdist bdist_wheel
 
 Uploading to pypi (update the version number):
 
-    $ twine upload dist/pandoc-eqnos-1.4.3.tar.gz
+    $ twine upload dist/pandoc-eqnos-1.4.4.tar.gz
+    $ twine upload dist/pandoc-eqnos-1.4.4-py3-none-any.whl
 
 (from https://pypi.python.org/pypi/twine).
