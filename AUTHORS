@@ -1,7 +1,6 @@
 
-pandoc-eqnos was written by Thomas J. Duck <tomduck@tomduck.ca>
+pandoc-eqnos was written and is maintained by Thomas J. Duck
+<tomduck@tomduck.ca>.
 
-I am grateful for the contributions made by:
-
-  * The many users who have submitted many helpful bug reports and feature
-    requests.
+I am grateful for the contributions made by the many users who have submitted
+issues and pull requests via GitHub.

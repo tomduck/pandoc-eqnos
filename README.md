@@ -8,7 +8,7 @@
 [more...](#whats-new).
 
 
-pandoc-eqnos 1.4.4
+pandoc-eqnos 2.0.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown documents to other formats.
