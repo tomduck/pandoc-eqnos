@@ -1,3 +1,14 @@
+pandoc-eqnos 2.0.0 (unreleased)
+
+    * A warnings system has been added.
+    * Meta variable names have been updated.
+    * TeX codes have been completely overhauled.
+    * Epub support is improved.
+    * The basic filter and library codes have been refactored and
+      improved with a view toward maintainability.
+    * The documentation has been updated.
+
+
 pandoc-eqnos 1.4.4 (2019-06-15)
 
     * For epub output, place equation number in own span (Issue #39).
