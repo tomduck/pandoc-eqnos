@@ -25,18 +25,9 @@ from setuptools import setup, dist
 from setuptools.command.install import install
 from setuptools.command.install_scripts import install_scripts
 
-# Hack to overcome a bug in the pandoc-attributes 0.1.7 install script.
-# See https://github.com/aaren/pandoc-attributes/issues/1.
-try:
-    import pypandoc
-    def raiseImportError(*args, **kwargs):
-        raise ImportError
-    pypandoc.convert = raiseImportError
-except ImportError:
-    pass
-
-LONG_DESCRIPTION = """\
-A pandoc filter for numbering equations and equation references.
+DESCRIPTION = """\
+A pandoc filter for numbering equations and their references
+when converting markdown documents to other formats.
 """
 
 # From https://stackoverflow.com/a/39671214
@@ -117,14 +108,14 @@ setup(
     author='Thomas J. Duck',
     author_email='tomduck@tomduck.ca',
     description='Equation number filter for pandoc',
-    long_description=LONG_DESCRIPTION,
+    long_description=DESCRIPTION,
     license='GPL',
     keywords='pandoc equation numbers filter',
     url='https://github.com/tomduck/pandoc-eqnos',
     download_url='https://github.com/tomduck/pandoc-eqnos/tarball/' + \
                  __version__,
 
-    install_requires=['pandoc-xnos>=1.2.0,<2'],
+    install_requires=['pandoc-xnos~=2.0.0a1'],
 
     py_modules=['pandoc_eqnos'],
     entry_points={'console_scripts':['pandoc-eqnos = pandoc_eqnos:main']},
