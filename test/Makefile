@@ -28,7 +28,6 @@ PANDOC-1.16 = pandoc-$(v1.16)
 PANDOC-1.15 = pandoc-$(v1.15)
 
 PYTHON-2.7 = python2.7
-PYTHON-3.7 = python3.7
 
 # mathml needed for \mathrm{}
 PDFFLAGS = --variable geometry:margin=1in --standalone --variable urlcolor=blue
@@ -39,8 +38,6 @@ all: pdf html epub docx
 
 pdf: out/test-2.7.pdf \
      out/test-2.7-py2.7.pdf \
-     out/test-2.7-py3.7.pdf \
-     out/test-2.7-cleveref.pdf \
      out/test-2.6.pdf \
      out/test-2.5.pdf \
      out/test-2.3.pdf \
@@ -68,22 +65,17 @@ out/test-%-py2.7.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< -t json | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
 
-out/test-%-py3.7.pdf: test.md
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-$*) $< -t json | $(PYTHON-3.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
-
-out/test-%-cleveref.pdf: test.md
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-$*) $< --filter pandoc-eqnos $(PDFFLAGS) --include-in-header=cleveref.tex -o $@
-
 out/test-%.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< --filter pandoc-eqnos $(PDFFLAGS) -o $@
 
-out/test-%.docx out/test-%.epub: test.md
+out/test-%.epub: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	$(PANDOC-$*) $< --filter pandoc-eqnos -o $@
 
+out/test-%.docx: test.md
+	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
+	$(PANDOC-$*) $< --filter pandoc-eqnos -o $@
 
 .PHONY: clean
 

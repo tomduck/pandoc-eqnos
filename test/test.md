@@ -1,4 +1,5 @@
 ---
+title: Pandoc-eqnos Test
 eqnos-plus-name: EQ.
 eqnos-star-name: EQUATION
 ...
@@ -53,7 +54,7 @@ An equation with no attributes:
 $$ E = mc^2 $$
 
 
-### Unreferenceable equations ###
+### Unreferenceable numbered equations ###
 
 $$ y = F(x) $$ {#eq:}
 
