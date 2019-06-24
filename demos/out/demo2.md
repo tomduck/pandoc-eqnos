@@ -18,4 +18,4 @@ $$ y = A e^{-\gamma t}\cos(2\pi f t) $$
 
 It is also possible to number equations generically without planning to
 refer to them; e.g.:
-$$ \pi = 3.141592653589793238462643\dots \qquad (4)$$
+$$ \pi = 3.141592653589793238462643 \ldots \qquad (4)$$

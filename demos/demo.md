@@ -1,3 +1,6 @@
+---
+title: Pandoc-eqnos Demo
+...
 
 The equation for a straight line is
 $$ y = mx + b $$ {#eq:line}

@@ -2,7 +2,7 @@ The equation for a straight line is $$ y = mx + b \qquad (1)$$ and the
 equation for a polynomial is
 $$ y = \sum_{n=0}^{\infty} a_n x^n \qquad (2)$$
 
-Equation [1](#eq:line) and Eq. [2](#eq:polynomial) are known to all
+Eq. [1](#eq:line) and Eq. [2](#eq:polynomial) are known to all
 first-year math students.
 
 The Fourier series is a little more advanced:
@@ -19,4 +19,4 @@ $$ y = A e^{-\gamma t}\cos(2\pi f t) $$
 
 It is also possible to number equations generically without planning to
 refer to them; e.g.:
-$$ \pi = 3.141592653589793238462643\dots \qquad (4)$$
+$$ \pi = 3.141592653589793238462643 \ldots \qquad (4)$$

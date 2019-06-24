@@ -4,21 +4,21 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>demo</title>
+  <title>Pandoc-eqnos Demo</title>
   <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+  <script src="katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
     var mathElements = document.getElementsByClassName("math");
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
       if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
     }}});</script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
+  <link rel="stylesheet" href="katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -27,6 +27,9 @@
   </style>
 </head>
 <body>
+<header id="title-block-header">
+<h1 class="title">Pandoc-eqnos Demo</h1>
+</header>
 <p>The equation for a straight line is <span id="eq:line" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = mx + b </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(1)</span></span>  and the equation for a polynomial is <span id="eq:polynomial" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = \sum_{n=0}^{\infty} a_n x^n </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(2)</span></span> </p>
 <p>Equation <a href="#eq:line">1</a> and eq. <a href="#eq:polynomial">2</a> are known to all first-year math students.</p>
 <p>The Fourier series is a little more advanced: <span id="eq:fourier" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)

@@ -1,4 +1,5 @@
 ---
+title: Pandoc-eqnos Demo
 eqnos-cleveref: True
 eqnos-plus-name: Eq.
 ...
