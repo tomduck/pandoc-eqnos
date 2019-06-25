@@ -196,22 +196,21 @@ def _add_markup(fmt, eq, value):
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
         text = str(references[attrs.id][0])
-        outerspan = RawInline('html',
-                              '<span %s style="display: inline-block; '
-                              'position: relative; width: 100%%">'%(''\
-                              if eq['is_unreferenceable'] \
-                              else 'id="%s"'%attrs.id))
-        innerspan = RawInline('html',
-                              '<span style="position: absolute; '
-                              'right: 0em; top: %s; line-height:0; '
-                              'text-align: right">' %
-                              ('0' if text.startswith('$') and
-                               text.endswith('$') else '50%',))
+        div = RawInline('html',
+                        '<div %s class="eqnos" style="position: relative; '
+                        'width: 100%%">'%('' if eq['is_unreferenceable']
+                                          else 'id="%s"'%attrs.id))
+        span = RawInline('html',
+                         '<span style="position: absolute; '
+                         'right: 0em; top: %s; line-height:0; '
+                         'text-align: right">' %
+                         ('0' if text.startswith('$') and
+                          text.endswith('$') else '50%',))
         num = Math({"t":"InlineMath"}, '(%s)' % text[1:-1]) \
           if text.startswith('$') and text.endswith('$') \
           else Str('(%s)' % text)
-        endspans = RawInline('html', '</span></span>')
-        ret = [outerspan, AttrMath(*value), innerspan, num, endspans]
+        endtags = RawInline('html', '</span></div>')
+        ret = [div, AttrMath(*value), span, num, endtags]
     elif fmt == 'docx':
         # As per http://officeopenxml.com/WPhyperlink.php
         bookmarkstart = \
@@ -349,7 +348,7 @@ def process(meta):
 def add_tex(meta):
     """Adds text to the meta data."""
 
-    warnings = warninglevel == 2 and \
+    warnings = warninglevel == 2 and references and \
       (pandocxnos.cleveref_required() or
        plusname_changed or starname_changed or numbersections)
     if warnings:
@@ -368,7 +367,7 @@ def add_tex(meta):
     # is a known issue and is owing to a design decision in pandoc.
     # See https://github.com/jgm/pandoc/issues/3139.
 
-    if pandocxnos.cleveref_required():
+    if pandocxnos.cleveref_required() and references:
         tex = """
             %%%% pandoc-eqnos: required package
             \\usepackage%s{cleveref}
@@ -379,21 +378,21 @@ def add_tex(meta):
         pandocxnos.add_tex_to_header_includes(
             meta, DISABLE_CLEVEREF_BRACKETS_TEX, warninglevel)
 
-    if plusname_changed:
+    if plusname_changed and references:
         tex = """
             %%%% pandoc-eqnos: change cref names
             \\crefname{equation}{%s}{%s}
         """ % (plusname[0], plusname[1])
         pandocxnos.add_tex_to_header_includes(meta, tex, warninglevel)
 
-    if starname_changed:
+    if starname_changed and references:
         tex = """\
             %%%% pandoc-eqnos: change Cref names
             \\Crefname{equation}{%s}{%s}
         """ % (starname[0], starname[1])
         pandocxnos.add_tex_to_header_includes(meta, tex, warninglevel)
 
-    if numbersections:
+    if numbersections and references:
         pandocxnos.add_tex_to_header_includes(
             meta, NUMBER_BY_SECTION_TEX, warninglevel)
 
