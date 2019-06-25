@@ -25,18 +25,21 @@
   <style>
   html {margin: 0 auto; max-width: 5in;}
   </style>
+  <style>
+  html {margin: 0 auto; max-width: 5in;}
+  </style>
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Pandoc-eqnos Demo</h1>
 </header>
-<p>The equation for a straight line is <span id="eq:line" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = mx + b </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(1)</span></span>  and the equation for a polynomial is <span id="eq:polynomial" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = \sum_{n=0}^{\infty} a_n x^n </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(2)</span></span> </p>
+<p>The equation for a straight line is <div id="eq:line" class="eqnos" style="position: relative; width: 100%"><span class="math display"> y = mx + b </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(1)</span></div>  and the equation for a polynomial is <div id="eq:polynomial" class="eqnos" style="position: relative; width: 100%"><span class="math display"> y = \sum_{n=0}^{\infty} a_n x^n </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(2)</span></div> </p>
 <p>Equation <a href="#eq:line">1</a> and eq. <a href="#eq:polynomial">2</a> are known to all first-year math students.</p>
-<p>The Fourier series is a little more advanced: <span id="eq:fourier" style="display: inline-block; position: relative; width: 100%"><span class="math display"> y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
+<p>The Fourier series is a little more advanced: <div id="eq:fourier" class="eqnos" style="position: relative; width: 100%"><span class="math display"> y = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nx)
                       + \sum_{n=1}^{\infty}b_n\cos(nx)
-</span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(3)</span></span> </p>
+</span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(3)</span></div> </p>
 <p>Equations <a href="#eq:line">1</a>–<a href="#eq:fourier">3</a> are used throughout science and engineering.</p>
 <p>Equations can be left unnumbered if we do not need to refer to them: <span class="math display"> y = A e^{-\gamma t}\cos(2\pi f t) </span></p>
-<p>It is also possible to number equations generically without planning to refer to them; e.g.: <span  style="display: inline-block; position: relative; width: 100%"><span class="math display"> \pi = 3.141592653589793238462643 \ldots </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(4)</span></span> </p>
+<p>It is also possible to number equations generically without planning to refer to them; e.g.: <div  class="eqnos" style="position: relative; width: 100%"><span class="math display"> \pi = 3.141592653589793238462643 \ldots </span><span style="position: absolute; right: 0em; top: 50%; line-height:0; text-align: right">(4)</span></div> </p>
 </body>
 </html>
