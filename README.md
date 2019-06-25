@@ -17,6 +17,8 @@ Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives n
 
 This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3, <sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
+The goals of pandoc-eqnos are to make cross-referencing easy, and to equally support pdf/latex, html, and epub output formats (more can be added with time).  The output of pandoc-eqnos may be customized, and helpful messages are provided when errors are detected.
+
 See also: [pandoc-fignos], [pandoc-tablenos]
 
 [pandoc]: http://pandoc.org/
@@ -42,7 +44,7 @@ Contents
 Usage
 -----
 
-Once installed, pandoc-fignos is enabled by using the
+Pandoc-eqnos is activated by using the
 
     --filter pandoc-eqnos
 
@@ -127,7 +129,7 @@ Customization
 
 Pandoc-eqnos may be customized by setting variables in the [metadata block] or on the command line (using `-M KEY=VAL`).  The following variables are supported:
 
-  * `fignos-warning-level` or `xnos-warning-level` - Set to `0` for
+  * `eqnos-warning-level` or `xnos-warning-level` - Set to `0` for
     no warnings, `1` for critical warnings (default), or `2` for
     critical warnings and informational messages.  Warning level 2
     should be used when troubleshooting.
@@ -157,11 +159,12 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
      enabled for LaTeX/pdf, html, and epub output.  For docx,
      use [docx custom styles] instead.
 
-Note that variables beginning with `eqnos-` apply to only pandoc-fignos, whereas variables beginning with `xnos-` apply to all three of pandoc-fignos/eqnos/tablenos.
+Note that variables beginning with `eqnos-` apply to only pandoc-eqnos, whereas variables beginning with `xnos-` apply to all three of pandoc-fignos/eqnos/tablenos.
 
 Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats.
 
 [metadata block]: http://pandoc.org/README.html#extension-yaml_metadata_block
+[docx custom styles]: https://pandoc.org/MANUAL.html#custom-styles
 [demo3.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo3.md
 [pdf3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.pdf
 [tex3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/out/demo3.tex
@@ -211,13 +214,13 @@ Installation
 
 Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and most linux distributions.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
 
-Pandoc-fignos may be installed using the shell command
+Pandoc-eqnos may be installed using the shell command
 
-    pip install pandoc-fignos --user
+    pip install pandoc-eqnos --user
 
 To upgrade to the most recent release, use
 
-    pip install --upgrade pandoc-fignos --user
+    pip install --upgrade pandoc-eqnos --user
 
 Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It is normally installed with a python distribution.
 
@@ -228,7 +231,7 @@ Alternative installation procedures are given in [README.developers].
 [README.developers]: README.developers
 
 
-#### Installation Troubleshooting ####
+#### Troubleshooting ####
 
 When prompted to upgrade `pip`, follow the instructions given to do so.  Installation errors may occur with older versions.
 
@@ -241,7 +244,6 @@ I usually perform the above two commands as root (or under sudo).  Everything el
 When installing pandoc-eqnos, watch for any errors or warning messages.  In particular, pip may warn that pandoc-eqnos was installed into a directory that "is not on PATH".  This will need to be fixed before proceeding.  Access to pandoc-eqnos may be tested using the shell command
 
     which pandoc-eqnos
-
 
 To determine which version of pandoc-eqnos is installed, use
 
@@ -275,9 +277,14 @@ What's New
 
 **New in 2.0.0:**  This version represents a major revision of pandoc-eqnos.  While the interface is similar to that of the 1.x series, some users may encounter minor compatibility issues.
 
+Warning messages are a new feature of pandoc-eqnos.  The meta variable `eqnos-warning-level` may be set to `0`, `1`, or `2` depending on the degree of warnings desired.  Warning level `1` (the default) will alert users to bad references, malformed attributes, and unknown meta variables.  Warning level `2` adds informational messages that should be helpful with debugging.  Level `0` turns all messages off.
+
 Meta variable names have been updated.  Deprecated names have been removed, and new variables have been added.
 
-Warning messages are a new feature of pandoc-eqnos.  The meta variable `eqnos-warning-level` may be set to `0`, `1`, or `2` depending on the degree of warnings desired.  Warning level `1` (the default) will alert users to bad references, malformed attributes, and unknown meta variables.  Warning level `2` adds informational messages that should be helpful with debugging.  Level `0` turns all messages off.
+The basic filter and library codes have been refactored and improved with a view toward maintainability.  While extensive tests have been performed, some problems may have slipped through unnoticed.  Bug reports should be submitted to our [Issues tracker].
+
+
+#### TeX/PDF ###
 
 TeX codes produced by pandoc-eqnos are massively improved.  The hacks used before were causing some users problems.  The new approach provides more flexibility and better compatibility with the LaTeX system.
 
@@ -285,9 +292,12 @@ Supporting TeX is now written to the `header-includes` meta data.  Users no long
 
 A word of warning: Pandoc-eqnos's additions to the `header-includes` are overridden when pandoc's `--include-in-header` option is used.  This is owing to a [design choice](https://github.com/jgm/pandoc/issues/3139) in pandoc.  Users may choose to deliberately override pandoc-eqnos's `header-includes` by providing their own TeX through `--include-in-header`.  If a user needs to include other bits of TeX in this way, then they will need to do the same for the TeX that pandoc-eqnos needs.
 
-Epub support is now much improved.  In particular, reference links across chapters now work.
 
-The basic filter and library codes have been refactored and improved with a view toward maintainability.  While extensive tests have been performed, some problems may have slipped through unnoticed.  Bug reports should be submitted to our [Issues tracker].
+#### Html/ Epub ####
+
+The equation is now enclosed in a `<div>` which contains the `id` and class `eqnos`.  This change was made to facilitate styling, and for consistency with pandoc-fignos and pandoc-tablenos.  An inline-block `<span>` was formerly used instead.
+
+Epub support is generally improved.
 
 
 ----
