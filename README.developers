@@ -19,10 +19,13 @@ ready, it will be merged into the `nextrelease` branch.
 Install Alternatives
 --------------------
 
-1) To install a pre-release version of pandoc-eqnos from pypi, the --pre flag
-   should be used with pip.
+Installing from source may require upgrading `setuptools` by executing
 
-2) To install directly from the github repository use:
+    pip install --upgrade setuptools
+
+as root (or under sudo).
+
+1) To install from the github `master` branch use:
 
        $ pip install git+https://github.com/tomduck/pandoc-eqnos.git --user
 
@@ -35,7 +38,7 @@ Install Alternatives
 
    (to upgrade use the --upgrade flag).
 
-4) To install from source, `cd` into the source directory and use
+4) To install from a local source distribution, `cd` into its root  and use
 
        pip install -e . --user
 

@@ -218,13 +218,17 @@ Pandoc-eqnos may be installed using the shell command
 
     pip install pandoc-eqnos --user
 
+Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.
+
 To upgrade to the most recent release, use
 
-    pip install --upgrade pandoc-eqnos --user
+    pip install pandoc-eqnos --user --upgrade
 
-Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It is normally installed with a python distribution.
+To upgrade to a pre-release version, use
 
-Alternative installation procedures are given in [README.developers].
+    pip install pandoc-eqnos --user --upgrade --pre
+
+Instructions for installing from source are given in [README.developers].
 
 [python]: https://www.python.org/
 [PyPI]: https://pypi.python.org/pypi
@@ -233,13 +237,7 @@ Alternative installation procedures are given in [README.developers].
 
 #### Troubleshooting ####
 
-When prompted to upgrade `pip`, follow the instructions given to do so.  Installation errors may occur with older versions.
-
-Installations from source may also require upgrading `setuptools` using:
-
-    pip install --upgrade setuptools
-
-I usually perform the above two commands as root (or under sudo).  Everything else can be done as a regular user.
+When prompted to upgrade `pip`, follow the instructions given to do so.  This will probably need to be done as root, or under sudo.  The installation of pandoc-eqnos can be completed as a regular user.
 
 When installing pandoc-eqnos, watch for any errors or warning messages.  In particular, pip may warn that pandoc-eqnos was installed into a directory that "is not on PATH".  This will need to be fixed before proceeding.  Access to pandoc-eqnos may be tested using the shell command
 
