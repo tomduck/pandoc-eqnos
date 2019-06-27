@@ -1,11 +1,10 @@
 
-**New in 1.4.3:** Improved epub support.
 
-**New in 1.4.1:** Restored `eqnos-eqref` functionality.
+**Notice:** A beta release for pandoc-eqnos 2.0.0 is now available.  It can be installed using
 
-**New in 1.4.0:** Support for references in bracketed spans.
+    pip install pandoc-eqnos --upgrade --pre --user
 
-[more...](#whats-new)
+Please read the beta's [documentation](https://github.com/tomduck/pandoc-eqnos/tree/2.0) and in particular about [What's New](https://github.com/tomduck/pandoc-eqnos/tree/2.0#whats-new) first.
 
 
 pandoc-eqnos 1.4.3
