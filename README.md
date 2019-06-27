@@ -1,5 +1,5 @@
 
-**Notice:** A beta release for pandoc-eqnos 2.0.0 is now available.  It can be installed using
+**Notice:** This beta release may be installed using
 
     pip install pandoc-eqnos --upgrade --pre --user
 
