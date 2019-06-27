@@ -265,7 +265,7 @@ If you have any difficulties with pandoc-eqnos, or would like to see a new featu
 Development
 -----------
 
-The philosophy of this project is make cross-referencing in markdown easy, and to equally support pdf/latex, html, and epub output formats.  Full docx support is awaiting input from a knowledgeable expert on how to structure the OOXML.
+The philosophy of this project is to make cross-referencing in markdown easy, and to equally support pdf/latex, html, and epub output formats.  Full docx support is awaiting input from a knowledgeable expert on how to structure the OOXML.
 
 Pandoc-eqnos will continue to support pandoc 1.15-onward and python 2 & 3 for the foreseeable future.  The reasons for this are that a) some users cannot upgrade pandoc and/or python; and b) supporting all versions tends to make pandoc-eqnos more robust.
 
@@ -284,7 +284,7 @@ Meta variable names have been updated.  Deprecated names have been removed, and 
 The basic filter and library codes have been refactored and improved with a view toward maintainability.  While extensive tests have been performed, some problems may have slipped through unnoticed.  Bug reports should be submitted to our [Issues tracker].
 
 
-#### TeX/PDF ###
+*TeX/PDF:*
 
 TeX codes produced by pandoc-eqnos are massively improved.  The hacks used before were causing some users problems.  The new approach provides more flexibility and better compatibility with the LaTeX system.
 
@@ -293,7 +293,7 @@ Supporting TeX is now written to the `header-includes` meta data.  Users no long
 A word of warning: Pandoc-eqnos's additions to the `header-includes` are overridden when pandoc's `--include-in-header` option is used.  This is owing to a [design choice](https://github.com/jgm/pandoc/issues/3139) in pandoc.  Users may choose to deliberately override pandoc-eqnos's `header-includes` by providing their own TeX through `--include-in-header`.  If a user needs to include other bits of TeX in this way, then they will need to do the same for the TeX that pandoc-eqnos needs.
 
 
-#### Html/ Epub ####
+*Html/Epub:*
 
 The equation is now enclosed in a `<div>` which contains the `id` and class `eqnos`.  This change was made to facilitate styling, and for consistency with pandoc-fignos and pandoc-tablenos.  An inline-block `<span>` was formerly used instead.
 
