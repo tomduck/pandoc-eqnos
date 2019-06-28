@@ -11,7 +11,7 @@
 pandoc-eqnos 2.0.0
 ==================
 
-*pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown documents to other formats.
+*pandoc-eqnos* is a [pandoc] filter for numbering equations and their references (i.e., cross-referencing) when converting markdown documents to other formats.
 
 Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
