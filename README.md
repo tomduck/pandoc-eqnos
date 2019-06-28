@@ -13,7 +13,7 @@ pandoc-eqnos 2.0.0
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown documents to other formats.
 
-Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
+Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
 This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3, <sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
@@ -179,7 +179,7 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
 
 Note that variables beginning with `eqnos-` apply to only pandoc-eqnos, whereas variables beginning with `xnos-` apply to all three of pandoc-fignos/eqnos/tablenos.
 
-Demonstration: Processing [demo3.md] with `pandoc --filter pandoc-eqnos` gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats.
+Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats.
 
 [metadata block]: http://pandoc.org/README.html#extension-yaml_metadata_block
 [docx custom styles]: https://pandoc.org/MANUAL.html#custom-styles
