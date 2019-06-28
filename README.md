@@ -15,7 +15,7 @@ pandoc-eqnos 2.0.0
 
 Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3, <sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3,<sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 Pandoc-eqnos is easy to install and use, and it equally supports pdf/latex, html, and epub output formats.  Its output may be customized, and helpful messages are provided when errors are detected.
 
@@ -117,7 +117,7 @@ to have the reference name (i.e., "eq.") automatically generated.  The above for
 
      *@eq:id
 
-instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[1](#footnote1)</sup>
+instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[2](#footnote2)</sup>
 
     !@eq:id
 
