@@ -178,35 +178,64 @@ Technical Details
 
 #### TeX/pdf Output ####
 
-During processing, pandoc-eqnos inserts packages and supporting TeX into the `header-includes` metadata field.  To see what is inserted, set the `eqnos-warninglevel` meta variable to `2`.  Note that any use of pandoc's `--include-in-header` option [overrides](https://github.com/jgm/pandoc/issues/3139) all `header-includes`.
+During processing, pandoc-eqnos inserts the packages and supporting TeX it needs into the `header-includes` metadata field.  To see what is inserted, set the `eqnos-warninglevel` meta variable to `2`.  Note that any use of pandoc's `--include-in-header` option [overrides](https://github.com/jgm/pandoc/issues/3139) all `header-includes`.
+
+An example reference in TeX looks like
+
+~~~latex
+See \cref{eq:polynomial}.
+~~~
+
+An example equation looks like
+
+~~~latex
+\begin{equation}
+  y = \sum_{n=0}^{\infty} a_n x^n
+  \label{eq:polynomial}
+\end{equation}
+~~~
 
 Other details:
 
-  * TeX is only inserted into the `header-includes` if it is
-    actually needed (in particular, packages are not installed
-    if they are found elsewhere in the `header-includes`);
-  * The `equation` environment is used;
   * The `cleveref` package is used for clever references; 
   * The `\label` and `\ref` macros are used for figure labels and
-    references, respectively; `\Cref` and `\cref` are used for
-    clever references;
+    references, respectively (`\Cref` and `\cref` are used for
+    clever references);
   * Clever reference names are set with `\Crefname` and `\crefname`;
   * Tagged equations make use of the `\tag` macro;
   * AMS-style referencing is achieved using the amsmath `\eqref`
     macro.
 
 
-#### Other Output Formats ####
+#### Html/Epub Output ####
 
-  * Linking uses native capabilities wherever possible;
+An example reference in html looks like
 
-  * The numbers and (clever) references are hard-coded
-    into the output;
+~~~html
+See eq. <a href="#eq:polynomial">1</a>.
+~~~
 
-  * The output is structured such that references and equations
-    may be styled (e.g., using
-    [css](https://pandoc.org/MANUAL.html#option--css) or
-    [docx custom styles]).
+An example equation looks like
+
+~~~html
+<div id="eq:polynomial" class="eqnos" style="position: relative;
+     width: 100%">
+  <span class="math display">
+    y = \sum_{n=0}^{\infty} a_n x^n
+  </span>
+  <span style="position: absolute; right: 0em; top: 50%;
+        line-height:0; text-align: right">
+    (1)
+  </span>
+</div>
+~~~
+
+The equation and its number are wrapped in a div with an `id` for linking and with class `eqnos` to allow for css styling.  The number is in a separate span from the equation and is floated right.
+
+
+#### Docx Output ####
+
+Docx OOXML output is under development and subject to change.  Native capabilities will be used wherever possible.
 
 
 Installation
