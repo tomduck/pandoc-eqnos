@@ -159,10 +159,11 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
     references (e.g., change from "fig." to "Fig.");
 
   * `eqnos-plus-name` - Sets the name of a "+" clever reference 
-    (e.g., change it from "eq." to "equation"); and
+    (e.g., change it from "eq." to "equation"). Settings here take
+    precedence over `xnos-capitalise`;
 
   * `eqnos-star-name` - Sets the name of a "*" clever reference 
-    (e.g., change it from "Equation" to "Eq.").
+    (e.g., change it from "Equation" to "Eq.");
 
   * `eqnos-eqref` - Set to `True` to use AMS-style equation references
      (i.e., equation numbers set in brackets); `eqnos-eqref` takes
