@@ -31,14 +31,40 @@ See also: [pandoc-fignos], [pandoc-tablenos]
 Contents
 --------
 
- 1. [Usage](#usage)
- 2. [Markdown Syntax](#markdown-syntax)
- 3. [Customization](#customization)
- 4. [Technical Details](#technical-details)
- 5. [Installation](#installation)
+ 1. [Installation](#installation)
+ 2. [Usage](#usage)
+ 3. [Markdown Syntax](#markdown-syntax)
+ 4. [Customization](#customization)
+ 5. [Technical Details](#technical-details)
  6. [Getting Help](#getting-help)
  7. [Development](#development)
  8. [What's New](#whats-new)
+
+
+Installation
+------------
+
+Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and linux.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
+
+Pandoc-eqnos may be installed using the shell command
+
+    pip install pandoc-eqnos --user
+
+Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.
+
+To upgrade to the most recent release of pandoc-eqnos, use
+
+    pip install pandoc-eqnos --user --upgrade
+
+To upgrade to a pre-release version, use
+
+    pip install pandoc-eqnos --user --upgrade --pre
+
+Instructions for installing from source are given in [README.developers].
+
+[python]: https://www.python.org/
+[PyPI]: https://pypi.python.org/pypi
+[README.developers]: README.developers
 
 
 Usage
@@ -236,51 +262,6 @@ The equation and its number are wrapped in a `<div></div>` with an `id` for link
 ### Docx Output ###
 
 Docx OOXML output is under development and subject to change.  Native capabilities will be used wherever possible.
-
-
-Installation
-------------
-
-Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and most linux distributions.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
-
-Pandoc-eqnos may be installed using the shell command
-
-    pip install pandoc-eqnos --user
-
-Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.
-
-To upgrade to the most recent release, use
-
-    pip install pandoc-eqnos --user --upgrade
-
-To upgrade to a pre-release version, use
-
-    pip install pandoc-eqnos --user --upgrade --pre
-
-Instructions for installing from source are given in [README.developers].
-
-[python]: https://www.python.org/
-[PyPI]: https://pypi.python.org/pypi
-[README.developers]: README.developers
-
-
-### Troubleshooting ###
-
-When prompted to upgrade `pip`, follow the instructions given to do so.  This will probably need to be done as root, or under sudo.  The installation of pandoc-eqnos can be completed as a regular user.
-
-When installing pandoc-eqnos, watch for any errors or warning messages.  In particular, pip may warn that pandoc-eqnos was installed into a directory that "is not on PATH".  This will need to be fixed before proceeding.  Access to pandoc-eqnos may be tested using the shell command
-
-    which pandoc-eqnos
-
-To determine which version of pandoc-eqnos is installed, use
-
-    pip show pandoc-eqnos
-
-As of pandoc-eqnos 1.4.2 the shell command
-
-    pandoc-eqnos --version
-
-also works.  Please be sure to have the latest version of pandoc-eqnos installed before reporting a bug.
 
 
 Getting Help
