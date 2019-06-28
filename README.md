@@ -50,7 +50,7 @@ Pandoc-eqnos may be installed and upgraded using the shell command
 
     pip install pandoc-eqnos --user --upgrade
 
-Pip is a program that downloads and installs modules from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.
+Pip is a program that downloads and installs software from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.
 
 Instructions for installing from source are given in [README.developers].
 
