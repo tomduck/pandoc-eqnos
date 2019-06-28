@@ -155,7 +155,7 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
   * `eqnos-cleveref` or `xnos-cleveref` - Set to `True` to assume "+"
     clever references by default;
 
-  * `xnos-capitalise` - Capitalizes the names of "+" clever
+  * `xnos-capitalise` - Capitalises the names of "+" clever
     references (e.g., change from "fig." to "Fig.");
 
   * `eqnos-plus-name` - Sets the name of a "+" clever reference 

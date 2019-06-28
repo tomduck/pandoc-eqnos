@@ -280,6 +280,7 @@ def process(meta):
     metanames = ['eqnos-warning-level', 'xnos-warning-level',
                  'eqnos-cleveref', 'xnos-cleveref',
                  'xnos-capitalise', 'xnos-capitalize',
+                 'xnos-caption-separator', # Used by pandoc-fignos/tablenos
                  'eqnos-plus-name', 'eqnos-star-name',
                  'eqnos-number-sections', 'xnos-number-sections',
                  'eqnos-eqref']
