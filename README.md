@@ -249,7 +249,7 @@ An example equation looks like
 </div>
 ~~~
 
-The equation and its number are wrapped in a `<div></div>` with an `id` for linking and with class `eqnos` to allow for css styling.  The number is in a separate span from the equation and is floated right.
+The equation and its number are wrapped in a `<div></div>` with an `id` for linking and with class `eqnos` to allow for css styling.  The number is in a separate span from the equation and is positioned right.
 
 
 ### Docx Output ###
