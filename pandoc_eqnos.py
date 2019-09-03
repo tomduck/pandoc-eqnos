@@ -122,7 +122,7 @@ def _process_equation(value, fmt):
     if attrs.id == 'eq:': # Make up a unique description
         attrs.id += str(uuid.uuid4())
         eq['is_unreferenceable'] = True
-    
+
     # Update the current section number
     if attrs['secno'] != cursec:  # The section number changed
         cursec = attrs['secno']   # Update the global section tracker
@@ -196,21 +196,16 @@ def _add_markup(fmt, eq, value):
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
         text = str(references[attrs.id][0])
-        div = RawInline('html',
-                        '<div %s class="eqnos" style="position: relative; '
-                        'width: 100%%">'%('' if eq['is_unreferenceable']
-                                          else 'id="%s"'%attrs.id))
-        span = RawInline('html',
-                         '<span style="position: absolute; '
-                         'right: 0em; top: %s; line-height:0; '
-                         'text-align: right">' %
-                         ('0' if text.startswith('$') and
-                          text.endswith('$') else '50%',))
+        outer = RawInline('html',
+                          '<span%sclass="eqnos">' % \
+                            (' ' if eq['is_unreferenceable'] else
+                             ' id="%s" '%attrs.id))
+        inner = RawInline('html', '<span class="eqnos-number">')
         num = Math({"t":"InlineMath"}, '(%s)' % text[1:-1]) \
           if text.startswith('$') and text.endswith('$') \
           else Str('(%s)' % text)
-        endtags = RawInline('html', '</span></div>')
-        ret = [div, AttrMath(*value), span, num, endtags]
+        endtags = RawInline('html', '</span></span>')
+        ret = [outer, AttrMath(*value), inner, num, endtags]
     elif fmt == 'docx':
         # As per http://officeopenxml.com/WPhyperlink.php
         bookmarkstart = \
@@ -239,9 +234,9 @@ def process_equations(key, value, fmt, meta):  # pylint: disable=unused-argument
 
 # TeX blocks -----------------------------------------------------------------
 
-# Define some tex to number figures by section
+# Define some tex to number equations by section
 NUMBER_BY_SECTION_TEX = r"""
-%% pandoc-eqnos: number figures by section
+%% pandoc-eqnos: number equations by section
 \numberwithin{equation}{section}
 """
 
@@ -249,6 +244,18 @@ NUMBER_BY_SECTION_TEX = r"""
 DISABLE_CLEVEREF_BRACKETS_TEX = r"""
 %% pandoc-eqnos: disable brackets around cleveref numbers
 \creflabelformat{equation}{#2#1#3}
+"""
+
+# Html blocks ----------------------------------------------------------------
+
+# Equation css
+EQUATION_STYLE_HTML = """
+<!-- pandoc-eqnos: equation style -->
+<style>
+  .eqnos { display: inline-block; position: relative; width: 100%; }
+  .eqnos br {display: none; }
+  .eqnos-number { position: absolute; right: 0em; top: 50%; line-height: 0; }
+</style>
 """
 
 
@@ -347,7 +354,7 @@ def process(meta):
             cleveref = False
 
 def add_tex(meta):
-    """Adds text to the meta data."""
+    """Adds tex to the meta data."""
 
     warnings = warninglevel == 2 and references and \
       (pandocxnos.cleveref_required() or
@@ -373,33 +380,58 @@ def add_tex(meta):
             %%%% pandoc-eqnos: required package
             \\usepackage%s{cleveref}
         """ % ('[capitalise]' if capitalise else '')
-        pandocxnos.add_tex_to_header_includes(
-            meta, tex, warninglevel, r'\\usepackage(\[[\w\s,]*\])?\{cleveref\}')
+        pandocxnos.add_to_header_includes(
+            meta, 'tex', tex, warninglevel,
+            r'\\usepackage(\[[\w\s,]*\])?\{cleveref\}')
 
-        pandocxnos.add_tex_to_header_includes(
-            meta, DISABLE_CLEVEREF_BRACKETS_TEX, warninglevel)
+        pandocxnos.add_to_header_includes(
+            meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX, warninglevel)
 
     if plusname_changed and references:
         tex = """
             %%%% pandoc-eqnos: change cref names
             \\crefname{equation}{%s}{%s}
         """ % (plusname[0], plusname[1])
-        pandocxnos.add_tex_to_header_includes(meta, tex, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'tex', tex, warninglevel)
 
     if starname_changed and references:
         tex = """\
             %%%% pandoc-eqnos: change Cref names
             \\Crefname{equation}{%s}{%s}
         """ % (starname[0], starname[1])
-        pandocxnos.add_tex_to_header_includes(meta, tex, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'tex', tex, warninglevel)
 
     if numbersections and references:
-        pandocxnos.add_tex_to_header_includes(
-            meta, NUMBER_BY_SECTION_TEX, warninglevel)
+        pandocxnos.add_to_header_includes(
+            meta, 'tex', NUMBER_BY_SECTION_TEX, warninglevel)
 
     if warnings:
         STDERR.write('\n')
 
+def add_html(meta):
+    """Adds html to the meta data."""
+
+    warnings = warninglevel == 2 and references
+
+    if warnings:
+        msg = textwrap.dedent("""\
+                  pandoc-eqnos: Wrote the following blocks to
+                  header-includes.  If you use pandoc's
+                  --include-in-header option then you will need to
+                  manually include these yourself.
+              """)
+        STDERR.write('\n')
+        STDERR.write(textwrap.fill(msg))
+        STDERR.write('\n')
+
+    # Update the header-includes metadata.  Pandoc's
+    # --include-in-header option will override anything we do here.  This
+    # is a known issue and is owing to a design decision in pandoc.
+    # See https://github.com/jgm/pandoc/issues/3139.
+
+    if references:
+        pandocxnos.add_to_header_includes(
+            meta, 'html', EQUATION_STYLE_HTML, warninglevel)
 
 def main():
     """Filters the document AST."""
@@ -454,6 +486,8 @@ def main():
 
     if fmt in ['latex', 'beamer']:
         add_tex(meta)
+    elif fmt in ['html', 'html5', 'epub', 'epub2', 'epub3']:
+        add_html(meta)
 
     # Update the doc
     if PANDOCVERSION >= '1.18':

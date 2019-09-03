@@ -2,6 +2,10 @@
 title: Pandoc-eqnos Test
 eqnos-plus-name: EQ.
 eqnos-star-name: EQUATION
+header-includes: |
+  <style>
+    html {margin: 0 auto; max-width: 5.5in;}
+  </style>
 ...
 
 $$ y = f(x) $$ {#eq:1}
@@ -15,24 +19,33 @@ $$ y = g(x) $${#eq:2}
 Equations and references in lists:
 
   * Equation {@eq:3}:
-    $$ y = h(x) $$ {#eq:3}
+    $$
+      y = h(x)
+    $$ {#eq:3}
   * Equations {@eq:1} and @eq:2, Eqs. {@eq:1}-{@eq:3} and 
     Eqs. {@eq:1}-{@eq:2}-{@eq:3}.
 
 Equations @eq:4 and @eq:5 are tagged equations (with and without quotes, respectively):
-
-$$ y = F(x) $$ {#eq:4 tag="B.1"}
-
-$$ y = G(x) $$ {#eq:5 tag=B.2}
+$$
+  y = F(x)
+$$ {#eq:4 tag="B.1"}
+$$ 
+  y = G(x)
+$$ {#eq:5 tag=B.2}
 
 @eq:6 has a single-quoted tag with space:
-$$ y = H(x) $$ {#eq:6 tag='Eq. B.3'}
+$$ 
+  y = H(x)
+$$ {#eq:6 tag='Eq. B.3'}
 Equation @eq:7 has a primed tag:
-$$ y = H'(x) $$ {#eq:7 tag="$\mathrm{B.3'}$"}
+$$
+  y = H'(x)
+$$ {#eq:7 tag="$\mathrm{B.3'}$"}
 
 Here is an unreferenceable numbered equation:
-
-$$ E = mc^2 $$ {#eq:}
+$$
+  E = mc^2
+$$ {#eq:}
 
 A [regular link](http://example.com/), an [*italicized link*](http://example.com/) and an email.address@mailinator.com.
 
@@ -45,19 +58,25 @@ More Tests
 ### Unnumbered equations ###
 
 An equation with empty attributes:
-
-$$ E = mc^2 $$ {}
+$$
+  E = mc^2
+$$ {}
 
 
 An equation with no attributes:
-
-$$ E = mc^2 $$
+$$
+  E = mc^2
+$$
 
 
 ### Unreferenceable numbered equations ###
 
-$$ y = F(x) $$ {#eq:}
-
-$$ y = G(x) $$ {#eq:}
-
-$$ y = H(x) $$ {#eq:}
+$$
+  y = F(x)
+$$ {#eq:}
+$$
+  y = G(x)
+$$ {#eq:}
+$$
+  y = H(x)
+$$ {#eq:}
