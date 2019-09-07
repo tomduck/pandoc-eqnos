@@ -78,7 +78,7 @@ plusname = ['eq.', 'eqs.']            # Sets names for mid-sentence references
 starname = ['Equation', 'Equations']  # Sets names for refs at sentence start
 numbersections = False  # Flags that equations should be numbered by section
 eqref = False           # Flags that \eqref should be used
-warninglevel = 1        # 0 - no warnings; 1 - some warnings; 2 - all warnings
+warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
 
 # Processing state variables
 cursec = None    # Current section
