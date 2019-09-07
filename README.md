@@ -88,7 +88,7 @@ or
 
     {@eq:id}
 
-Curly braces around a reference are stripped from the output.
+Curly braces protect a reference and are stripped from the output.
 
 Demonstration: Processing [demo.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf], [tex], [html], [epub], [docx] and other formats.
 
@@ -140,6 +140,13 @@ The equation number may be overridden by placing a tag in the equation's attribu
     $$ y = mx + b $$ {#eq:id tag="B.1"}
 
 The tag may be arbitrary text, or an inline equation such as `$\mathrm{B.1'}$`.  Mixtures of the two are not currently supported.
+
+
+### Disabling Links ###
+
+To disable a link on a reference, set `nolink=True` in the reference's attributes:
+
+    @eq:id{nolink=True}
 
 
 Customization
