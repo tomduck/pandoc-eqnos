@@ -469,8 +469,8 @@ def main():
                                 detach_attrs_math], blocks)
 
     # Second pass
-    process_refs = process_refs_factory('pandoc-eqnos', references.keys(),
-                                        warninglevel)
+    process_refs = process_refs_factory('pandoc-eqnos', LABEL_PATTERN,
+                                        references.keys(), warninglevel)
     replace_refs = replace_refs_factory(references,
                                         cleveref, eqref,
                                         plusname if not capitalise or \
