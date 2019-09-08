@@ -61,8 +61,8 @@ including for pre-releases.
     
 Tagging  (update the version number):
 
-    $ git tag -a 2.0.0b1 -m "New release."
-    $ git push origin 2.0.0b1
+    $ git tag -a 2.0.0b2 -m "New release."
+    $ git push origin 2.0.0b2
 
 
 Creating source and distributions:
@@ -73,7 +73,7 @@ Creating source and distributions:
     
 Uploading to pypi (update the version number):
 
-    $ twine upload dist/pandoc-eqnos-2.0.0b1.tar.gz \
-                   dist/pandoc_eqnos-2.0.0b1-py3-none-any.whl
+    $ twine upload dist/pandoc-eqnos-2.0.0b2.tar.gz \
+                   dist/pandoc_eqnos-2.0.0b2-py3-none-any.whl
 
 (see https://pypi.python.org/pypi/twine).
