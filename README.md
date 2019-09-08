@@ -212,7 +212,7 @@ Technical Details
 
 ### TeX/pdf Output ###
 
-During processing, pandoc-eqnos inserts the packages and supporting TeX it needs into the `header-includes` metadata field.  To see what is inserted, set the `eqnos-warninglevel` meta variable to `2`.  Note that any use of pandoc's `--include-in-header` option [overrides](https://github.com/jgm/pandoc/issues/3139) all `header-includes`.
+During processing, pandoc-eqnos inserts the packages and supporting TeX it needs into the `header-includes` metadata field.  To see what is inserted, set the `eqnos-warning-level` meta variable to `2`.  Note that any use of pandoc's `--include-in-header` option [overrides](https://github.com/jgm/pandoc/issues/3139) all `header-includes`.
 
 An example reference in TeX looks like
 
