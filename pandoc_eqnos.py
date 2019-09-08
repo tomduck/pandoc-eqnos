@@ -77,6 +77,7 @@ capitalise = False  # Flags that plusname should be capitalised
 plusname = ['eq.', 'eqs.']            # Sets names for mid-sentence references
 starname = ['Equation', 'Equations']  # Sets names for refs at sentence start
 numbersections = False  # Flags that equations should be numbered by section
+secoffset = 0           # Section number offset
 eqref = False           # Flags that \eqref should be used
 warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
 
@@ -136,7 +137,7 @@ def _process_equation(value, fmt):
         # tags.
         if fmt in ['html', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
           'tag' not in attrs:
-            attrs['tag'] = str(cursec) + '.' + str(Nreferences)
+            attrs['tag'] = str(cursec+secoffset) + '.' + str(Nreferences)
             Nreferences += 1
 
     # Save reference information
@@ -240,6 +241,12 @@ NUMBER_BY_SECTION_TEX = r"""
 \numberwithin{equation}{section}
 """
 
+# Section number offset
+SECOFFSET_TEX = r"""
+%% pandoc-eqnos: section number offset
+\setcounter{section}{%s}
+"""
+
 # Define some tex to disable brackets around cleveref numbers
 DISABLE_CLEVEREF_BRACKETS_TEX = r"""
 %% pandoc-eqnos: disable brackets around cleveref numbers
@@ -272,6 +279,7 @@ def process(meta):
     global plusname    # Sets names for mid-sentence references
     global starname    # Sets names for references at sentence start
     global numbersections  # Flags that sections should be numbered by section
+    global secoffset       # Section number offset
     global warninglevel    # 0 - no warnings; 1 - some; 2 - all
     global plusname_changed  # Flags that the plus name changed
     global starname_changed  # Flags that the star name changed
@@ -290,6 +298,7 @@ def process(meta):
                  'xnos-caption-separator', # Used by pandoc-fignos/tablenos
                  'eqnos-plus-name', 'eqnos-star-name',
                  'eqnos-number-sections', 'xnos-number-sections',
+                 'xnos-number-offset',
                  'eqnos-eqref']
 
     if warninglevel:
@@ -348,6 +357,9 @@ def process(meta):
             numbersections = check_bool(get_meta(meta, name))
             break
 
+    if 'xnos-number-offset' in meta:
+        secoffset = int(get_meta(meta, name))
+
     if 'eqnos-eqref' in meta:
         eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
         if eqref:  # Eqref and cleveref are mutually exclusive
@@ -358,7 +370,7 @@ def add_tex(meta):
 
     warnings = warninglevel == 2 and references and \
       (pandocxnos.cleveref_required() or
-       plusname_changed or starname_changed or numbersections)
+       plusname_changed or starname_changed or numbersections or secoffset)
     if warnings:
         msg = textwrap.dedent("""\
                   pandoc-eqnos: Wrote the following blocks to
@@ -404,6 +416,11 @@ def add_tex(meta):
     if numbersections and references:
         pandocxnos.add_to_header_includes(
             meta, 'tex', NUMBER_BY_SECTION_TEX, warninglevel)
+
+    if secoffset and references:
+        pandocxnos.add_to_header_includes(
+            meta, 'tex', SECOFFSET_TEX % secoffset, warninglevel,
+            r'\\setcounter\{section\}')
 
     if warnings:
         STDERR.write('\n')
