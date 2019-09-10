@@ -19,13 +19,16 @@ This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3,<sup>[1](#fo
 
 Pandoc-eqnos is easy to install and use, and it equally supports pdf/latex, html, and epub output formats.  Its output may be customized, and helpful messages are provided when errors are detected.
 
-See also: [pandoc-fignos], [pandoc-tablenos]
+See also: [pandoc-fignos], [pandoc-tablenos] \
+Other filters: [pandoc-comments], [pandoc-latex-extensions]
 
 [pandoc]: http://pandoc.org/
 [Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 [on GitHub]:  https://github.com/tomduck/pandoc-eqnos
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
 [pandoc-tablenos]: https://github.com/tomduck/pandoc-tablenos
+[pandoc-comments]: https://github.com/tomduck/pandoc-comments
+[pandoc-latex-extensions]: https://github.com/tomduck/pandoc-latex-extensions
 
 
 Contents
