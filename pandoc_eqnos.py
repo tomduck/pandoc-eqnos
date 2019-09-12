@@ -297,7 +297,7 @@ def process(meta):
                  'xnos-capitalise', 'xnos-capitalize',
                  'xnos-caption-separator', # Used by pandoc-fignos/tablenos
                  'eqnos-plus-name', 'eqnos-star-name',
-                 'eqnos-number-sections', 'xnos-number-sections',
+                 'eqnos-number-by-section', 'xnos-number-by-section',
                  'xnos-number-offset',
                  'eqnos-eqref']
 
@@ -352,7 +352,7 @@ def process(meta):
         for name in starname:
             assert isinstance(name, STRTYPES)
 
-    for name in ['eqnos-number-sections', 'xnos-number-sections']:
+    for name in ['eqnos-number-by-section', 'xnos-number-by-section']:
         if name in meta:
             numbersections = check_bool(get_meta(meta, name))
             break

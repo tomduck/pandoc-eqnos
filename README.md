@@ -180,7 +180,7 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
      precedence over `eqnos-cleveref`; they cannot be used together;
      and
 
-  * `eqnos-number-sections` or `xnos-number-sections` - Set to
+  * `eqnos-number-by-section` or `xnos-number-by-section` - Set to
     `True` to number equations by section (e.g., Eq. 1.1, 1.2, etc in
     Section 1, and Eq. 2.1, 2.2, etc in Section 2).  For LaTeX/pdf,
     html, and epub output, this feature should be used together with
@@ -298,7 +298,7 @@ What's New
 
 Warning messages are a new feature of pandoc-eqnos.  The meta variable `eqnos-warning-level` may be set to `0`, `1`, or `2` depending on the degree of warnings desired.  Warning level `1` will alert users to bad references, malformed attributes, and unknown meta variables.  Warning level `2` (the default) adds informational messages that should be helpful with debugging.  Level `0` turns all messages off.
 
-Meta variable names have been updated.  Deprecated names have been removed, and new variables have been added.
+Meta variable names have been updated.  Deprecated names have been removed, and new variables have been added.  Note in particular that the `eqnos-number-sections` and `xnos-number-sections` variables have been renamed to `eqnos-number-by-section` and `xnos-number-by-section`, respectively.
 
 The basic filter and library codes have been refactored and improved with a view toward maintainability.  While extensive tests have been performed, some problems may have slipped through unnoticed.  Bug reports should be submitted to our [Issues tracker].
 

@@ -9,6 +9,10 @@ pandoc-eqnos 2.0.0 (unreleased)
       (pandoc-fignos Issue #54).
     * Enable section number offsets in equation numbers
       (pandoc-fignos Issue #47).
+    * Better handling of missing references.
+    * Changed `eqnos-number-sections` and `xnos-number-sections`
+      options to `eqnos-number-by-section` and
+      `xnos-number-by-section`
 
 
 pandoc-eqnos 1.4.4 (2019-06-15)
