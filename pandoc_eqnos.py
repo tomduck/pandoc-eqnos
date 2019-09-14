@@ -358,7 +358,7 @@ def process(meta):
             break
 
     if 'xnos-number-offset' in meta:
-        secoffset = int(get_meta(meta, name))
+        secoffset = int(get_meta(meta, 'xnos-number-offset'))
 
     if 'eqnos-eqref' in meta:
         eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
