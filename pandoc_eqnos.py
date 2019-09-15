@@ -60,14 +60,6 @@ from pandocxnos import insert_secnos_factory, delete_secnos_factory
 from pandocxnos import elt
 
 
-# Read the command-line arguments
-parser = argparse.ArgumentParser(description='Pandoc equations numbers filter.')
-parser.add_argument('--version', action='version',
-                    version='%(prog)s {version}'.format(version=__version__))
-parser.add_argument('fmt')
-parser.add_argument('--pandocversion', help='The pandoc version.')
-args = parser.parse_args()
-
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
 
@@ -450,16 +442,27 @@ def add_html(meta):
         pandocxnos.add_to_header_includes(
             meta, 'html', EQUATION_STYLE_HTML, warninglevel)
 
-def main():
+# pylint: disable=too-many-locals, unused-argument
+def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     """Filters the document AST."""
 
     # pylint: disable=global-statement
     global PANDOCVERSION
     global AttrMath
 
+    # Read the command-line arguments
+    parser = argparse.ArgumentParser(\
+      description='Pandoc equations numbers filter.')
+    parser.add_argument(\
+      '--version', action='version',
+      version='%(prog)s {version}'.format(version=__version__))
+    parser.add_argument('fmt')
+    parser.add_argument('--pandocversion', help='The pandoc version.')
+    args = parser.parse_args()
+
     # Get the output format and document
     fmt = args.fmt
-    doc = json.loads(STDIN.read())
+    doc = json.loads(stdin.read())
 
     # Initialize pandocxnos
     PANDOCVERSION = pandocxnos.init(args.pandocversion, doc)
@@ -513,10 +516,10 @@ def main():
         doc = doc[:1] + altered
 
     # Dump the results
-    json.dump(doc, STDOUT)
+    json.dump(doc, stdout)
 
     # Flush stdout
-    STDOUT.flush()
+    stdout.flush()
 
 if __name__ == '__main__':
     main()
