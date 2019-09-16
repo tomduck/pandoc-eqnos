@@ -31,7 +31,7 @@ PYTHON-2.7 = python2.7
 
 # mathml needed for \mathrm{}
 PDFFLAGS = --variable geometry:margin=1in --standalone --variable urlcolor=blue
-HTMLFLAGS = --standalone --katex --variable urlcolor=blue
+HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 
 all: pdf html epub docx
