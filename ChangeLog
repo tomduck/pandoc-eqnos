@@ -1,3 +1,25 @@
+pandoc-eqnos 2.0.0 (unreleased)
+
+    * A warnings system has been added.
+    * Meta variable names have been updated.
+    * TeX codes have been completely overhauled.
+    * Html/epub equations are now enclosed in a `<div>`.
+    * Epub support is generally improved.
+    * Support for disabling links on selected references
+      (pandoc-fignos Issue #54).
+    * Enable section number offsets in equation numbers
+      (pandoc-fignos Issue #47).
+    * Better handling of missing references.
+    * Changed `eqnos-number-sections` and `xnos-number-sections`
+      options to `eqnos-number-by-section` and
+      `xnos-number-by-section`
+
+
+pandoc-eqnos 1.4.4 (2019-06-15)
+
+    * For epub output, place equation number in own span (Issue #39).
+
+
 pandoc-eqnos 1.4.3 (2019-05-17)
 
     * Improved epub output and refreshed epub demos.

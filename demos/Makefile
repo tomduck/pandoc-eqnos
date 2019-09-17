@@ -1,5 +1,5 @@
 
-extensions = .pdf .html .epub .tex .docx .json .md
+extensions = .pdf .html .epub .tex .docx
 
 dest = $(addprefix out/demo,$(extensions)) \
        $(addprefix out/demo2,$(extensions)) \
@@ -18,9 +18,10 @@ out/%.pdf: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	pandoc $< --filter pandoc-eqnos --variable urlcolor=blue -o $@
 
-out/%.html: %.md
+out/%.html: %.md headers/header.html
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< --filter pandoc-eqnos --standalone --katex -o $@
+	cp katex/katex* out
+	pandoc $< --include-in-header=headers/header.html --filter pandoc-eqnos --include-in-header=headers/header.html --katex="" -o $@
 
 out/%.epub: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
