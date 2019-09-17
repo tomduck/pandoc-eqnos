@@ -252,7 +252,7 @@ EQUATION_STYLE_HTML = """
 <!-- pandoc-eqnos: equation style -->
 <style>
   .eqnos { display: inline-block; position: relative; width: 100%; }
-  .eqnos br {display: none; }
+  .eqnos br { display: none; }
   .eqnos-number { position: absolute; right: 0em; top: 50%; line-height: 0; }
 </style>
 """
