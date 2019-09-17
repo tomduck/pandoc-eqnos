@@ -1,17 +1,11 @@
 
-**Notice:** This beta release may be installed using
-
-    pip install pandoc-eqnos --upgrade --pre --user
-
 **New in 2.0.0:** This is a major release which is easier to use at the cost of minor incompatibilities with previous versions. [more...](#whats-new).
-
-Also: A [pandoc-secnos] filter has been added to the pandoc-xnos filter suite.
 
 
 pandoc-eqnos 2.0.0
 ==================
 
-*pandoc-eqnos* is a [pandoc] filter for numbering equations and their references (i.e., cross-referencing) when converting markdown documents to other formats.
+*pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
 
 Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
@@ -21,6 +15,7 @@ See also: [pandoc-fignos], [pandoc-tablenos], [pandoc-secnos] \
 Other filters: [pandoc-comments], [pandoc-latex-extensions]
 
 [pandoc]: http://pandoc.org/
+[pandoc-xnos]: https://github.com/tomduck/pandoc-xnos
 [Issues tracker]: https://github.com/tomduck/pandoc-eqnos/issues
 [on GitHub]:  https://github.com/tomduck/pandoc-eqnos
 [pandoc-fignos]: https://github.com/tomduck/pandoc-fignos
@@ -48,17 +43,17 @@ Installation
 
 Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and linux.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
 
-Pandoc-eqnos may be installed and upgraded using the shell command
+Pandoc-fignos may be installed using the shell command
 
-    pip install pandoc-eqnos --user --upgrade
+    pip install pandoc-fignos --user
 
-Pip is a program that downloads and installs software from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.<sup>[2](#footnote2)</sup>
+and upgraded by appending `--upgrade` to the above command.  Pip is a program that downloads and installs software from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.<sup>[2](#footnote2)</sup>
 
-Instructions for installing from source are given in [README.developers].
+Instructions for installing from source are given in [DEVELOPERS.md].
 
 [python]: https://www.python.org/
 [PyPI]: https://pypi.python.org/pypi
-[README.developers]: README.developers
+[DEVELOPERS.md]: DEVELOPERS.md
 
 
 Usage
@@ -72,7 +67,7 @@ option with pandoc.  Alternatively, use
 
     --filter pandoc-xnos
 
-to activate all of the `pandoc-fignos`, `pandoc-eqnos`, `pandoc-tablenos`, and `pandoc-secnos` filters (if installed).
+to activate all of the [pandoc-xnos] filters (if installed).
 
 Any use of `--filter pandoc-citeproc` or `--bibliography=FILE` should come *after* the `pandoc-eqnos` or `pandoc-xnos` filter calls.
 
@@ -296,7 +291,7 @@ Full docx support is awaiting input from a knowledgeable expert on how to struct
 
 Pandoc-eqnos will continue to support pandoc 1.15-onward and python 2 & 3 for the foreseeable future.  The reasons for this are that a) some users cannot upgrade pandoc and/or python; and b) supporting all versions tends to make pandoc-eqnos more robust.
 
-Developer notes are maintained in [README.developers].
+Developer notes are maintained in [DEVELOPERS.md].
 
 
 What's New
