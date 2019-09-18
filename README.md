@@ -99,11 +99,11 @@ Demonstration: Processing [demo.md] with pandoc + pandoc-eqnos gives numbered eq
 [this post]: https://github.com/jgm/pandoc/issues/813#issuecomment-70423503
 [@scaramouche1]: https://github.com/scaramouche1
 [demo.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo.md
-[pdf]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo.pdf
-[tex]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo.tex
-[html]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo.html
-[epub]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo.epub
-[docx]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo.docx
+[pdf]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo.pdf
+[tex]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo.tex
+[html]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo.html
+[epub]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo.epub
+[docx]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo.docx
 
 
 ### Clever References ###
@@ -129,11 +129,11 @@ Demonstration: Processing [demo2.md] with pandoc + pandoc-eqnos gives numbered e
 Note: When using `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence, the `*` in the clever reference must be backslash-escaped; i.e., `\*eq:id`.
 
 [demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
-[pdf2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo2.pdf
-[tex2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo2.tex
-[html2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo2.html
-[epub2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo2.epub
-[docx2]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo2.docx
+[pdf2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.pdf
+[tex2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.tex
+[html2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.html
+[epub2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.epub
+[docx2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.docx
 
 
 ### Tagged Equations ###
@@ -206,11 +206,11 @@ Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered e
 [metadata block]: http://pandoc.org/README.html#extension-yaml_metadata_block
 [docx custom styles]: https://pandoc.org/MANUAL.html#custom-styles
 [demo3.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo3.md
-[pdf3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo3.pdf
-[tex3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo3.tex
-[html3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo3.html
-[epub3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo3.epub
-[docx3]: https://raw.githack.com/tomduck/pandoc-eqnos/master/demos/demo3.docx
+[pdf3]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo3.pdf
+[tex3]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo3.tex
+[html3]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo3.html
+[epub3]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo3.epub
+[docx3]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo3.docx
 
 
 Technical Details
