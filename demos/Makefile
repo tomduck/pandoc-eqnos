@@ -21,11 +21,11 @@ out/%.pdf: %.md
 out/%.html: %.md headers/header.html
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 	cp katex/katex* out
-	pandoc $< --include-in-header=headers/header.html --filter pandoc-eqnos --include-in-header=headers/header.html --katex="" -o $@
+	pandoc $< --filter pandoc-eqnos --include-in-header=headers/header.html --katex="" -o $@
 
 out/%.epub: %.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	pandoc $< -t epub3 --filter pandoc-eqnos -o $@
+	pandoc $< -t epub3 --filter pandoc-eqnos --include-in-header=headers/header.html -o $@
 
 out/%:
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
