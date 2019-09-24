@@ -76,7 +76,7 @@ warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
 # Processing state variables
 cursec = None    # Current section
 Nreferences = 0  # Number of references in current section (or document)
-references = {}  # Maps reference labels to [number/tag, equation secno]
+references = {}  # Global references tracker
 
 # Processing flags
 plusname_changed = False          # Flags that the plus name changed
@@ -140,9 +140,11 @@ def _process_equation(value, fmt):
             attrs['tag'] = attrs['tag'].strip('"')
         elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
             attrs['tag'] = attrs['tag'].strip("'")
-        references[attrs.id] = [attrs['tag'], cursec]
+        references[attrs.id] = pandocxnos.Target(attrs['tag'], cursec,
+                                                 attrs.id in references)
     else:
-        references[attrs.id] = [Nreferences, cursec]
+        references[attrs.id] = pandocxnos.Target(Nreferences, cursec,
+                                                 attrs.id in references)
         Nreferences += 1  # Increment the global reference counter
 
     return eq
@@ -151,33 +153,32 @@ def _process_equation(value, fmt):
 def _adjust_equation(fmt, eq, value):
     """Adjusts the equation depending on the output format."""
     attrs = eq['attrs']
+    num = references[attrs.id].num
+
     if fmt in ['latex', 'beamer']:
         if not eq['is_unreferenceable']:  # Code in the tags
             if eq['is_tagged']:
                 value[-1] += r'\tag{%s}\label{%s}' % \
-                  (references[attrs.id][0].replace(' ', r'\ '), attrs.id)
+                  (num.replace(' ', r'\ '), attrs.id)
             else:
                 value[-1] += r'\label{%s}'%attrs.id
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3'):
         pass  # Insert html in _add_markup() instead
     else:  # Hard-code in the number/tag
-        if isinstance(references[attrs.id][0], int):  # Numbered reference
-            value[-1] += r'\qquad (%d)' % references[attrs.id][0]
+        if isinstance(num, int):  # Numbered reference
+            value[-1] += r'\qquad (%d)' % num
         else:  # Tagged reference
-            assert isinstance(references[attrs.id][0], STRTYPES)
-            text = references[attrs.id][0].replace(' ', r'\ ')
-            if text.startswith('$') and text.endswith('$'):  # Math
-                tag = text[1:-1]
-            else:  # Text
-                tag = r'\text{%s}' % text
-            value[-1] += r'\qquad (%s)' % tag
+            assert isinstance(num, STRTYPES)
+            num = num.replace(' ', r'\ ')
+            value[-1] += r'\qquad (%s)' % \
+              (num[1:-1] if num.startswith('$') and num.endswith('$') else
+               r'\text{%s}' % num)
 
 
 def _add_markup(fmt, eq, value):
     """Adds markup to the output."""
 
     attrs = eq['attrs']
-    ret = None
 
     # Context-dependent output
     if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
@@ -188,17 +189,17 @@ def _add_markup(fmt, eq, value):
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
-        text = str(references[attrs.id][0])
+        num = str(references[attrs.id].num)
         outer = RawInline('html',
                           '<span%sclass="eqnos">' % \
                             (' ' if eq['is_unreferenceable'] else
                              ' id="%s" '%attrs.id))
         inner = RawInline('html', '<span class="eqnos-number">')
-        num = Math({"t":"InlineMath"}, '(%s)' % text[1:-1]) \
-          if text.startswith('$') and text.endswith('$') \
-          else Str('(%s)' % text)
+        eqno = Math({"t":"InlineMath"}, '(%s)' % num[1:-1]) \
+          if num.startswith('$') and num.endswith('$') \
+          else Str('(%s)' % num)
         endtags = RawInline('html', '</span></span>')
-        ret = [outer, AttrMath(*value), inner, num, endtags]
+        ret = [outer, AttrMath(*value), inner, eqno, endtags]
     elif fmt == 'docx':
         # As per http://officeopenxml.com/WPhyperlink.php
         bookmarkstart = \
@@ -478,8 +479,8 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     process(meta)
 
     # First pass
-    attach_attrs_math = attach_attrs_factory('pandoc-eqnos', Math,
-                                             warninglevel, allow_space=True)
+    attach_attrs_math = attach_attrs_factory(Math, warninglevel,
+                                             allow_space=True)
     detach_attrs_math = detach_attrs_factory(Math)
     insert_secnos = insert_secnos_factory(Math)
     delete_secnos = delete_secnos_factory(Math)
@@ -489,16 +490,15 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
                                 detach_attrs_math], blocks)
 
     # Second pass
-    process_refs = process_refs_factory('pandoc-eqnos', LABEL_PATTERN,
-                                        references.keys(), warninglevel)
+    process_refs = process_refs_factory(LABEL_PATTERN, references.keys(),
+                                        warninglevel)
     replace_refs = replace_refs_factory(references,
                                         cleveref, eqref,
                                         plusname if not capitalise or \
                                         plusname_changed else
                                         [name.title() for name in plusname],
                                         starname)
-    attach_attrs_span = attach_attrs_factory('pandoc-eqnos', Span,
-                                             warninglevel, replace=True)
+    attach_attrs_span = attach_attrs_factory(Span, warninglevel, replace=True)
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
                                [repair_refs, process_refs, replace_refs,
                                 attach_attrs_span],
