@@ -283,6 +283,7 @@ def process(meta):
     for name in ['eqnos-warning-level', 'xnos-warning-level']:
         if name in meta:
             warninglevel = int(get_meta(meta, name))
+            pandocxnos.set_warning_level(warninglevel)
             break
 
     metanames = ['eqnos-warning-level', 'xnos-warning-level',
@@ -386,34 +387,33 @@ def add_tex(meta):
             \\usepackage%s{cleveref}
         """ % ('[capitalise]' if capitalise else '')
         pandocxnos.add_to_header_includes(
-            meta, 'tex', tex, warninglevel,
-            r'\\usepackage(\[[\w\s,]*\])?\{cleveref\}')
+            meta, 'tex', tex,
+            regex=r'\\usepackage(\[[\w\s,]*\])?\{cleveref\}')
 
         pandocxnos.add_to_header_includes(
-            meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX, warninglevel)
+            meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX)
 
     if plusname_changed and references:
         tex = """
             %%%% pandoc-eqnos: change cref names
             \\crefname{equation}{%s}{%s}
         """ % (plusname[0], plusname[1])
-        pandocxnos.add_to_header_includes(meta, 'tex', tex, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'tex', tex)
 
     if starname_changed and references:
         tex = """
             %%%% pandoc-eqnos: change Cref names
             \\Crefname{equation}{%s}{%s}
         """ % (starname[0], starname[1])
-        pandocxnos.add_to_header_includes(meta, 'tex', tex, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'tex', tex)
 
     if numbersections and references:
-        pandocxnos.add_to_header_includes(
-            meta, 'tex', NUMBER_BY_SECTION_TEX, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'tex', NUMBER_BY_SECTION_TEX)
 
     if secoffset and references:
         pandocxnos.add_to_header_includes(
-            meta, 'tex', SECOFFSET_TEX % secoffset, warninglevel,
-            r'\\setcounter\{section\}')
+            meta, 'tex', SECOFFSET_TEX % secoffset,
+            regex=r'\\setcounter\{section\}')
 
     if warnings:
         STDERR.write('\n')
@@ -440,8 +440,7 @@ def add_html(meta):
     # See https://github.com/jgm/pandoc/issues/3139.
 
     if references:
-        pandocxnos.add_to_header_includes(
-            meta, 'html', EQUATION_STYLE_HTML, warninglevel)
+        pandocxnos.add_to_header_includes(meta, 'html', EQUATION_STYLE_HTML)
 
 # pylint: disable=too-many-locals, unused-argument
 def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
@@ -479,8 +478,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     process(meta)
 
     # First pass
-    attach_attrs_math = attach_attrs_factory(Math, warninglevel,
-                                             allow_space=True)
+    attach_attrs_math = attach_attrs_factory(Math, allow_space=True)
     detach_attrs_math = detach_attrs_factory(Math)
     insert_secnos = insert_secnos_factory(Math)
     delete_secnos = delete_secnos_factory(Math)
@@ -490,15 +488,14 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
                                 detach_attrs_math], blocks)
 
     # Second pass
-    process_refs = process_refs_factory(LABEL_PATTERN, references.keys(),
-                                        warninglevel)
+    process_refs = process_refs_factory(LABEL_PATTERN, references.keys())
     replace_refs = replace_refs_factory(references,
                                         cleveref, eqref,
                                         plusname if not capitalise or \
                                         plusname_changed else
                                         [name.title() for name in plusname],
                                         starname)
-    attach_attrs_span = attach_attrs_factory(Span, warninglevel, replace=True)
+    attach_attrs_span = attach_attrs_factory(Span, replace=True)
     altered = functools.reduce(lambda x, action: walk(x, action, fmt, meta),
                                [repair_refs, process_refs, replace_refs,
                                 attach_attrs_span],
