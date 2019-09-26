@@ -6,7 +6,7 @@
 [more...](#whats-new).
 
 
-pandoc-eqnos 2.0.0
+pandoc-eqnos 2.1.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
