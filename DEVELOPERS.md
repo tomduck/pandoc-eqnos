@@ -53,6 +53,9 @@ Regression tests for pandoc-eqnos are provided in `test/`.  Read the README.md i
 Preparing a Release
 -------------------
 
+These are notes for release managers.
+
+
 ### Merging ####
 
 Merge the `nextrelease` branch into `master` using
