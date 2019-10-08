@@ -130,7 +130,7 @@ instead.  If clever references are enabled by default (see [Customization](#cust
 
 Demonstration: Processing [demo2.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf2], [tex][tex2], [html][html2], [epub][epub2], [docx][docx2] and other formats.
 
-Note: When using `*eq:id` and emphasis (e.g., `*italics*`) in the same sentence, the `*` in the clever reference must be backslash-escaped; i.e., `\*eq:id`.
+Note: When using `*@eq:id` and emphasis (e.g., `*italics*`) in the same sentence, the `*` in the clever reference must be backslash-escaped; i.e., `\*@eq:id`.
 
 [demo2.md]: https://raw.githubusercontent.com/tomduck/pandoc-eqnos/master/demos/demo2.md
 [pdf2]: https://raw.githack.com/tomduck/pandoc-eqnos/demos/demo2.pdf
