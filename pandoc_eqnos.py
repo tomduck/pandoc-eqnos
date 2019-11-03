@@ -29,7 +29,7 @@ __version__ = '2.1.1'
 #   1. Insert text for the equation number in each equation.
 #      For LaTeX, change to a numbered equation and use \label{...}
 #      instead.  The equation labels and associated equation numbers
-#      are stored in the global references tracker.
+#      are stored in the global targets tracker.
 #
 #   2. Replace each reference with an equation number.  For LaTeX,
 #      replace with \ref{...} instead.
@@ -75,8 +75,8 @@ warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
 
 # Processing state variables
 cursec = None    # Current section
-Nreferences = 0  # Number of references in current section (or document)
-references = {}  # Global references tracker
+Ntargets = 0  # Number of targets in current section (or document)
+targets = {}  # Global targets tracker
 
 # Processing flags
 plusname_changed = False          # Flags that the plus name changed
@@ -94,8 +94,8 @@ def _process_equation(value, fmt):
     """Processes the equation.  Returns a dict containing eq properties."""
 
     # pylint: disable=global-statement
-    global Nreferences  # Global references counter
-    global cursec       # Current section
+    global Ntargets                  # Global targets counter
+    global cursec                    # Current section
     global has_unnumbered_equations  # Flags that unnumbered eqs were found
 
     # Initialize the return value
@@ -119,7 +119,7 @@ def _process_equation(value, fmt):
     # Update the current section number
     if attrs['secno'] != cursec:  # The section number changed
         cursec = attrs['secno']   # Update the global section tracker
-        Nreferences = 1           # Resets the global reference counter
+        Ntargets = 1              # Resets the global targets counter
 
     # Pandoc's --number-sections supports section numbering latex/pdf, html,
     # epub, and docx
@@ -129,8 +129,8 @@ def _process_equation(value, fmt):
         # tags.
         if fmt in ['html', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
           'tag' not in attrs:
-            attrs['tag'] = str(cursec+secoffset) + '.' + str(Nreferences)
-            Nreferences += 1
+            attrs['tag'] = str(cursec+secoffset) + '.' + str(Ntargets)
+            Ntargets += 1
 
     # Save reference information
     eq['is_tagged'] = 'tag' in attrs
@@ -140,12 +140,12 @@ def _process_equation(value, fmt):
             attrs['tag'] = attrs['tag'].strip('"')
         elif attrs['tag'][0] == "'" and attrs['tag'][-1] == "'":
             attrs['tag'] = attrs['tag'].strip("'")
-        references[attrs.id] = pandocxnos.Target(attrs['tag'], cursec,
-                                                 attrs.id in references)
+        targets[attrs.id] = pandocxnos.Target(attrs['tag'], cursec,
+                                              attrs.id in targets)
     else:
-        references[attrs.id] = pandocxnos.Target(Nreferences, cursec,
-                                                 attrs.id in references)
-        Nreferences += 1  # Increment the global reference counter
+        targets[attrs.id] = pandocxnos.Target(Ntargets, cursec,
+                                              attrs.id in targets)
+        Ntargets += 1  # Increment the global targets counter
 
     return eq
 
@@ -153,7 +153,7 @@ def _process_equation(value, fmt):
 def _adjust_equation(fmt, eq, value):
     """Adjusts the equation depending on the output format."""
     attrs = eq['attrs']
-    num = references[attrs.id].num
+    num = targets[attrs.id].num
 
     if fmt in ['latex', 'beamer']:
         if not eq['is_unreferenceable']:  # Code in the tags
@@ -189,7 +189,7 @@ def _add_markup(fmt, eq, value):
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
-        num = str(references[attrs.id].num)
+        num = str(targets[attrs.id].num)
         outer = RawInline('html',
                           '<span%sclass="eqnos">' % \
                             (' ' if eq['is_unreferenceable'] else
@@ -362,7 +362,7 @@ def process(meta):
 def add_tex(meta):
     """Adds tex to the meta data."""
 
-    warnings = warninglevel == 2 and references and \
+    warnings = warninglevel == 2 and targets and \
       (pandocxnos.cleveref_required() or
        plusname_changed or starname_changed or numbersections or secoffset)
     if warnings:
@@ -381,7 +381,7 @@ def add_tex(meta):
     # is a known issue and is owing to a design decision in pandoc.
     # See https://github.com/jgm/pandoc/issues/3139.
 
-    if pandocxnos.cleveref_required() and references:
+    if pandocxnos.cleveref_required() and targets:
         tex = """
             %%%% pandoc-eqnos: required package
             \\usepackage%s{cleveref}
@@ -393,24 +393,24 @@ def add_tex(meta):
         pandocxnos.add_to_header_includes(
             meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX)
 
-    if plusname_changed and references:
+    if plusname_changed and targets:
         tex = """
             %%%% pandoc-eqnos: change cref names
             \\crefname{equation}{%s}{%s}
         """ % (plusname[0], plusname[1])
         pandocxnos.add_to_header_includes(meta, 'tex', tex)
 
-    if starname_changed and references:
+    if starname_changed and targets:
         tex = """
             %%%% pandoc-eqnos: change Cref names
             \\Crefname{equation}{%s}{%s}
         """ % (starname[0], starname[1])
         pandocxnos.add_to_header_includes(meta, 'tex', tex)
 
-    if numbersections and references:
+    if numbersections and targets:
         pandocxnos.add_to_header_includes(meta, 'tex', NUMBER_BY_SECTION_TEX)
 
-    if secoffset and references:
+    if secoffset and targets:
         pandocxnos.add_to_header_includes(
             meta, 'tex', SECOFFSET_TEX % secoffset,
             regex=r'\\setcounter\{section\}')
@@ -421,7 +421,7 @@ def add_tex(meta):
 def add_html(meta):
     """Adds html to the meta data."""
 
-    warnings = warninglevel == 2 and references
+    warnings = warninglevel == 2 and targets
 
     if warnings:
         msg = textwrap.dedent("""\
@@ -439,7 +439,7 @@ def add_html(meta):
     # is a known issue and is owing to a design decision in pandoc.
     # See https://github.com/jgm/pandoc/issues/3139.
 
-    if references:
+    if targets:
         pandocxnos.add_to_header_includes(meta, 'html', EQUATION_STYLE_HTML)
 
 # pylint: disable=too-many-locals, unused-argument
@@ -488,8 +488,8 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
                                 detach_attrs_math], blocks)
 
     # Second pass
-    process_refs = process_refs_factory(LABEL_PATTERN, references.keys())
-    replace_refs = replace_refs_factory(references,
+    process_refs = process_refs_factory(LABEL_PATTERN, targets.keys())
+    replace_refs = replace_refs_factory(targets,
                                         cleveref, eqref,
                                         plusname if not capitalise or \
                                         plusname_changed else
