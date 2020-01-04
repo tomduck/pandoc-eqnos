@@ -184,14 +184,22 @@ def _add_markup(fmt, eq, value):
     if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
         ret = None
     elif fmt in ['latex', 'beamer']:
-        # check if it's an equation with multiple lines
         if re.search(r'&', value[-1]) is not None:
+            # check if it's an aligned multiline equation
             equation = r'\begin{split}%s\end{split}'%value[-1]
-        else:
+            environment = "equation"
+        elif re.search(r'\\\\', value[-1]) is not None:
+            # check if it's an unaligned multiline equation
             equation = value[-1]
+            environment = "multiline"
+        else:
+            # regular equation
+            equation = value[-1]
+            environment = "equation"
 
         ret = RawInline('tex',
-                        r'\begin{align}%s\end{align}'%equation)
+                        "\\begin{{{env}}}{eq}\\end{{{env}}}".format(env=environment,
+                                                                    eq=equation))
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
@@ -526,5 +534,3 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
 
 if __name__ == '__main__':
     main()
-
-    print("narf")
