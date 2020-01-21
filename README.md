@@ -156,6 +156,15 @@ To disable a link on a reference, set `nolink=True` in the reference's attribute
     @eq:id{nolink=True}
 
 
+### Custom Environments ###
+
+The default LaTeX environment may be overridden by adding an `env` attribute:
+
+    $$ y = mx + b $$ {#eq:id env=multiline}
+
+The `env` must be a valid amsmath environment.
+
+
 Customization
 -------------
 
@@ -202,6 +211,9 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
     [option](https://pandoc.org/MANUAL.html#option--number-sections)
     set to the same integer value.  For LaTeX/PDF, this option
     offsets the actual section numbers as required.
+
+  * `eqnos-default-env` - Name of the default LaTeX environment
+    (default: 'equation').
 
 Note that variables beginning with `eqnos-` apply to only pandoc-eqnos, whereas variables beginning with `xnos-` apply to all of the pandoc-fignos/eqnos/tablenos/secnos.
 

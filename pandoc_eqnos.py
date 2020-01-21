@@ -72,6 +72,7 @@ numbersections = False  # Flags that equations should be numbered by section
 secoffset = 0           # Section number offset
 eqref = False           # Flags that \eqref should be used
 warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
+default_env = 'equation'
 
 # Processing state variables
 cursec = None    # Current section
@@ -184,8 +185,12 @@ def _add_markup(fmt, eq, value):
     if eq['is_unnumbered']:  # Unnumbered is also unreferenceable
         ret = None
     elif fmt in ['latex', 'beamer']:
+        if 'env' in attrs:
+            env = attrs['env']
+        else:
+            env = default_env
         ret = RawInline('tex',
-                        r'\begin{equation}%s\end{equation}'%value[-1])
+                        r'\begin{%s}%s\end{%s}'% (env, value[-1], env))
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
@@ -293,7 +298,8 @@ def process(meta):
                  'eqnos-plus-name', 'eqnos-star-name',
                  'eqnos-number-by-section', 'xnos-number-by-section',
                  'xnos-number-offset',
-                 'eqnos-eqref']
+                 'eqnos-eqref',
+                 'eqnos-default-env']
 
     if warninglevel:
         for name in meta:
@@ -358,6 +364,9 @@ def process(meta):
         eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
         if eqref:  # Eqref and cleveref are mutually exclusive
             cleveref = False
+
+    if 'eqnos-default-env' in meta:
+        default_env = get_meta(meta, 'eqnos-default-env')
 
 def add_tex(meta):
     """Adds tex to the meta data."""
