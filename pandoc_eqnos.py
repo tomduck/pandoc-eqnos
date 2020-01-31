@@ -189,8 +189,15 @@ def _add_markup(fmt, eq, value):
             env = attrs['env']
         else:
             env = default_env
+
+        splitted = env.split('.')
+        env = splitted[0]
+        arg = ''
+        if len(splitted) > 1:
+            arg = '{%s}' % splitted[1]
+
         ret = RawInline('tex',
-                        r'\begin{%s}%s\end{%s}'% (env, value[-1], env))
+                        r'\begin{%s}%s%s\end{%s}'% (env, arg, value[-1], env))
     elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span

@@ -162,7 +162,10 @@ The default LaTeX environment may be overridden by adding an `env` attribute:
 
     $$ y = mx + b $$ {#eq:id env=multiline}
 
-The `env` must be a valid amsmath environment.
+The `env` attribute must be a valid amsmath environment.
+If the attribute value is of the form `foo.bar`, `foo` will be used
+as the name of the amsmath environment and `bar` will be used as an extra argument
+for the environment (e.g. alignat expects an argument for the number of equation columns).
 
 
 Customization
