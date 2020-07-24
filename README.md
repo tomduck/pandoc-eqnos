@@ -47,9 +47,9 @@ Installation
 
 Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and linux.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
 
-Pandoc-fignos may be installed using the shell command
+Pandoc-eqnos may be installed using the shell command
 
-    pip install pandoc-fignos --user
+    pip install pandoc-eqnos --user
 
 and upgraded by appending `--upgrade` to the above command.  Pip is a program that downloads and installs software from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.<sup>[2](#footnote2)</sup>
 
