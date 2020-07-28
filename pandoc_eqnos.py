@@ -210,6 +210,8 @@ def _add_markup(fmt, eq, value):
           RawInline('openxml',
                     '</w:t></w:r><w:bookmarkEnd w:id="0"/>')
         ret = [bookmarkstart, AttrMath(*value), bookmarkend]
+    else:
+        ret = None
     return ret
 
 
