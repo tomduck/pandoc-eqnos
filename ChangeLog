@@ -1,8 +1,7 @@
 pandoc-eqnos 2.2.0 (unreleased)
 
     * Updated to work with pandoc 2.10.
-    * Fixed equation number reset problem for html, docx
-      (pandoc-xnos Issue #15).
+    * Fixed equation number reset problem for html, docx (Issue #49).
 
 
 pandoc-eqnos 2.1.1 (2019-09-26)
