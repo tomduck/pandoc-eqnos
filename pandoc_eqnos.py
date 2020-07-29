@@ -3,10 +3,10 @@
 """pandoc-eqnos: a pandoc filter that inserts equation nos. and refs."""
 
 
-__version__ = '2.1.1'
+__version__ = '2.2.0'
 
 
-# Copyright 2015-2019 Thomas J. Duck.
+# Copyright 2015-2020 Thomas J. Duck.
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
