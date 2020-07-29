@@ -65,10 +65,10 @@ setup(
 )
 
 # Check that the pandoc-eqnos script is on the PATH
-if not shutil.which('pandoc-xnos'):
+if not shutil.which('pandoc-eqnos'):
     msg = """
-          ERROR: `pandoc-eqnos` script not found.  You will need to find
-          the script and ensure it is on your PATH.  Please file an Issue at
+          ERROR: `pandoc-eqnos` script not found.  This will need to
+          be corrected.  If you need help, please file an Issue at
           https://github.com/tomduck/pandoc-eqnos/issues.\n"""
     print(textwrap.dedent(msg))
     sys.exit(-1)
