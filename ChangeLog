@@ -1,4 +1,4 @@
-pandoc-eqnos 2.2.0 (unreleased)
+pandoc-eqnos 2.2.0 (2020-07-30)
 
     * Updated to work with pandoc 2.10.
     * Fixed "local variable 'ret' referenced before assignment"
