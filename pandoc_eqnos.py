@@ -132,7 +132,7 @@ def _process_equation(value, fmt):
         # Latex/pdf supports equation numbers by section natively.  For the
         # other formats we must hard-code in equation numbers by section as
         # tags.
-        if fmt in ['html', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
+        if fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
           'tag' not in attrs:
             attrs['tag'] = str(cursec+secoffset) + '.' + str(Ntargets)
 
@@ -165,7 +165,7 @@ def _adjust_equation(fmt, eq, value):
                   (num.replace(' ', r'\ '), attrs.id)
             else:
                 value[-1] += r'\label{%s}'%attrs.id
-    elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3'):
+    elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3'):
         pass  # Insert html in _add_markup() instead
     else:  # Hard-code in the number/tag
         if isinstance(num, int):  # Numbered reference
@@ -189,7 +189,7 @@ def _add_markup(fmt, eq, value):
     elif fmt in ['latex', 'beamer']:
         ret = RawInline('tex',
                         r'\begin{equation}%s\end{equation}'%value[-1])
-    elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
+    elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
         num = str(targets[attrs.id].num)
@@ -254,9 +254,12 @@ DISABLE_CLEVEREF_BRACKETS_TEX = r"""
 # Html blocks ----------------------------------------------------------------
 
 # Equation css
+# Valid XHTML 1.0 Transitional (called html4 in pandoc) requires type="text/css"
+# See also https://github.com/tomduck/pandoc-eqnos/issues/50
+# One might consider making this conditional to format html4 vs. html and html5.
 EQUATION_STYLE_HTML = """
 <!-- pandoc-eqnos: equation style -->
-<style>
+<style type="text/css">
   .eqnos { display: inline-block; position: relative; width: 100%; }
   .eqnos br { display: none; }
   .eqnos-number { position: absolute; right: 0em; top: 50%; line-height: 0; }
@@ -508,7 +511,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
 
     if fmt in ['latex', 'beamer']:
         add_tex(meta)
-    elif fmt in ['html', 'html5', 'epub', 'epub2', 'epub3']:
+    elif fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3']:
         add_html(meta)
 
     # Update the doc
