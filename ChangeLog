@@ -2,6 +2,8 @@ pandoc-eqnos 2.2.0 (unreleased)
 
     * Updated to work with pandoc 2.10.
     * Fixed equation number reset problem for html, docx (Issue #49).
+    * Fixed "local variable 'ret' referenced before assignment"
+      error (Issue #43).
 
 
 pandoc-eqnos 2.1.1 (2019-09-26)
