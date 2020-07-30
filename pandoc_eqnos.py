@@ -251,15 +251,15 @@ DISABLE_CLEVEREF_BRACKETS_TEX = r"""
 \creflabelformat{equation}{#2#1#3}
 """
 
+
 # Html blocks ----------------------------------------------------------------
 
 # Equation css
 # Valid XHTML 1.0 Transitional (called html4 in pandoc) requires type="text/css"
 # See also https://github.com/tomduck/pandoc-eqnos/issues/50
-# One might consider making this conditional to format html4 vs. html and html5.
 EQUATION_STYLE_HTML = """
 <!-- pandoc-eqnos: equation style -->
-<style type="text/css">
+<style%s>
   .eqnos { display: inline-block; position: relative; width: 100%; }
   .eqnos br { display: none; }
   .eqnos-number { position: absolute; right: 0em; top: 50%; line-height: 0; }
@@ -426,7 +426,7 @@ def add_tex(meta):
     if warnings:
         STDERR.write('\n')
 
-def add_html(meta):
+def add_html(meta, fmt):
     """Adds html to the meta data."""
 
     warnings = warninglevel == 2 and targets
@@ -448,7 +448,9 @@ def add_html(meta):
     # See https://github.com/jgm/pandoc/issues/3139.
 
     if targets:
-        pandocxnos.add_to_header_includes(meta, 'html', EQUATION_STYLE_HTML)
+        attr = 'type="text/css"' if fmt == 'html4' else ''
+        pandocxnos.add_to_header_includes(meta, 'html',
+                                          EQUATION_STYLE_HTML%attr)
 
 # pylint: disable=too-many-locals, unused-argument
 def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
@@ -512,7 +514,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     if fmt in ['latex', 'beamer']:
         add_tex(meta)
     elif fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3']:
-        add_html(meta)
+        add_html(meta, fmt)
 
     # Update the doc
     if PANDOCVERSION >= '1.18':
