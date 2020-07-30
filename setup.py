@@ -50,7 +50,7 @@ setup(
     download_url='https://github.com/tomduck/pandoc-eqnos/tarball/' + \
                  __version__,
 
-    install_requires=['pandoc-xnos >= 2.4.0, < 3.0'],
+    install_requires=['pandoc-xnos >= 2.4.1, < 3.0'],
 
     py_modules=['pandoc_eqnos'],
     entry_points={'console_scripts':['pandoc-eqnos = pandoc_eqnos:main']},
