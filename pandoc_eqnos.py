@@ -3,7 +3,7 @@
 """pandoc-eqnos: a pandoc filter that inserts equation nos. and refs."""
 
 
-__version__ = '2.2.0'
+__version__ = '2.2.1'
 
 
 # Copyright 2015-2020 Thomas J. Duck.
