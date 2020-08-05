@@ -53,12 +53,11 @@ from pandocfilters import Math, RawInline, Str, Span
 import pandocxnos
 from pandocxnos import PandocAttributes
 from pandocxnos import STRTYPES, STDIN, STDOUT, STDERR
-from pandocxnos import check_bool, get_meta
+from pandocxnos import elt, check_bool, get_meta
 from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
 from pandocxnos import attach_attrs_factory, detach_attrs_factory
 from pandocxnos import insert_secnos_factory, delete_secnos_factory
-from pandocxnos import elt
-
+from pandocxnos import version
 
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
@@ -448,7 +447,9 @@ def add_html(meta, fmt):
     # See https://github.com/jgm/pandoc/issues/3139.
 
     if targets:
-        attr = ' type="text/css"' if fmt == 'html4' else ''
+        cond = fmt == 'html4' or \
+          (fmt == 'html' and version(PANDOCVERSION) < version('2.0'))
+        attr = ' type="text/css"' if cond else ''
         pandocxnos.add_to_header_includes(meta, 'html',
                                           EQUATION_STYLE_HTML%attr)
 
@@ -481,8 +482,10 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     AttrMath = elt('Math', 3)
 
     # Chop up the doc
-    meta = doc['meta'] if PANDOCVERSION >= '1.18' else doc[0]['unMeta']
-    blocks = doc['blocks'] if PANDOCVERSION >= '1.18' else doc[1:]
+    meta = doc['meta'] if version(PANDOCVERSION) >= version('1.18') \
+      else doc[0]['unMeta']
+    blocks = doc['blocks'] if version(PANDOCVERSION) >= version('1.18') \
+      else doc[1:]
 
     # Process the metadata variables
     process(meta)
@@ -517,7 +520,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
         add_html(meta, fmt)
 
     # Update the doc
-    if PANDOCVERSION >= '1.18':
+    if version(PANDOCVERSION) >= version('1.18'):
         doc['blocks'] = altered
     else:
         doc = doc[:1] + altered
