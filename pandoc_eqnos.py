@@ -3,7 +3,7 @@
 """pandoc-eqnos: a pandoc filter that inserts equation nos. and refs."""
 
 
-__version__ = '2.2.2'
+__version__ = '2.2.3'
 
 
 # Copyright 2015-2020 Thomas J. Duck.
@@ -448,7 +448,7 @@ def add_html(meta, fmt):
     # See https://github.com/jgm/pandoc/issues/3139.
 
     if targets:
-        attr = ' type="text/css"' if fmt == 'html4' else ''
+        attr = ' type="text/css"' if fmt == 'html' else ''
         pandocxnos.add_to_header_includes(meta, 'html',
                                           EQUATION_STYLE_HTML%attr)
 
