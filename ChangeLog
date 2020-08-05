@@ -1,4 +1,4 @@
-pandoc-eqnos 2.2.2 (2020-08-05)
+pandoc-eqnos 2.2.3 (2020-08-05)
 
     * Fixed XHTML Transitional validation error (Issue #50).
 
