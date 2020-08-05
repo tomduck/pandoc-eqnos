@@ -17,9 +17,6 @@
 
 import re
 import io
-import textwrap
-import sys
-import shutil
 
 from setuptools import setup
 
@@ -63,12 +60,3 @@ setup(
         'Programming Language :: Python'
         ]
 )
-
-# Check that the pandoc-eqnos script is on the PATH
-if not shutil.which('pandoc-eqnos'):
-    msg = """
-          ERROR: `pandoc-eqnos` script not found.  This will need to
-          be corrected.  If you need help, please file an Issue at
-          https://github.com/tomduck/pandoc-eqnos/issues.\n"""
-    print(textwrap.dedent(msg))
-    sys.exit(-1)
