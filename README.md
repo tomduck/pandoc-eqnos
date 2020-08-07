@@ -124,7 +124,7 @@ to have the reference name (i.e., "eq.") automatically generated.  The above for
 
      *@eq:id
 
-instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[2](#footnote2)</sup>
+instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[3](#footnote3)</sup>
 
     !@eq:id
 
