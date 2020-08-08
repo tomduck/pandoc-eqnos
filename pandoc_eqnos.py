@@ -3,10 +3,10 @@
 """pandoc-eqnos: a pandoc filter that inserts equation nos. and refs."""
 
 
-__version__ = '2.1.1'
+__version__ = '2.2.3'
 
 
-# Copyright 2015-2019 Thomas J. Duck.
+# Copyright 2015-2020 Thomas J. Duck.
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -53,12 +53,11 @@ from pandocfilters import Math, RawInline, Str, Span
 import pandocxnos
 from pandocxnos import PandocAttributes
 from pandocxnos import STRTYPES, STDIN, STDOUT, STDERR
-from pandocxnos import check_bool, get_meta
+from pandocxnos import elt, check_bool, get_meta
 from pandocxnos import repair_refs, process_refs_factory, replace_refs_factory
 from pandocxnos import attach_attrs_factory, detach_attrs_factory
 from pandocxnos import insert_secnos_factory, delete_secnos_factory
-from pandocxnos import elt
-
+from pandocxnos import version
 
 # Patterns for matching labels and references
 LABEL_PATTERN = re.compile(r'(eq:[\w/-]*)')
@@ -120,7 +119,12 @@ def _process_equation(value, fmt):
     # Update the current section number
     if attrs['secno'] != cursec:  # The section number changed
         cursec = attrs['secno']   # Update the global section tracker
-        Ntargets = 1              # Resets the global targets counter
+        if numbersections:
+            Ntargets = 0          # Resets the global targets counter
+
+    # Increment the targets counter
+    if 'tag' not in attrs:
+        Ntargets += 1
 
     # Pandoc's --number-sections supports section numbering latex/pdf, html,
     # epub, and docx
@@ -128,10 +132,9 @@ def _process_equation(value, fmt):
         # Latex/pdf supports equation numbers by section natively.  For the
         # other formats we must hard-code in equation numbers by section as
         # tags.
-        if fmt in ['html', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
+        if fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
           'tag' not in attrs:
             attrs['tag'] = str(cursec+secoffset) + '.' + str(Ntargets)
-            Ntargets += 1
 
     # Save reference information
     eq['is_tagged'] = 'tag' in attrs
@@ -146,7 +149,6 @@ def _process_equation(value, fmt):
     else:
         targets[attrs.id] = pandocxnos.Target(Ntargets, cursec,
                                               attrs.id in targets)
-        Ntargets += 1  # Increment the global targets counter
 
     return eq
 
@@ -163,7 +165,7 @@ def _adjust_equation(fmt, eq, value):
                   (num.replace(' ', r'\ '), attrs.id)
             else:
                 value[-1] += r'\label{%s}'%attrs.id
-    elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3'):
+    elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3'):
         pass  # Insert html in _add_markup() instead
     else:  # Hard-code in the number/tag
         if isinstance(num, int):  # Numbered reference
@@ -198,7 +200,7 @@ def _add_markup(fmt, eq, value):
 
         ret = RawInline('tex',
                         r'\begin{%s}%s%s\end{%s}'% (env, arg, value[-1], env))
-    elif fmt in ('html', 'html5', 'epub', 'epub2', 'epub3') and \
+    elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
         num = str(targets[attrs.id].num)
@@ -222,6 +224,8 @@ def _add_markup(fmt, eq, value):
           RawInline('openxml',
                     '</w:t></w:r><w:bookmarkEnd w:id="0"/>')
         ret = [bookmarkstart, AttrMath(*value), bookmarkend]
+    else:
+        ret = None
     return ret
 
 
@@ -258,15 +262,18 @@ DISABLE_CLEVEREF_BRACKETS_TEX = r"""
 \creflabelformat{equation}{#2#1#3}
 """
 
+
 # Html blocks ----------------------------------------------------------------
 
 # Equation css
+# Valid XHTML 1.0 Transitional (called html4 in pandoc) requires type="text/css"
+# See also https://github.com/tomduck/pandoc-eqnos/issues/50
 EQUATION_STYLE_HTML = """
 <!-- pandoc-eqnos: equation style -->
-<style>
-  .eqnos { display: inline-block; position: relative; width: 100%; }
+<style%s>
+  .eqnos { display: inline-block; position: relative; width: 100%%; }
   .eqnos br { display: none; }
-  .eqnos-number { position: absolute; right: 0em; top: 50%; line-height: 0; }
+  .eqnos-number { position: absolute; right: 0em; top: 50%%; line-height: 0; }
 </style>
 """
 
@@ -434,7 +441,7 @@ def add_tex(meta):
     if warnings:
         STDERR.write('\n')
 
-def add_html(meta):
+def add_html(meta, fmt):
     """Adds html to the meta data."""
 
     warnings = warninglevel == 2 and targets
@@ -456,7 +463,11 @@ def add_html(meta):
     # See https://github.com/jgm/pandoc/issues/3139.
 
     if targets:
-        pandocxnos.add_to_header_includes(meta, 'html', EQUATION_STYLE_HTML)
+        cond = fmt == 'html4' or \
+          (fmt == 'html' and version(PANDOCVERSION) < version('2.0'))
+        attr = ' type="text/css"' if cond else ''
+        pandocxnos.add_to_header_includes(meta, 'html',
+                                          EQUATION_STYLE_HTML%attr)
 
 # pylint: disable=too-many-locals, unused-argument
 def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
@@ -487,8 +498,10 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     AttrMath = elt('Math', 3)
 
     # Chop up the doc
-    meta = doc['meta'] if PANDOCVERSION >= '1.18' else doc[0]['unMeta']
-    blocks = doc['blocks'] if PANDOCVERSION >= '1.18' else doc[1:]
+    meta = doc['meta'] if version(PANDOCVERSION) >= version('1.18') \
+      else doc[0]['unMeta']
+    blocks = doc['blocks'] if version(PANDOCVERSION) >= version('1.18') \
+      else doc[1:]
 
     # Process the metadata variables
     process(meta)
@@ -519,11 +532,11 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
 
     if fmt in ['latex', 'beamer']:
         add_tex(meta)
-    elif fmt in ['html', 'html5', 'epub', 'epub2', 'epub3']:
-        add_html(meta)
+    elif fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3']:
+        add_html(meta, fmt)
 
     # Update the doc
-    if PANDOCVERSION >= '1.18':
+    if version(PANDOCVERSION) >= version('1.18'):
         doc['blocks'] = altered
     else:
         doc = doc[:1] + altered

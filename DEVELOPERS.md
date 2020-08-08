@@ -1,7 +1,23 @@
 
 Developer Notes
 ===============
-    
+
+Contributions
+-------------
+
+Contributions to pandoc-eqgnos are welcome.  Before implementing a new feature, it is best to discuss it in an Issue so that any potential problems can be resolved.  Pull Requests should be linked into the Issue when ready.
+
+
+Design Philosophy
+-----------------
+
+1. This should be easy.
+
+2. Features should be supported for *ALL* output formats.
+
+3. The native capabilities of each output format should be employed.
+
+
 Branches
 --------
 
@@ -87,8 +103,8 @@ Check that you are in the `master` branch.
 
 Tagging  (update the version number):
 
-    git tag -a 2.1.1 -m "New release."
-    git push origin 2.1.1
+    git tag -a 2.2.3 -m "New release."
+    git push origin 2.2.3
 
 
 ### Distributing ###
@@ -101,7 +117,7 @@ Create source and binary distributions using
     
 Upload to pypi (update the version number) using
 
-    twine upload dist/pandoc-eqnos-2.1.1.tar.gz \
-                 dist/pandoc_eqnos-2.1.1-py3-none-any.whl
+    twine upload dist/pandoc-eqnos-2.2.3.tar.gz \
+                 dist/pandoc_eqnos-2.2.3-py3-none-any.whl
 
 (see https://pypi.python.org/pypi/twine).

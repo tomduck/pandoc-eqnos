@@ -1,3 +1,22 @@
+pandoc-eqnos 2.2.3 (2020-08-05)
+
+    * Fixed XHTML Transitional validation error (Issue #50).
+
+
+pandoc-eqnos 2.2.1 (2020-07-31)
+
+    * Require pandoc-xnos 2.4.2 (bug fix release).
+
+
+pandoc-eqnos 2.2.0 (2020-07-30)
+
+    * Updated to work with pandoc 2.10.
+    * Fixed "local variable 'ret' referenced before assignment"
+      error (Issue #43).
+    * Fixed equation number reset problem for html, docx (Issue #49).
+    * Added html4 as an output target (Issue #50).
+
+
 pandoc-eqnos 2.1.1 (2019-09-26)
 
     * Warns about duplicate reference targets.

@@ -1,6 +1,6 @@
 """setup.py - install script for pandoc-eqnos."""
 
-# Copyright 2015-2019 Thomas J. Duck.
+# Copyright 2015-2020 Thomas J. Duck.
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,8 @@ import re
 import io
 
 from setuptools import setup
+
+# pylint: disable=invalid-name
 
 DESCRIPTION = """\
 A pandoc filter for numbering equations and their references
@@ -45,7 +47,7 @@ setup(
     download_url='https://github.com/tomduck/pandoc-eqnos/tarball/' + \
                  __version__,
 
-    install_requires=['pandoc-xnos >= 2.1.2, < 3.0'],
+    install_requires=['pandoc-xnos >= 2.4.3, < 3.0'],
 
     py_modules=['pandoc_eqnos'],
     entry_points={'console_scripts':['pandoc-eqnos = pandoc_eqnos:main']},

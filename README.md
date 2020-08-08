@@ -1,19 +1,19 @@
 
-**New in 2.1.1:** Warnings are now given for duplicate reference targets.
+**New in 2.2.3:** Fixed XHTML Transitional validation error (Issue #50).
 
-**New in 2.0.0:** This is a major release which is easier to use at the cost of minor incompatibilities with previous versions. 
+**New in 2.2.1:** Updated for pandoc 2.10.1.
 
 [more...](#whats-new)
 
 
-pandoc-eqnos 2.1.1
+pandoc-eqnos 2.2.3
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
 
 Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.7.3,<sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.10.1,<sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos], [pandoc-secnos] \
 Other filters: [pandoc-comments], [pandoc-latex-extensions]
@@ -47,9 +47,9 @@ Installation
 
 Pandoc-eqnos requires [python], a programming language that comes pre-installed on macOS and linux.  It is easily installed on Windows -- see [here](https://realpython.com/installing-python/).  Either python 2.7 or 3.x will do.
 
-Pandoc-fignos may be installed using the shell command
+Pandoc-eqnos may be installed using the shell command
 
-    pip install pandoc-fignos --user
+    pip install pandoc-eqnos --user
 
 and upgraded by appending `--upgrade` to the above command.  Pip is a program that downloads and installs software from the Python Package Index, [PyPI].  It normally comes installed with a python distribution.<sup>[2](#footnote2)</sup>
 
@@ -124,7 +124,7 @@ to have the reference name (i.e., "eq.") automatically generated.  The above for
 
      *@eq:id
 
-instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[2](#footnote2)</sup>
+instead.  If clever references are enabled by default (see [Customization](#customization), below), then users may disable it for a given reference using<sup>[3](#footnote3)</sup>
 
     !@eq:id
 
@@ -313,6 +313,10 @@ Developer notes are maintained in [DEVELOPERS.md].
 
 What's New
 ----------
+
+**New in 2.2.3:** Fixed XHTML Transitional validation error (Issue #50).
+
+**New in 2.2.1:** Updated for pandoc 2.10.1.
 
 **New in 2.1.1:** Warnings are now given for duplicate reference targets.
 

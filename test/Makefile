@@ -1,6 +1,9 @@
 
 # Note: pandoc-2.4 broke citation parsing, and so is not supported.
 
+v2.10 = 2.10.1
+v2.9 = 2.9.2.1
+v2.8 = 2.8.1
 v2.7 = 2.7.3
 v2.6 = 2.6
 v2.5 = 2.5
@@ -14,6 +17,9 @@ v1.17 = 1.17.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
+PANDOC-2.10 = pandoc-$(v2.10)
+PANDOC-2.9 = pandoc-$(v2.9)
+PANDOC-2.8 = pandoc-$(v2.8)
 PANDOC-2.7 = pandoc-$(v2.7)
 PANDOC-2.6 = pandoc-$(v2.6)
 PANDOC-2.5 = pandoc-$(v2.5)
@@ -36,8 +42,11 @@ HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 all: pdf html epub docx
 
-pdf: out/test-2.7.pdf \
-     out/test-2.7-py2.7.pdf \
+pdf: out/test-2.10.pdf \
+     out/test-2.10-py2.7.pdf \
+     out/test-2.9.pdf \
+     out/test-2.8.pdf \
+     out/test-2.7.pdf \
      out/test-2.6.pdf \
      out/test-2.5.pdf \
      out/test-2.3.pdf \
@@ -50,11 +59,11 @@ pdf: out/test-2.7.pdf \
      out/test-1.16.pdf \
      out/test-1.15.pdf
 
-html: out/test-2.7.html
+html: out/test-2.10.html
 
-epub: out/test-2.7.epub
+epub: out/test-2.10.epub
 
-docx: out/test-2.7.docx
+docx: out/test-2.10.docx
 
 
 out/test-%.html: test.md
@@ -63,7 +72,7 @@ out/test-%.html: test.md
 
 out/test-%-py2.7.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	$(PANDOC-$*) $< -t json -M xnos-warning-level=0 | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
+	$(PANDOC-$*) $< -t json | $(PYTHON-2.7) ../pandoc_eqnos.py latex --pandocversion=$(v$*) | $(PANDOC-$*) -f json $(PDFFLAGS) -o $@
 
 out/test-%.pdf: test.md
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
