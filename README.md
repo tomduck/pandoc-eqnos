@@ -1,12 +1,14 @@
 
-**New in 2.2.3:** Fixed XHTML Transitional validation error (Issue #50).
+**New in 2.3.0:** Allow LaTeX equation environment customization.
+
+**New in 2.2.3:** Fixed XHTML Transitional validation error.
 
 **New in 2.2.1:** Updated for pandoc 2.10.1.
 
 [more...](#whats-new)
 
 
-pandoc-eqnos 2.2.3
+pandoc-eqnos 2.3.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
@@ -313,7 +315,9 @@ Developer notes are maintained in [DEVELOPERS.md].
 What's New
 ----------
 
-**New in 2.2.3:** Fixed XHTML Transitional validation error (Issue #50).
+**New in 2.3.0:** Allow LaTeX equation environment customization ([Pull Request #44](https://github.com/tomduck/pandoc-eqnos/pull/44)).
+
+**New in 2.2.3:** Fixed XHTML Transitional validation error ([Issue #50](https://github.com/tomduck/pandoc-eqnos/issues/50)).
 
 **New in 2.2.1:** Updated for pandoc 2.10.1.
 

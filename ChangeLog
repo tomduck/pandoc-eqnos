@@ -1,3 +1,8 @@
+pandoc-eqnos 2.3.0 (2020-08-08)
+
+    * Allow LaTeX environment customization (Pull Request #44).
+
+
 pandoc-eqnos 2.2.3 (2020-08-05)
 
     * Fixed XHTML Transitional validation error (Issue #50).
