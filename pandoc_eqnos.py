@@ -191,15 +191,10 @@ def _add_markup(fmt, eq, value):
             env = attrs['env']
         else:
             env = default_env
-
-        splitted = env.split('.')
-        env = splitted[0]
-        arg = ''
-        if len(splitted) > 1:
-            arg = '{%s}' % splitted[1]
-
+        env, _, arg = env.partition('.')
         ret = RawInline('tex',
-                        r'\begin{%s}%s%s\end{%s}'% (env, arg, value[-1], env))
+                        r'\begin{%s}%s%s\end{%s}'% \
+                        (env, '{%s}'%arg if arg else '', value[-1], env))
     elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3') and \
       LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
@@ -296,6 +291,7 @@ def process(meta):
     global plusname_changed  # Flags that the plus name changed
     global starname_changed  # Flags that the star name changed
     global eqref             # Flags that \eqref should be used
+    global default_env       # Default equations environment
 
     # Read in the metadata fields and do some checking
 
