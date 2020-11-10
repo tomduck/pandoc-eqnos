@@ -103,8 +103,8 @@ Check that you are in the `master` branch.
 
 Tagging  (update the version number):
 
-    git tag -a 2.3.0 -m "New release."
-    git push origin 2.3.0
+    git tag -a 2.4.0 -m "New release."
+    git push origin 2.4.0
 
 
 ### Distributing ###
@@ -117,7 +117,7 @@ Create source and binary distributions using
     
 Upload to pypi (update the version number) using
 
-    twine upload dist/pandoc-eqnos-2.3.0.tar.gz \
-                 dist/pandoc_eqnos-2.3.0-py3-none-any.whl
+    twine upload dist/pandoc-eqnos-2.4.0.tar.gz \
+                 dist/pandoc_eqnos-2.4.0-py3-none-any.whl
 
 (see https://pypi.python.org/pypi/twine).

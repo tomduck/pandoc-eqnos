@@ -1,3 +1,8 @@
+pandoc-eqnos 2.4.0 (2020-11-10)
+
+    * Require pandoc-xnos 2.5.0 (updated to work with pandoc 2.11).
+
+
 pandoc-eqnos 2.3.0 (2020-08-08)
 
     * Allow LaTeX environment customization (Pull Request #44).

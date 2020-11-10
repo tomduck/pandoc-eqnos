@@ -1,21 +1,21 @@
 
+**New in 2.4.0:** Updated to work with pandoc 2.11. 
+
 **New in 2.3.0:** Allow LaTeX equation environment customization.
 
 **New in 2.2.3:** Fixed XHTML Transitional validation error.
 
-**New in 2.2.1:** Updated for pandoc 2.10.1.
-
 [more...](#whats-new)
 
 
-pandoc-eqnos 2.3.0
+pandoc-eqnos 2.4.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
 
 Demonstration: Processing [demo3.md] with pandoc + pandoc-eqnos gives numbered equations and references in [pdf][pdf3], [tex][tex3], [html][html3], [epub][epub3], [docx][docx3] and other formats (including beamer slideshows).
 
-This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.10.1,<sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
+This version of pandoc-eqnos was tested using pandoc 1.15.2 - 2.11.1.1,<sup>[1](#footnote1)</sup> and may be used with linux, macOS, and Windows. Bug reports and feature requests may be posted on the project's [Issues tracker].  If you find pandoc-eqnos useful, then please kindly give it a star [on GitHub].
 
 See also: [pandoc-fignos], [pandoc-tablenos], [pandoc-secnos] \
 Other filters: [pandoc-comments], [pandoc-latex-extensions]
@@ -314,6 +314,8 @@ Developer notes are maintained in [DEVELOPERS.md].
 
 What's New
 ----------
+
+**New in 2.4.0:** Updated to work with pandoc 2.11. 
 
 **New in 2.3.0:** Allow LaTeX equation environment customization ([Pull Request #44](https://github.com/tomduck/pandoc-eqnos/pull/44)).
 

@@ -1,6 +1,7 @@
 
 # Note: pandoc-2.4 broke citation parsing, and so is not supported.
 
+v2.11 = 2.11.1.1
 v2.10 = 2.10.1
 v2.9 = 2.9.2.1
 v2.8 = 2.8.1
@@ -17,6 +18,7 @@ v1.17 = 1.17.2
 v1.16 = 1.16.0.2
 v1.15 = 1.15.2
 
+PANDOC-2.11 = pandoc-$(v2.11)
 PANDOC-2.10 = pandoc-$(v2.10)
 PANDOC-2.9 = pandoc-$(v2.9)
 PANDOC-2.8 = pandoc-$(v2.8)
@@ -42,8 +44,9 @@ HTMLFLAGS = --standalone --mathml --variable urlcolor=blue
 
 all: pdf html epub docx
 
-pdf: out/test-2.10.pdf \
-     out/test-2.10-py2.7.pdf \
+pdf: out/test-2.11.pdf \
+     out/test-2.11-py2.7.pdf \
+     out/test-2.10.pdf \
      out/test-2.9.pdf \
      out/test-2.8.pdf \
      out/test-2.7.pdf \
@@ -59,11 +62,11 @@ pdf: out/test-2.10.pdf \
      out/test-1.16.pdf \
      out/test-1.15.pdf
 
-html: out/test-2.10.html
+html: out/test-2.11.html
 
-epub: out/test-2.10.epub
+epub: out/test-2.11.epub
 
-docx: out/test-2.10.docx
+docx: out/test-2.11.docx
 
 
 out/test-%.html: test.md
