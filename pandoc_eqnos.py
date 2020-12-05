@@ -372,8 +372,9 @@ def process(meta):
 
     if 'eqnos-eqref' in meta:
         eqref = check_bool(get_meta(meta, 'eqnos-eqref'))
-        if eqref:  # Eqref and cleveref are mutually exclusive
-            cleveref = False
+        # Note: Eqref and cleveref are mutually exclusive.  If both are
+        # enabled, then cleveref will be used but with bracketed equation
+        # numbers.
 
     if 'eqnos-default-env' in meta:
         default_env = get_meta(meta, 'eqnos-default-env')
@@ -409,8 +410,9 @@ def add_tex(meta):
             meta, 'tex', tex,
             regex=r'\\usepackage(\[[\w\s,]*\])?\{cleveref\}')
 
-        pandocxnos.add_to_header_includes(
-            meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX)
+        if not eqref:
+            pandocxnos.add_to_header_includes(
+                meta, 'tex', DISABLE_CLEVEREF_BRACKETS_TEX)
 
     if plusname_changed and targets:
         tex = """
