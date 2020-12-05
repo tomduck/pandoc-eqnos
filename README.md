@@ -1,6 +1,6 @@
 
 
-**New in 2.5.0:** Allow reference numbers to be set in brackets (Issue #57). 
+**New in 2.5.0:** Allow reference numbers to be set in brackets ([Issue #57](https://github.com/tomduck/pandoc-eqnos/issues/57)).
 
 **New in 2.4.0:** Updated to work with pandoc 2.11.
 
@@ -313,7 +313,7 @@ Developer notes are maintained in [DEVELOPERS.md].
 What's New
 ----------
 
-**New in 2.5.0:** Allow reference numbers to be set in brackets ([Issue #57](https://github.com/tomduck/pandoc-eqnos/issues/50)).
+**New in 2.5.0:** Allow reference numbers to be set in brackets ([Issue #57](https://github.com/tomduck/pandoc-eqnos/issues/57)).
 
 **New in 2.4.0:** Updated to work with pandoc 2.11.
 
