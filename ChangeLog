@@ -1,3 +1,8 @@
+pandoc-eqnos 2.5.0 (2020-12-05)
+
+    * Allow reference numbers to be set in brackets (Issue #57).
+
+
 pandoc-eqnos 2.4.0 (2020-11-10)
 
     * Require pandoc-xnos 2.5.0 (updated to work with pandoc 2.11).
