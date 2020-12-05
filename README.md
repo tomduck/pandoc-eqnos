@@ -1,14 +1,13 @@
 
-**New in 2.4.0:** Updated to work with pandoc 2.11. 
 
-**New in 2.3.0:** Allow LaTeX equation environment customization.
+**New in 2.5.0:** Allow reference numbers to be set in brackets (Issue #57). 
 
-**New in 2.2.3:** Fixed XHTML Transitional validation error.
+**New in 2.4.0:** Updated to work with pandoc 2.11.
 
 [more...](#whats-new)
 
 
-pandoc-eqnos 2.4.0
+pandoc-eqnos 2.5.0
 ==================
 
 *pandoc-eqnos* is a [pandoc] filter for numbering equations and their references when converting markdown to other formats.  It is part of the [pandoc-xnos] filter suite.  LaTeX/pdf, html, and epub output have native support.  Native support for docx output is a work in progress.
@@ -182,9 +181,7 @@ Pandoc-eqnos may be customized by setting variables in the [metadata block] or o
     (e.g., change it from "Equation" to "Eq.");
 
   * `eqnos-eqref` - Set to `True` to use AMS-style equation references
-     (i.e., equation numbers set in brackets); `eqnos-eqref` takes
-     precedence over `eqnos-cleveref`; they cannot be used together;
-     and
+     (i.e., equation numbers set in brackets); and
 
   * `eqnos-number-by-section` or `xnos-number-by-section` - Set to
     `True` to number equations by section (e.g., Eq. 1.1, 1.2, etc in
@@ -263,8 +260,9 @@ Other details:
     clever references);
   * Clever reference names are set with `\Crefname` and `\crefname`;
   * Tagged equations make use of the `\tag` macro;
-  * AMS-style referencing is achieved using the amsmath `\eqref`
-    macro.
+  * If clever referencing is enabled, then AMS-style referencing is
+    achieved by setting the `\creflabelformat`; otherwise, the
+    amsmath `\eqref` macro is used.
 
 
 ### Html/Epub Output ###
@@ -315,7 +313,9 @@ Developer notes are maintained in [DEVELOPERS.md].
 What's New
 ----------
 
-**New in 2.4.0:** Updated to work with pandoc 2.11. 
+**New in 2.5.0:** Allow reference numbers to be set in brackets ([Issue #57](https://github.com/tomduck/pandoc-eqnos/issues/50)).
+
+**New in 2.4.0:** Updated to work with pandoc 2.11.
 
 **New in 2.3.0:** Allow LaTeX equation environment customization ([Pull Request #44](https://github.com/tomduck/pandoc-eqnos/pull/44)).
 
