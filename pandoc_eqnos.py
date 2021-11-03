@@ -213,11 +213,11 @@ def _add_markup(fmt, eq, value):
         # As per http://officeopenxml.com/WPhyperlink.php
         bookmarkstart = \
           RawInline('openxml',
-                    '<w:bookmarkStart w:id="0" w:name="%s"/><w:r><w:t>'
+                    '<w:bookmarkStart w:id="0" w:name="%s"/>'
                     %attrs.id)
         bookmarkend = \
           RawInline('openxml',
-                    '</w:t></w:r><w:bookmarkEnd w:id="0"/>')
+                    '<w:bookmarkEnd w:id="0"/>')
         ret = [bookmarkstart, AttrMath(*value), bookmarkend]
     else:
         ret = None
