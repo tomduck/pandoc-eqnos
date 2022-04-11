@@ -68,6 +68,7 @@ capitalise = False  # Flags that plusname should be capitalised
 plusname = ['eq.', 'eqs.']            # Sets names for mid-sentence references
 starname = ['Equation', 'Equations']  # Sets names for refs at sentence start
 numbersections = False  # Flags that equations should be numbered by section
+sectionseparator = '.'  # Separator for section numbers
 secoffset = 0           # Section number offset
 eqref = False           # Flags that \eqref should be used
 warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
@@ -108,11 +109,11 @@ def _process_equation(value, fmt):
 
     # Bail out if the label does not conform to expectations
     if not LABEL_PATTERN.match(attrs.id):
-        eq.update({'is_unnumbered':True, 'is_unreferenceable':True})
+        eq.update({'is_unnumbered': True, 'is_unreferenceable': True})
         return eq
 
     # Identify unreferenceable equations
-    if attrs.id == 'eq:': # Make up a unique description
+    if attrs.id == 'eq:':  # Make up a unique description
         attrs.id += str(uuid.uuid4())
         eq['is_unreferenceable'] = True
 
@@ -133,8 +134,9 @@ def _process_equation(value, fmt):
         # other formats we must hard-code in equation numbers by section as
         # tags.
         if fmt in ['html', 'html4', 'html5', 'epub', 'epub2', 'epub3', 'docx'] and \
-          'tag' not in attrs:
-            attrs['tag'] = str(cursec+secoffset) + '.' + str(Ntargets)
+                'tag' not in attrs:
+            attrs['tag'] = str(cursec+secoffset) + \
+                sectionseparator + str(Ntargets)
 
     # Save reference information
     eq['is_tagged'] = 'tag' in attrs
@@ -162,9 +164,9 @@ def _adjust_equation(fmt, eq, value):
         if not eq['is_unreferenceable']:  # Code in the tags
             if eq['is_tagged']:
                 value[-1] += r'\tag{%s}\label{%s}' % \
-                  (num.replace(' ', r'\ '), attrs.id)
+                    (num.replace(' ', r'\ '), attrs.id)
             else:
-                value[-1] += r'\label{%s}'%attrs.id
+                value[-1] += r'\label{%s}' % attrs.id
     elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3'):
         pass  # Insert html in _add_markup() instead
     else:  # Hard-code in the number/tag
@@ -174,8 +176,8 @@ def _adjust_equation(fmt, eq, value):
             assert isinstance(num, STRTYPES)
             num = num.replace(' ', r'\ ')
             value[-1] += r'\qquad (%s)' % \
-              (num[1:-1] if num.startswith('$') and num.endswith('$') else
-               r'\text{%s}' % num)
+                (num[1:-1] if num.startswith('$') and num.endswith('$') else
+                 r'\text{%s}' % num)
 
 
 def _add_markup(fmt, eq, value):
@@ -193,31 +195,31 @@ def _add_markup(fmt, eq, value):
             env = default_env
         env, _, arg = env.partition('.')
         ret = RawInline('tex',
-                        r'\begin{%s}%s%s\end{%s}'% \
-                        (env, '{%s}'%arg if arg else '', value[-1], env))
+                        r'\begin{%s}%s%s\end{%s}' %
+                        (env, '{%s}' % arg if arg else '', value[-1], env))
     elif fmt in ('html', 'html4', 'html5', 'epub', 'epub2', 'epub3') and \
-      LABEL_PATTERN.match(attrs.id):
+            LABEL_PATTERN.match(attrs.id):
         # Present equation and its number in a span
         num = str(targets[attrs.id].num)
         outer = RawInline('html',
-                          '<span%sclass="eqnos">' % \
-                            (' ' if eq['is_unreferenceable'] else
-                             ' id="%s" '%attrs.id))
+                          '<span%sclass="eqnos">' %
+                          (' ' if eq['is_unreferenceable'] else
+                           ' id="%s" ' % attrs.id))
         inner = RawInline('html', '<span class="eqnos-number">')
-        eqno = Math({"t":"InlineMath"}, '(%s)' % num[1:-1]) \
-          if num.startswith('$') and num.endswith('$') \
-          else Str('(%s)' % num)
+        eqno = Math({"t": "InlineMath"}, '(%s)' % num[1:-1]) \
+            if num.startswith('$') and num.endswith('$') \
+            else Str('(%s)' % num)
         endtags = RawInline('html', '</span></span>')
         ret = [outer, AttrMath(*value), inner, eqno, endtags]
     elif fmt == 'docx':
         # As per http://officeopenxml.com/WPhyperlink.php
         bookmarkstart = \
-          RawInline('openxml',
-                    '<w:bookmarkStart w:id="0" w:name="%s"/>'
-                    %attrs.id)
+            RawInline('openxml',
+                      '<w:bookmarkStart w:id="0" w:name="%s"/>'
+                      % attrs.id)
         bookmarkend = \
-          RawInline('openxml',
-                    '<w:bookmarkEnd w:id="0"/>')
+            RawInline('openxml',
+                      '<w:bookmarkEnd w:id="0"/>')
         ret = [bookmarkstart, AttrMath(*value), bookmarkend]
     else:
         ret = None
@@ -286,6 +288,7 @@ def process(meta):
     global plusname    # Sets names for mid-sentence references
     global starname    # Sets names for references at sentence start
     global numbersections  # Flags that sections should be numbered by section
+    global sectionseparator  # The section separator
     global secoffset       # Section number offset
     global warninglevel    # 0 - no warnings; 1 - some; 2 - all
     global plusname_changed  # Flags that the plus name changed
@@ -304,9 +307,10 @@ def process(meta):
     metanames = ['eqnos-warning-level', 'xnos-warning-level',
                  'eqnos-cleveref', 'xnos-cleveref',
                  'xnos-capitalise', 'xnos-capitalize',
-                 'xnos-caption-separator', # Used by pandoc-fignos/tablenos
+                 'xnos-caption-separator',  # Used by pandoc-fignos/tablenos
                  'eqnos-plus-name', 'eqnos-star-name',
                  'eqnos-number-by-section', 'xnos-number-by-section',
+                 'eqnos-section-separator', 'xnos-section-separator',
                  'xnos-number-offset',
                  'eqnos-eqref',
                  'eqnos-default-env']
@@ -314,7 +318,7 @@ def process(meta):
     if warninglevel:
         for name in meta:
             if (name.startswith('eqnos') or name.startswith('xnos')) and \
-              name not in metanames:
+                    name not in metanames:
                 msg = textwrap.dedent("""
                           pandoc-eqnos: unknown meta variable "%s"\n
                       """ % name)
@@ -367,6 +371,11 @@ def process(meta):
             numbersections = check_bool(get_meta(meta, name))
             break
 
+    for name in ['eqnos-section-separator', 'xnos-section-separator']:
+        if name in meta:
+            sectionseparator = get_meta(meta, name)
+            break
+
     if 'xnos-number-offset' in meta:
         secoffset = int(get_meta(meta, 'xnos-number-offset'))
 
@@ -379,12 +388,13 @@ def process(meta):
     if 'eqnos-default-env' in meta:
         default_env = get_meta(meta, 'eqnos-default-env')
 
+
 def add_tex(meta):
     """Adds tex to the meta data."""
 
     warnings = warninglevel == 2 and targets and \
-      (pandocxnos.cleveref_required() or
-       plusname_changed or starname_changed or numbersections or secoffset)
+        (pandocxnos.cleveref_required() or
+         plusname_changed or starname_changed or numbersections or secoffset)
     if warnings:
         msg = textwrap.dedent("""\
                   pandoc-eqnos: Wrote the following blocks to
@@ -439,6 +449,7 @@ def add_tex(meta):
     if warnings:
         STDERR.write('\n')
 
+
 def add_html(meta, fmt):
     """Adds html to the meta data."""
 
@@ -462,12 +473,14 @@ def add_html(meta, fmt):
 
     if targets:
         cond = fmt == 'html4' or \
-          (fmt == 'html' and version(PANDOCVERSION) < version('2.0'))
+            (fmt == 'html' and version(PANDOCVERSION) < version('2.0'))
         attr = ' type="text/css"' if cond else ''
         pandocxnos.add_to_header_includes(meta, 'html',
-                                          EQUATION_STYLE_HTML%attr)
+                                          EQUATION_STYLE_HTML % attr)
 
 # pylint: disable=too-many-locals, unused-argument
+
+
 def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     """Filters the document AST."""
 
@@ -476,11 +489,11 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     global AttrMath
 
     # Read the command-line arguments
-    parser = argparse.ArgumentParser(\
-      description='Pandoc equations numbers filter.')
-    parser.add_argument(\
-      '--version', action='version',
-      version='%(prog)s {version}'.format(version=__version__))
+    parser = argparse.ArgumentParser(
+        description='Pandoc equations numbers filter.')
+    parser.add_argument(
+        '--version', action='version',
+        version='%(prog)s {version}'.format(version=__version__))
     parser.add_argument('fmt')
     parser.add_argument('--pandocversion', help='The pandoc version.')
     args = parser.parse_args()
@@ -497,9 +510,9 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
 
     # Chop up the doc
     meta = doc['meta'] if version(PANDOCVERSION) >= version('1.18') \
-      else doc[0]['unMeta']
+        else doc[0]['unMeta']
     blocks = doc['blocks'] if version(PANDOCVERSION) >= version('1.18') \
-      else doc[1:]
+        else doc[1:]
 
     # Process the metadata variables
     process(meta)
@@ -518,7 +531,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
     process_refs = process_refs_factory(LABEL_PATTERN, targets.keys())
     replace_refs = replace_refs_factory(targets,
                                         cleveref, eqref,
-                                        plusname if not capitalise or \
+                                        plusname if not capitalise or
                                         plusname_changed else
                                         [name.title() for name in plusname],
                                         starname)
@@ -544,6 +557,7 @@ def main(stdin=STDIN, stdout=STDOUT, stderr=STDERR):
 
     # Flush stdout
     stdout.flush()
+
 
 if __name__ == '__main__':
     main()
